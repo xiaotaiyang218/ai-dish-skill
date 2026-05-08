@@ -1,0 +1,14 @@
+{
+  "dish_name": "巧克力甜点",
+  "ingredients": [
+    "chocolate"
+  ],
+  "user_profile": {
+    "conditions": [
+      "控糖"
+    ],
+    "goals": [
+      "减脂"
+    ]
+  }
+}

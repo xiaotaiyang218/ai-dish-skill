@@ -1,0 +1,10 @@
+{
+  "sources": [
+    {
+      "name": "CookBook-KG",
+      "url": "https://raw.githubusercontent.com/ngl567/CookBook-KG/master/visualization/vizdata.json",
+      "fetched_at": "2026-05-07T15:30:13.708685+00:00",
+      "records": 120
+    }
+  ]
+}

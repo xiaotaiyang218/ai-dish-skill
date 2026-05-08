@@ -1,0 +1,9 @@
+{
+  "dish_name": "农家一品锅",
+  "user_profile": {
+    "conditions": [
+      "低盐"
+    ],
+    "strict_mode": true
+  }
+}

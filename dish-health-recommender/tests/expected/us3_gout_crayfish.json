@@ -1,0 +1,11 @@
+{
+  "expected_recommendation": "caution",
+  "expected_risk_tags": [
+    "高嘌呤"
+  ],
+  "expected_need_confirm": [],
+  "assert_explanation_contains": [
+    "痛风"
+  ],
+  "expected_normalized_dish": "麻辣小龙虾"
+}

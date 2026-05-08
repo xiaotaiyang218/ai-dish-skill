@@ -1,0 +1,12 @@
+{
+  "expected_recommendation": "avoid",
+  "expected_risk_tags": [
+    "含蛋"
+  ],
+  "expected_need_confirm": [],
+  "assert_explanation_contains": [
+    "鸡蛋相关限制",
+    "含鸡蛋或蛋制品"
+  ],
+  "offline_only": true
+}

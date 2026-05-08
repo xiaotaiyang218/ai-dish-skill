@@ -1,0 +1,16 @@
+{
+  "expected_recommendation": "avoid",
+  "expected_risk_tags": [
+    "含蛋"
+  ],
+  "expected_need_confirm": [],
+  "assert_explanation_contains": [
+    "鸡蛋相关限制"
+  ],
+  "expected_normalized_dish": "番茄炒蛋",
+  "expect_human_field": true,
+  "human_contains": [
+    "结论：不推荐",
+    "提示：以上仅作饮食参考"
+  ]
+}

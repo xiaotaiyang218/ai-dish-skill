@@ -1,0 +1,6 @@
+interface:
+  display_name: "Dish Health Recommender"
+  short_description: "Health-aware dish recommendations"
+  default_prompt: "Use $dish-health-recommender to analyze a dish, menu, OCR text, or food photo reference against allergies, dietary goals, and health constraints. Support both json and human_readable_cn output modes, and explicitly downgrade when OCR/vision is unavailable."
+policy:
+  allow_implicit_invocation: true

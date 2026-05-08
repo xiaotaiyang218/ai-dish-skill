@@ -1,0 +1,11 @@
+{
+  "expected_recommendation": "caution",
+  "expected_risk_tags": [
+    "含海鲜/鱼类"
+  ],
+  "expected_need_confirm": [],
+  "assert_explanation_contains": [
+    "血压管理"
+  ],
+  "expected_normalized_dish": "清蒸鲈鱼"
+}

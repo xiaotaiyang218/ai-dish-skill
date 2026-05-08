@@ -1,0 +1,11 @@
+{
+  "expected_recommendation": "avoid",
+  "expected_risk_tags": [
+    "含海鲜/鱼类"
+  ],
+  "expected_need_confirm": [],
+  "assert_explanation_contains": [
+    "海鲜/鱼类相关限制"
+  ],
+  "expected_normalized_dish": "清蒸鲈鱼"
+}

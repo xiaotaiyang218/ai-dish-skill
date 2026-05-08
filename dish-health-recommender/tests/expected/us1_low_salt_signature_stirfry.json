@@ -1,0 +1,13 @@
+{
+  "expected_recommendation": "need_confirm",
+  "expected_risk_tags": [
+    "未知菜品"
+  ],
+  "expected_need_confirm": [
+    "主要食材"
+  ],
+  "assert_explanation_contains": [
+    "本地库和联网兜底均未找到"
+  ],
+  "offline_only": true
+}

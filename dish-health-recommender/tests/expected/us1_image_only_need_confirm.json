@@ -1,0 +1,13 @@
+{
+  "expected_recommendation": "need_confirm",
+  "expected_risk_tags": [
+    "缺少文本识别结果"
+  ],
+  "expected_need_confirm": [
+    "菜名"
+  ],
+  "assert_explanation_contains": [
+    "未直接接入视觉/OCR识别"
+  ],
+  "offline_only": true
+}

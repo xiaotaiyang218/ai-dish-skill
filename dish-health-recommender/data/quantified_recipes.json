@@ -1,0 +1,97 @@
+{
+  "recipes": [
+    {
+      "dish_name": "番茄炒蛋",
+      "aliases": [
+        "西红柿炒鸡蛋"
+      ],
+      "portion_basis": "1份家常菜",
+      "nutrition_basis": "标准家常配方估算",
+      "energy_kcal": 260,
+      "protein_g": 14,
+      "fat_g": 18,
+      "carbohydrate_g": 10,
+      "sugars_g": 6,
+      "sodium_mg": 780,
+      "source_refs": [
+        "中国食物成分表",
+        "标准家常菜配方"
+      ],
+      "confidence_note": "估算值，仅用于标准份量参考"
+    },
+    {
+      "dish_name": "红烧肉",
+      "aliases": [],
+      "portion_basis": "1份标准菜",
+      "nutrition_basis": "标准红烧肉配方估算",
+      "energy_kcal": 540,
+      "protein_g": 18,
+      "fat_g": 42,
+      "carbohydrate_g": 18,
+      "sugars_g": 14,
+      "sodium_mg": 980,
+      "source_refs": [
+        "中国食物成分表",
+        "标准红烧配方"
+      ],
+      "confidence_note": "估算值，油糖波动较大"
+    },
+    {
+      "dish_name": "清蒸鲈鱼",
+      "aliases": [
+        "蒸鲈鱼"
+      ],
+      "portion_basis": "1条/1份",
+      "nutrition_basis": "标准蒸鱼配方估算",
+      "energy_kcal": 220,
+      "protein_g": 28,
+      "fat_g": 9,
+      "carbohydrate_g": 4,
+      "sugars_g": 1,
+      "sodium_mg": 620,
+      "source_refs": [
+        "中国食物成分表",
+        "标准蒸鱼配方"
+      ],
+      "confidence_note": "估算值，调味汁影响钠含量"
+    },
+    {
+      "dish_name": "西兰花炒鸡胸肉",
+      "aliases": [
+        "轻食鸡胸西兰花"
+      ],
+      "portion_basis": "1份轻食标准餐",
+      "nutrition_basis": "标准轻食配方估算",
+      "energy_kcal": 240,
+      "protein_g": 30,
+      "fat_g": 8,
+      "carbohydrate_g": 10,
+      "sugars_g": 3,
+      "sodium_mg": 420,
+      "source_refs": [
+        "中国食物成分表",
+        "标准轻食配方"
+      ],
+      "confidence_note": "估算值，少油少盐前提"
+    },
+    {
+      "dish_name": "鸡蛋红肠粉",
+      "aliases": [
+        "鸡蛋红肠肠粉"
+      ],
+      "portion_basis": "1份早餐",
+      "nutrition_basis": "标准肠粉配方估算",
+      "energy_kcal": 330,
+      "protein_g": 13,
+      "fat_g": 12,
+      "carbohydrate_g": 42,
+      "sugars_g": 5,
+      "sodium_mg": 860,
+      "source_refs": [
+        "中国食物成分表",
+        "标准早餐配方"
+      ],
+      "confidence_note": "估算值，酱汁会影响钠含量"
+    }
+  ]
+}

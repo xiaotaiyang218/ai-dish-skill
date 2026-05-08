@@ -1,0 +1,11 @@
+{
+  "expected_recommendation": "caution",
+  "expected_risk_tags": [
+    "可能高糖"
+  ],
+  "expected_need_confirm": [],
+  "assert_explanation_contains": [
+    "糖尿病"
+  ],
+  "expected_normalized_dish": "可乐鸡翅"
+}

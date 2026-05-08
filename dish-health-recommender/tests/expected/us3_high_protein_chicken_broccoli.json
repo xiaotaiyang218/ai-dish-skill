@@ -1,0 +1,9 @@
+{
+  "expected_recommendation": "recommend",
+  "expected_risk_tags": [],
+  "expected_need_confirm": [],
+  "assert_explanation_contains": [
+    "高蛋白目标"
+  ],
+  "expected_normalized_dish": "西兰花炒鸡胸肉"
+}

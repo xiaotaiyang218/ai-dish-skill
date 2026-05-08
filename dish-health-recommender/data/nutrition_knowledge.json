@@ -1,0 +1,521 @@
+{
+  "metadata": {
+    "description": "Lightweight local nutrition knowledge base for qualitative dish recommendations. Values are tags and cautions, not exact nutrition calculations.",
+    "sources": [
+      "中国居民膳食指南（2022）",
+      "中国营养学会食物成分表（用于食材营养分类参考）"
+    ],
+    "precision": "qualitative"
+  },
+  "ingredients": {
+    "鸡蛋": {
+      "nutrition_tags": [
+        "优质蛋白",
+        "含胆固醇"
+      ],
+      "risk_tags": [
+        "含蛋"
+      ],
+      "cautions": [
+        "鸡蛋过敏者避免"
+      ]
+    },
+    "番茄": {
+      "nutrition_tags": [
+        "蔬菜",
+        "低脂",
+        "含维生素"
+      ],
+      "risk_tags": [],
+      "cautions": []
+    },
+    "五花肉": {
+      "nutrition_tags": [
+        "畜肉",
+        "脂肪较高"
+      ],
+      "risk_tags": [
+        "可能高脂"
+      ],
+      "cautions": [
+        "减脂、低脂或血脂管理人群应控制份量"
+      ]
+    },
+    "猪肉": {
+      "nutrition_tags": [
+        "畜肉",
+        "蛋白质来源"
+      ],
+      "risk_tags": [
+        "红肉"
+      ],
+      "cautions": [
+        "建议控制肥瘦比例和摄入频率"
+      ]
+    },
+    "猪里脊": {
+      "nutrition_tags": [
+        "瘦肉",
+        "蛋白质来源"
+      ],
+      "risk_tags": [
+        "红肉"
+      ],
+      "cautions": [
+        "低盐人群需关注调味"
+      ]
+    },
+    "鸡翅中": {
+      "nutrition_tags": [
+        "禽肉",
+        "蛋白质来源"
+      ],
+      "risk_tags": [
+        "皮脂较高"
+      ],
+      "cautions": [
+        "减脂人群建议去皮或控制份量"
+      ]
+    },
+    "带鱼": {
+      "nutrition_tags": [
+        "鱼类",
+        "蛋白质来源"
+      ],
+      "risk_tags": [
+        "含海鲜/鱼类"
+      ],
+      "cautions": [
+        "鱼类或海鲜过敏者避免"
+      ]
+    },
+    "鲈鱼": {
+      "nutrition_tags": [
+        "鱼类",
+        "蛋白质来源"
+      ],
+      "risk_tags": [
+        "含海鲜/鱼类"
+      ],
+      "cautions": [
+        "鱼类或海鲜过敏者避免"
+      ]
+    },
+    "虾": {
+      "nutrition_tags": [
+        "水产品",
+        "蛋白质来源"
+      ],
+      "risk_tags": [
+        "含海鲜/鱼类"
+      ],
+      "cautions": [
+        "海鲜过敏者避免"
+      ]
+    },
+    "木耳": {
+      "nutrition_tags": [
+        "菌菇类",
+        "膳食纤维"
+      ],
+      "risk_tags": [],
+      "cautions": [
+        "泡发和保存需注意食品安全"
+      ]
+    },
+    "金针菇": {
+      "nutrition_tags": [
+        "菌菇类",
+        "膳食纤维"
+      ],
+      "risk_tags": [],
+      "cautions": []
+    },
+    "绿豆芽": {
+      "nutrition_tags": [
+        "蔬菜",
+        "低脂"
+      ],
+      "risk_tags": [],
+      "cautions": []
+    },
+    "油菜": {
+      "nutrition_tags": [
+        "绿叶蔬菜",
+        "低脂"
+      ],
+      "risk_tags": [],
+      "cautions": []
+    },
+    "糖": {
+      "nutrition_tags": [
+        "添加糖"
+      ],
+      "risk_tags": [
+        "可能高糖"
+      ],
+      "cautions": [
+        "控糖、减脂人群应控制"
+      ]
+    },
+    "白糖": {
+      "nutrition_tags": [
+        "添加糖"
+      ],
+      "risk_tags": [
+        "可能高糖"
+      ],
+      "cautions": [
+        "控糖、减脂人群应控制"
+      ]
+    },
+    "冰糖": {
+      "nutrition_tags": [
+        "添加糖"
+      ],
+      "risk_tags": [
+        "可能高糖"
+      ],
+      "cautions": [
+        "控糖、减脂人群应控制"
+      ]
+    },
+    "可乐": {
+      "nutrition_tags": [
+        "含糖饮料"
+      ],
+      "risk_tags": [
+        "可能高糖"
+      ],
+      "cautions": [
+        "控糖、减脂人群应控制"
+      ]
+    },
+    "盐": {
+      "nutrition_tags": [
+        "钠来源"
+      ],
+      "risk_tags": [
+        "可能高盐"
+      ],
+      "cautions": [
+        "低盐或血压管理人群应控制"
+      ]
+    },
+    "生抽": {
+      "nutrition_tags": [
+        "钠来源",
+        "调味品"
+      ],
+      "risk_tags": [
+        "可能高盐"
+      ],
+      "cautions": [
+        "低盐或血压管理人群应控制"
+      ]
+    },
+    "老抽": {
+      "nutrition_tags": [
+        "钠来源",
+        "调味品"
+      ],
+      "risk_tags": [
+        "可能高盐"
+      ],
+      "cautions": [
+        "低盐或血压管理人群应控制"
+      ]
+    },
+    "酱油": {
+      "nutrition_tags": [
+        "钠来源",
+        "调味品"
+      ],
+      "risk_tags": [
+        "可能高盐"
+      ],
+      "cautions": [
+        "低盐或血压管理人群应控制"
+      ]
+    },
+    "豆瓣酱": {
+      "nutrition_tags": [
+        "钠来源",
+        "调味品"
+      ],
+      "risk_tags": [
+        "可能高盐"
+      ],
+      "cautions": [
+        "低盐或血压管理人群应控制"
+      ]
+    },
+    "陴县豆瓣酱": {
+      "nutrition_tags": [
+        "钠来源",
+        "调味品"
+      ],
+      "risk_tags": [
+        "可能高盐"
+      ],
+      "cautions": [
+        "低盐或血压管理人群应控制"
+      ]
+    },
+    "油": {
+      "nutrition_tags": [
+        "脂肪来源"
+      ],
+      "risk_tags": [
+        "可能高油"
+      ],
+      "cautions": [
+        "减脂、低脂人群应控制用量"
+      ]
+    },
+    "面粉": {
+      "nutrition_tags": [
+        "主食类",
+        "碳水来源"
+      ],
+      "risk_tags": [
+        "碳水来源"
+      ],
+      "cautions": [
+        "控糖人群需关注总量"
+      ]
+    },
+    "淀粉": {
+      "nutrition_tags": [
+        "碳水来源"
+      ],
+      "risk_tags": [
+        "碳水来源"
+      ],
+      "cautions": [
+        "控糖人群需关注勾芡和总量"
+      ]
+    },
+    "鸡胸肉": {
+      "nutrition_tags": [
+        "瘦肉",
+        "蛋白质来源",
+        "高蛋白友好"
+      ],
+      "risk_tags": [],
+      "cautions": [
+        "若重油重盐处理会削弱轻食优势"
+      ]
+    },
+    "西兰花": {
+      "nutrition_tags": [
+        "蔬菜",
+        "低脂",
+        "膳食纤维"
+      ],
+      "risk_tags": [],
+      "cautions": []
+    },
+    "豆腐": {
+      "nutrition_tags": [
+        "豆制品",
+        "蛋白质来源"
+      ],
+      "risk_tags": [],
+      "cautions": [
+        "痛风/高尿酸人群可少量食用并关注整体搭配"
+      ]
+    },
+    "小龙虾": {
+      "nutrition_tags": [
+        "水产品",
+        "蛋白质来源"
+      ],
+      "risk_tags": [
+        "含海鲜/鱼类",
+        "高嘌呤"
+      ],
+      "cautions": [
+        "海鲜过敏者避免；高尿酸人群应谨慎"
+      ]
+    },
+    "动物内脏": {
+      "nutrition_tags": [
+        "动物性食材"
+      ],
+      "risk_tags": [
+        "高嘌呤"
+      ],
+      "cautions": [
+        "痛风或高尿酸人群避免"
+      ]
+    },
+    "牛肉": {
+      "nutrition_tags": [
+        "畜肉",
+        "蛋白质来源"
+      ],
+      "risk_tags": [
+        "红肉"
+      ],
+      "cautions": [
+        "注意份量和烹调方式"
+      ]
+    },
+    "胡椒": {
+      "nutrition_tags": [
+        "调味品"
+      ],
+      "risk_tags": [],
+      "cautions": [
+        "辛辣敏感人群需注意"
+      ]
+    },
+    "花生": {
+      "nutrition_tags": [
+        "坚果"
+      ],
+      "risk_tags": [
+        "坚果过敏"
+      ],
+      "cautions": [
+        "坚果过敏者避免"
+      ]
+    },
+    "豆腐皮": {
+      "nutrition_tags": [
+        "豆制品",
+        "蛋白质来源"
+      ],
+      "risk_tags": [],
+      "cautions": []
+    },
+    "荠菜": {
+      "nutrition_tags": [
+        "蔬菜"
+      ],
+      "risk_tags": [],
+      "cautions": []
+    },
+    "米浆": {
+      "nutrition_tags": [
+        "主食类",
+        "碳水来源"
+      ],
+      "risk_tags": [
+        "碳水来源"
+      ],
+      "cautions": [
+        "控糖人群需关注总量"
+      ]
+    },
+    "红肠": {
+      "nutrition_tags": [
+        "加工肉制品"
+      ],
+      "risk_tags": [
+        "可能高盐",
+        "可能高脂"
+      ],
+      "cautions": [
+        "低盐与减脂人群需控制"
+      ]
+    },
+    "鸡腿肉": {
+      "nutrition_tags": [
+        "禽肉",
+        "蛋白质来源"
+      ],
+      "risk_tags": [
+        "皮脂较高"
+      ],
+      "cautions": [
+        "减脂人群注意去皮和份量"
+      ]
+    },
+    "面包": {
+      "nutrition_tags": [
+        "主食类",
+        "碳水来源"
+      ],
+      "risk_tags": [
+        "碳水来源"
+      ],
+      "cautions": [
+        "控糖人群需关注总量"
+      ]
+    }
+  },
+  "diet_rules": {
+    "低盐": {
+      "match_risk_tags": [
+        "可能高盐"
+      ],
+      "message": "低盐或血压管理人群应减少盐、酱油、豆瓣酱等高钠调味。"
+    },
+    "高血压": {
+      "match_risk_tags": [
+        "可能高盐"
+      ],
+      "message": "血压管理人群应控制高钠调味和腌制食材。"
+    },
+    "控糖": {
+      "match_risk_tags": [
+        "可能高糖",
+        "碳水来源"
+      ],
+      "message": "控糖人群应关注添加糖、含糖饮料、勾芡和主食类食材总量。"
+    },
+    "糖尿病": {
+      "match_risk_tags": [
+        "可能高糖",
+        "碳水来源"
+      ],
+      "message": "糖尿病或控糖人群应关注添加糖、勾芡和碳水总量。"
+    },
+    "减脂": {
+      "match_risk_tags": [
+        "可能高脂",
+        "可能高油",
+        "皮脂较高"
+      ],
+      "message": "减脂人群应控制肥肉、用油和带皮禽肉摄入。"
+    },
+    "低脂": {
+      "match_risk_tags": [
+        "可能高脂",
+        "可能高油",
+        "皮脂较高"
+      ],
+      "message": "低脂饮食应控制肥肉、油脂和带皮部位。"
+    },
+    "高蛋白": {
+      "match_nutrition_tags": [
+        "蛋白质来源",
+        "高蛋白友好"
+      ],
+      "message": "高蛋白目标可优先选择明确的瘦肉、鱼类、蛋类或豆制品来源。"
+    },
+    "增肌": {
+      "match_nutrition_tags": [
+        "蛋白质来源",
+        "高蛋白友好"
+      ],
+      "message": "增肌场景更适合优质蛋白明确、油脂可控的菜品。"
+    },
+    "痛风": {
+      "match_risk_tags": [
+        "高嘌呤",
+        "含海鲜/鱼类"
+      ],
+      "message": "痛风/高尿酸人群应谨慎高嘌呤水产、内脏和浓味肉类。"
+    },
+    "高尿酸": {
+      "match_risk_tags": [
+        "高嘌呤",
+        "含海鲜/鱼类"
+      ],
+      "message": "高尿酸管理应减少高嘌呤水产、内脏和重口味下酒菜。"
+    }
+  }
+}

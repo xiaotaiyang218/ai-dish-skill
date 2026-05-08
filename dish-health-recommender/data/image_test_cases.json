@@ -1,0 +1,403 @@
+[
+  {
+    "image_id": "20260508-122944",
+    "image_path": "pic/20260508-122944.jpg",
+    "image_type": "menu",
+    "source_hint": "食堂",
+    "expected_task": "ocr_menu_parse",
+    "expected_focus": [
+      "泰式柠檬虾",
+      "香烤鸡腿",
+      "胡辣汤",
+      "豆腐脑"
+    ],
+    "expected_dishes": [
+      "泰式柠檬虾",
+      "香烤鸡腿",
+      "胡辣汤",
+      "豆腐脑"
+    ],
+    "expected_candidates": [
+      "海苔肉松炒饭",
+      "剁椒蒸排骨",
+      "泰式柠檬虾",
+      "香烤鸡腿"
+    ],
+    "need_confirm_allowed": false,
+    "health_profile_examples": [
+      {
+        "conditions": [
+          "低盐"
+        ]
+      }
+    ],
+    "expected_recommendation_examples": [
+      "need_confirm"
+    ],
+    "label_status": "seeded_from_user_message",
+    "notes": "图片分类由用户补充，后续需继续补充更细的人工标注结果。"
+  },
+  {
+    "image_id": "20260508-123005",
+    "image_path": "pic/20260508-123005.jpg",
+    "image_type": "menu",
+    "source_hint": "食堂",
+    "expected_task": "ocr_menu_parse",
+    "expected_focus": [],
+    "expected_dishes": [
+      "主荤",
+      "半荤",
+      "素菜"
+    ],
+    "expected_candidates": [
+      "主荤",
+      "半荤",
+      "素菜",
+      "例汤"
+    ],
+    "need_confirm_allowed": false,
+    "health_profile_examples": [],
+    "expected_recommendation_examples": [],
+    "label_status": "seeded_from_user_message",
+    "notes": "图片分类由用户补充，后续需继续补充更细的人工标注结果。"
+  },
+  {
+    "image_id": "20260508-123010",
+    "image_path": "pic/20260508-123010.jpg",
+    "image_type": "menu",
+    "source_hint": "食堂",
+    "expected_task": "ocr_menu_parse",
+    "expected_focus": [],
+    "expected_dishes": [],
+    "expected_candidates": [],
+    "need_confirm_allowed": false,
+    "health_profile_examples": [],
+    "expected_recommendation_examples": [],
+    "label_status": "seeded_from_user_message",
+    "notes": "图片分类由用户补充，后续需继续补充更细的人工标注结果。"
+  },
+  {
+    "image_id": "20260508-123014",
+    "image_path": "pic/20260508-123014.jpg",
+    "image_type": "dish",
+    "source_hint": "原材料",
+    "expected_task": "dish_or_material_recognition",
+    "expected_focus": [],
+    "expected_dishes": [],
+    "expected_candidates": [],
+    "need_confirm_allowed": true,
+    "health_profile_examples": [],
+    "expected_recommendation_examples": [],
+    "label_status": "seeded_from_user_message",
+    "notes": "图片分类由用户补充，后续需继续补充更细的人工标注结果。"
+  },
+  {
+    "image_id": "20260508-123019",
+    "image_path": "pic/20260508-123019.jpg",
+    "image_type": "dish",
+    "source_hint": "肯德基",
+    "expected_task": "dish_or_material_recognition",
+    "expected_focus": [],
+    "expected_dishes": [],
+    "expected_candidates": [],
+    "need_confirm_allowed": true,
+    "health_profile_examples": [],
+    "expected_recommendation_examples": [],
+    "label_status": "seeded_from_user_message",
+    "notes": "图片分类由用户补充，后续需继续补充更细的人工标注结果。"
+  },
+  {
+    "image_id": "20260508-123023",
+    "image_path": "pic/20260508-123023.jpg",
+    "image_type": "menu",
+    "source_hint": "肯德基",
+    "expected_task": "ocr_menu_parse",
+    "expected_focus": [],
+    "expected_dishes": [
+      "劲脆超霸堡",
+      "香辣鸡腿堡",
+      "黄金脆皮鸡"
+    ],
+    "expected_candidates": [
+      "劲脆超霸堡",
+      "香辣鸡腿堡",
+      "黄金脆皮鸡"
+    ],
+    "need_confirm_allowed": false,
+    "health_profile_examples": [],
+    "expected_recommendation_examples": [],
+    "label_status": "seeded_from_user_message",
+    "notes": "图片分类由用户补充，后续需继续补充更细的人工标注结果。"
+  },
+  {
+    "image_id": "20260508-123029",
+    "image_path": "pic/20260508-123029.jpg",
+    "image_type": "menu",
+    "source_hint": "肯德基",
+    "expected_task": "ocr_menu_parse",
+    "expected_focus": [],
+    "expected_dishes": [],
+    "expected_candidates": [],
+    "need_confirm_allowed": false,
+    "health_profile_examples": [],
+    "expected_recommendation_examples": [],
+    "label_status": "seeded_from_user_message",
+    "notes": "图片分类由用户补充，后续需继续补充更细的人工标注结果。"
+  },
+  {
+    "image_id": "20260508-123032",
+    "image_path": "pic/20260508-123032.jpg",
+    "image_type": "menu",
+    "source_hint": "肯德基",
+    "expected_task": "ocr_menu_parse",
+    "expected_focus": [],
+    "expected_dishes": [],
+    "expected_candidates": [],
+    "need_confirm_allowed": false,
+    "health_profile_examples": [],
+    "expected_recommendation_examples": [],
+    "label_status": "seeded_from_user_message",
+    "notes": "图片分类由用户补充，后续需继续补充更细的人工标注结果。"
+  },
+  {
+    "image_id": "20260508-123034",
+    "image_path": "pic/20260508-123034.jpg",
+    "image_type": "menu",
+    "source_hint": "肯德基",
+    "expected_task": "ocr_menu_parse",
+    "expected_focus": [],
+    "expected_dishes": [],
+    "expected_candidates": [],
+    "need_confirm_allowed": false,
+    "health_profile_examples": [],
+    "expected_recommendation_examples": [],
+    "label_status": "seeded_from_user_message",
+    "notes": "图片分类由用户补充，后续需继续补充更细的人工标注结果。"
+  },
+  {
+    "image_id": "20260508-123043",
+    "image_path": "pic/20260508-123043.jpg",
+    "image_type": "dish",
+    "source_hint": "早餐",
+    "expected_task": "dish_or_material_recognition",
+    "expected_focus": [],
+    "expected_dishes": [],
+    "expected_candidates": [],
+    "need_confirm_allowed": true,
+    "health_profile_examples": [],
+    "expected_recommendation_examples": [],
+    "label_status": "seeded_from_user_message",
+    "notes": "图片分类由用户补充，后续需继续补充更细的人工标注结果。"
+  },
+  {
+    "image_id": "20260508-123047",
+    "image_path": "pic/20260508-123047.jpg",
+    "image_type": "dish",
+    "source_hint": "小馄饨",
+    "expected_task": "dish_or_material_recognition",
+    "expected_focus": [],
+    "expected_dishes": [
+      "荠菜鲜肉小馄饨"
+    ],
+    "expected_candidates": [
+      "荠菜鲜肉小馄饨"
+    ],
+    "need_confirm_allowed": true,
+    "health_profile_examples": [],
+    "expected_recommendation_examples": [],
+    "label_status": "seeded_from_user_message",
+    "notes": "图片分类由用户补充，后续需继续补充更细的人工标注结果。"
+  },
+  {
+    "image_id": "20260508-123050",
+    "image_path": "pic/20260508-123050.jpg",
+    "image_type": "dish",
+    "source_hint": "肠粉",
+    "expected_task": "dish_or_material_recognition",
+    "expected_focus": [],
+    "expected_dishes": [
+      "鸡蛋红肠粉"
+    ],
+    "expected_candidates": [
+      "鸡蛋红肠粉"
+    ],
+    "need_confirm_allowed": true,
+    "health_profile_examples": [],
+    "expected_recommendation_examples": [],
+    "label_status": "seeded_from_user_message",
+    "notes": "图片分类由用户补充，后续需继续补充更细的人工标注结果。"
+  },
+  {
+    "image_id": "20260508-123054",
+    "image_path": "pic/20260508-123054.jpg",
+    "image_type": "dish",
+    "source_hint": "面/粉",
+    "expected_task": "dish_or_material_recognition",
+    "expected_focus": [],
+    "expected_dishes": [],
+    "expected_candidates": [],
+    "need_confirm_allowed": true,
+    "health_profile_examples": [],
+    "expected_recommendation_examples": [],
+    "label_status": "seeded_from_user_message",
+    "notes": "图片分类由用户补充，后续需继续补充更细的人工标注结果。"
+  },
+  {
+    "image_id": "20260508-123058",
+    "image_path": "pic/20260508-123058.jpg",
+    "image_type": "dish",
+    "source_hint": "早餐",
+    "expected_task": "dish_or_material_recognition",
+    "expected_focus": [
+      "胡辣汤",
+      "豆腐脑"
+    ],
+    "expected_dishes": [
+      "胡辣汤",
+      "豆腐脑"
+    ],
+    "expected_candidates": [
+      "胡辣汤",
+      "豆腐脑（甜/咸）"
+    ],
+    "need_confirm_allowed": true,
+    "health_profile_examples": [
+      {
+        "conditions": [
+          "低盐"
+        ]
+      },
+      {
+        "conditions": [
+          "控糖"
+        ]
+      }
+    ],
+    "expected_recommendation_examples": [
+      "caution",
+      "need_confirm"
+    ],
+    "label_status": "seeded_from_user_message",
+    "notes": "图片分类由用户补充，后续需继续补充更细的人工标注结果。"
+  },
+  {
+    "image_id": "20260508-123102",
+    "image_path": "pic/20260508-123102.jpg",
+    "image_type": "dish",
+    "source_hint": "早餐",
+    "expected_task": "dish_or_material_recognition",
+    "expected_focus": [],
+    "expected_dishes": [],
+    "expected_candidates": [],
+    "need_confirm_allowed": true,
+    "health_profile_examples": [],
+    "expected_recommendation_examples": [],
+    "label_status": "seeded_from_user_message",
+    "notes": "图片分类由用户补充，后续需继续补充更细的人工标注结果。"
+  },
+  {
+    "image_id": "20260508-123106",
+    "image_path": "pic/20260508-123106.jpg",
+    "image_type": "menu",
+    "source_hint": "食堂",
+    "expected_task": "ocr_menu_parse",
+    "expected_focus": [],
+    "expected_dishes": [],
+    "expected_candidates": [],
+    "need_confirm_allowed": false,
+    "health_profile_examples": [],
+    "expected_recommendation_examples": [],
+    "label_status": "seeded_from_user_message",
+    "notes": "图片分类由用户补充，后续需继续补充更细的人工标注结果。"
+  },
+  {
+    "image_id": "20260508-123109",
+    "image_path": "pic/20260508-123109.jpg",
+    "image_type": "dish",
+    "source_hint": "早餐",
+    "expected_task": "dish_or_material_recognition",
+    "expected_focus": [],
+    "expected_dishes": [],
+    "expected_candidates": [],
+    "need_confirm_allowed": true,
+    "health_profile_examples": [],
+    "expected_recommendation_examples": [],
+    "label_status": "seeded_from_user_message",
+    "notes": "图片分类由用户补充，后续需继续补充更细的人工标注结果。"
+  },
+  {
+    "image_id": "20260508-123119",
+    "image_path": "pic/20260508-123119.jpg",
+    "image_type": "menu",
+    "source_hint": "食堂",
+    "expected_task": "ocr_menu_parse",
+    "expected_focus": [],
+    "expected_dishes": [],
+    "expected_candidates": [],
+    "need_confirm_allowed": false,
+    "health_profile_examples": [],
+    "expected_recommendation_examples": [],
+    "label_status": "seeded_from_user_message",
+    "notes": "图片分类由用户补充，后续需继续补充更细的人工标注结果。"
+  },
+  {
+    "image_id": "20260508-123122",
+    "image_path": "pic/20260508-123122.jpg",
+    "image_type": "menu",
+    "source_hint": "食堂",
+    "expected_task": "ocr_menu_parse",
+    "expected_focus": [],
+    "expected_dishes": [],
+    "expected_candidates": [],
+    "need_confirm_allowed": false,
+    "health_profile_examples": [],
+    "expected_recommendation_examples": [],
+    "label_status": "seeded_from_user_message",
+    "notes": "图片分类由用户补充，后续需继续补充更细的人工标注结果。"
+  },
+  {
+    "image_id": "20260508-123129",
+    "image_path": "pic/20260508-123129.jpg",
+    "image_type": "menu",
+    "source_hint": "食堂",
+    "expected_task": "ocr_menu_parse",
+    "expected_focus": [],
+    "expected_dishes": [],
+    "expected_candidates": [],
+    "need_confirm_allowed": false,
+    "health_profile_examples": [],
+    "expected_recommendation_examples": [],
+    "label_status": "seeded_from_user_message",
+    "notes": "图片分类由用户补充，后续需继续补充更细的人工标注结果。"
+  },
+  {
+    "image_id": "20260508-123132",
+    "image_path": "pic/20260508-123132.jpg",
+    "image_type": "menu",
+    "source_hint": "食堂",
+    "expected_task": "ocr_menu_parse",
+    "expected_focus": [],
+    "expected_dishes": [],
+    "expected_candidates": [],
+    "need_confirm_allowed": false,
+    "health_profile_examples": [],
+    "expected_recommendation_examples": [],
+    "label_status": "seeded_from_user_message",
+    "notes": "图片分类由用户补充，后续需继续补充更细的人工标注结果。"
+  },
+  {
+    "image_id": "20260508-123135",
+    "image_path": "pic/20260508-123135.jpg",
+    "image_type": "menu",
+    "source_hint": "食堂",
+    "expected_task": "ocr_menu_parse",
+    "expected_focus": [],
+    "expected_dishes": [],
+    "expected_candidates": [],
+    "need_confirm_allowed": false,
+    "health_profile_examples": [],
+    "expected_recommendation_examples": [],
+    "label_status": "seeded_from_user_message",
+    "notes": "图片分类由用户补充，后续需继续补充更细的人工标注结果。"
+  }
+]

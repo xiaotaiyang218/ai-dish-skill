@@ -1,0 +1,2900 @@
+{
+  "上海秘制红烧肉": {
+    "aliases": [],
+    "ingredients": [
+      "五花肉",
+      "冰糖",
+      "生抽",
+      "葱段",
+      "生姜",
+      "油",
+      "料酒"
+    ],
+    "cooking_method": "红烧",
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖",
+      "可能高脂"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "上海红烧肉": {
+    "aliases": [],
+    "ingredients": [
+      "五花肉",
+      "老抽",
+      "料酒",
+      "冰糖",
+      "香醋",
+      "葱段",
+      "姜片"
+    ],
+    "cooking_method": "红烧",
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖",
+      "可能高脂"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "五花肉(菜品)": {
+    "aliases": [],
+    "ingredients": [
+      "五花肉",
+      "姜",
+      "蒜米",
+      "酱油",
+      "海天添丁甜醋"
+    ],
+    "cooking_method": null,
+    "risk_tags": [
+      "可能高盐",
+      "可能高脂"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "仔姜麻辣水煮鱼": {
+    "aliases": [],
+    "ingredients": [
+      "草鱼",
+      "豆芽",
+      "仔姜",
+      "香菜",
+      "清水"
+    ],
+    "cooking_method": "水煮",
+    "risk_tags": [
+      "含海鲜/鱼类"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "元宝红烧肉": {
+    "aliases": [],
+    "ingredients": [
+      "带皮五花肉",
+      "老抽",
+      "生抽",
+      "料酒",
+      "冰糖",
+      "八角",
+      "姜",
+      "葱",
+      "花椒",
+      "香叶",
+      "水"
+    ],
+    "cooking_method": "红烧",
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖",
+      "可能高脂"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "冻豆腐红烧肉": {
+    "aliases": [],
+    "ingredients": [
+      "带皮五花肉",
+      "冻豆腐",
+      "青菜",
+      "油",
+      "生姜",
+      "大蒜",
+      "大料",
+      "香叶",
+      "盐",
+      "生抽",
+      "老抽",
+      "白糖"
+    ],
+    "cooking_method": "红烧",
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖",
+      "可能高脂"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "凉拌三丝黑木耳": {
+    "aliases": [],
+    "ingredients": [
+      "紫甘蓝",
+      "山药",
+      "胡萝卜",
+      "黑木耳",
+      "盐",
+      "麻油",
+      "鸡精",
+      "糖",
+      "白醋"
+    ],
+    "cooking_method": "凉拌",
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "凉拌木耳": {
+    "aliases": [],
+    "ingredients": [
+      "干木耳",
+      "橄榄油",
+      "红辣椒",
+      "青辣椒",
+      "大蒜",
+      "白糖",
+      "生抽",
+      "辣椒油",
+      "鸡精",
+      "陈醋"
+    ],
+    "cooking_method": "凉拌",
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "凉拌木耳黄瓜": {
+    "aliases": [],
+    "ingredients": [
+      "黄瓜",
+      "鸡精",
+      "姜汁",
+      "木耳",
+      "酱油",
+      "味精",
+      "泡红椒粒",
+      "醋",
+      "芝麻油",
+      "油辣子",
+      "蒜蓉",
+      "葱花",
+      "盐",
+      "白糖"
+    ],
+    "cooking_method": "凉拌",
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "凉拌洋葱黑木耳": {
+    "aliases": [],
+    "ingredients": [
+      "黑木耳",
+      "洋葱",
+      "青椒",
+      "荆芥",
+      "盐",
+      "白砂糖",
+      "十三香",
+      "鸡精",
+      "生抽",
+      "蚝油",
+      "白醋",
+      "麻辣油",
+      "香油"
+    ],
+    "cooking_method": "凉拌",
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "凉拌爽脆黑木耳": {
+    "aliases": [],
+    "ingredients": [
+      "香菇酱",
+      "黑木耳",
+      "大蒜",
+      "熟白芝麻",
+      "盐",
+      "香菜",
+      "小米椒",
+      "生抽",
+      "仲景花椒油",
+      "芝麻油",
+      "香醋",
+      "糖"
+    ],
+    "cooking_method": "凉拌",
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "凉拌花生黑木耳": {
+    "aliases": [],
+    "ingredients": [
+      "花生",
+      "黑木耳",
+      "香菜",
+      "小米椒",
+      "香油",
+      "醋",
+      "胡椒",
+      "盐",
+      "八角",
+      "花椒",
+      "香叶",
+      "桂皮",
+      "辣椒",
+      "小茴香"
+    ],
+    "cooking_method": "凉拌",
+    "risk_tags": [
+      "可能高盐"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "凉拌金菇黑木耳": {
+    "aliases": [],
+    "ingredients": [
+      "金菇",
+      "木耳",
+      "调料",
+      "盐",
+      "油",
+      "香油"
+    ],
+    "cooking_method": "凉拌",
+    "risk_tags": [
+      "可能高盐"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "凉拌香辣黑木耳": {
+    "aliases": [],
+    "ingredients": [
+      "芹菜叶",
+      "黑木耳",
+      "辣椒油",
+      "芥末油",
+      "芝麻",
+      "糖",
+      "盐",
+      "醋",
+      "生抽",
+      "蒜"
+    ],
+    "cooking_method": "凉拌",
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "凉拌黑木耳": {
+    "aliases": [],
+    "ingredients": [
+      "黑木耳",
+      "青红尖椒",
+      "香菜",
+      "白糖",
+      "生抽",
+      "花椒油",
+      "芝麻油",
+      "盐"
+    ],
+    "cooking_method": "凉拌",
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "凉拌黑木耳苦瓜": {
+    "aliases": [],
+    "ingredients": [
+      "苦瓜",
+      "黑木耳",
+      "红辣椒",
+      "蒜",
+      "白醋",
+      "糖",
+      "橄榄油",
+      "油",
+      "盐"
+    ],
+    "cooking_method": "凉拌",
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "凉拌黑木耳酸辣味": {
+    "aliases": [],
+    "ingredients": [
+      "黑木耳",
+      "大蒜",
+      "味极鲜酱油",
+      "醋",
+      "剁椒",
+      "香油",
+      "盐"
+    ],
+    "cooking_method": "凉拌",
+    "risk_tags": [
+      "可能高盐"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "剁椒拌黑木耳": {
+    "aliases": [],
+    "ingredients": [
+      "黑木耳",
+      "大蒜",
+      "生姜",
+      "小葱",
+      "干辣椒",
+      "红剁椒",
+      "黄灯笼椒酱",
+      "桂皮",
+      "生抽",
+      "盐",
+      "香醋",
+      "白糖",
+      "花生油"
+    ],
+    "cooking_method": null,
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "十分钟红烧鱼": {
+    "aliases": [],
+    "ingredients": [
+      "草鱼",
+      "料酒",
+      "生抽",
+      "红烧酱油",
+      "砂糖",
+      "香菜",
+      "香叶",
+      "葱",
+      "姜",
+      "蒜",
+      "油",
+      "盐"
+    ],
+    "cooking_method": "红烧",
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖",
+      "含海鲜/鱼类"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "午餐便当凉拌木耳": {
+    "aliases": [],
+    "ingredients": [
+      "木耳",
+      "西红柿",
+      "胡萝卜",
+      "麻油",
+      "盐",
+      "生抽",
+      "香葱"
+    ],
+    "cooking_method": "凉拌",
+    "risk_tags": [
+      "可能高盐"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "可乐姜汁鸡翅": {
+    "aliases": [],
+    "ingredients": [
+      "鸡翅中",
+      "可乐",
+      "姜",
+      "盐",
+      "味极鲜"
+    ],
+    "cooking_method": "烧",
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "可乐烧鸡翅": {
+    "aliases": [],
+    "ingredients": [
+      "鸡翅",
+      "可乐",
+      "姜",
+      "花椒",
+      "盐",
+      "酱油",
+      "料酒"
+    ],
+    "cooking_method": "烧",
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "可乐鸡翅": {
+    "aliases": [
+      "可乐鸡中翅",
+      "可乐翅中"
+    ],
+    "ingredients": [
+      "鸡翅中",
+      "可乐",
+      "生抽",
+      "油"
+    ],
+    "cooking_method": "烧",
+    "risk_tags": [
+      "可能高糖",
+      "皮脂较高"
+    ],
+    "notes": "常见做法通常含可乐和鸡翅，控糖与减脂人群需控制份量。",
+    "source": "local",
+    "ambiguity_level": "low"
+  },
+  "可乐鸡翅根": {
+    "aliases": [],
+    "ingredients": [
+      "鸡翅根",
+      "土豆",
+      "可乐"
+    ],
+    "cooking_method": "烧",
+    "risk_tags": [
+      "可能高糖"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "咖喱酱意大利面": {
+    "aliases": [],
+    "ingredients": [
+      "意大利面",
+      "红洋葱",
+      "小番茄",
+      "芦笋头",
+      "鹌鹑蛋",
+      "胡萝卜",
+      "百梦多咖喱"
+    ],
+    "cooking_method": null,
+    "risk_tags": [],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "啤酒红烧鱼": {
+    "aliases": [],
+    "ingredients": [
+      "草鱼",
+      "大蒜",
+      "啤酒",
+      "料酒",
+      "葱",
+      "姜片",
+      "盐",
+      "胡椒粉",
+      "糖",
+      "酱油",
+      "辣豆瓣酱",
+      "淀粉"
+    ],
+    "cooking_method": "红烧",
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖",
+      "含海鲜/鱼类"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "土豆红烧排骨": {
+    "aliases": [],
+    "ingredients": [
+      "排骨",
+      "土豆",
+      "胡萝卜",
+      "大料",
+      "花椒",
+      "蒜",
+      "葱",
+      "姜",
+      "冰糖",
+      "酱油",
+      "盐"
+    ],
+    "cooking_method": "红烧",
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "土豆红烧肉": {
+    "aliases": [],
+    "ingredients": [
+      "五花肉",
+      "土豆",
+      "油",
+      "盐",
+      "酱油",
+      "白糖",
+      "姜",
+      "八角"
+    ],
+    "cooking_method": "红烧",
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖",
+      "可能高脂"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "培根奶油意大利面": {
+    "aliases": [],
+    "ingredients": [
+      "意大利面条",
+      "橄榄油",
+      "培根切成小片",
+      "鸡蛋黄",
+      "帕玛森乳酪",
+      "奶油",
+      "欧芹切碎",
+      "胡椒",
+      "盐"
+    ],
+    "cooking_method": null,
+    "risk_tags": [
+      "可能高盐",
+      "可能高脂",
+      "含蛋"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "培根意大利面": {
+    "aliases": [],
+    "ingredients": [
+      "意大利面",
+      "猪肉",
+      "青椒",
+      "番茄",
+      "蒜泥",
+      "洋葱",
+      "油",
+      "盐",
+      "鸡精",
+      "黑胡椒粉",
+      "番茄酱"
+    ],
+    "cooking_method": null,
+    "risk_tags": [
+      "可能高盐",
+      "可能高脂"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "培根白酱意面": {
+    "aliases": [],
+    "ingredients": [
+      "斜管面",
+      "培根",
+      "鸡蛋黄",
+      "洋葱",
+      "蒜",
+      "罗勒",
+      "卡夫芝士粉",
+      "淡奶油",
+      "意面酱",
+      "盐",
+      "黑胡椒",
+      "橄榄油"
+    ],
+    "cooking_method": "煮/炒",
+    "risk_tags": [
+      "可能高盐",
+      "可能高脂",
+      "含蛋"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "培根鲜虾意大利面": {
+    "aliases": [],
+    "ingredients": [
+      "奶油白酱材料：黄油",
+      "面粉",
+      "牛奶",
+      "盐",
+      "黑胡椒粉",
+      "意大利面",
+      "蒜瓣",
+      "洋葱",
+      "培根",
+      "鲜虾仁",
+      "西兰花",
+      "黄甜椒"
+    ],
+    "cooking_method": null,
+    "risk_tags": [
+      "可能高盐",
+      "可能高脂",
+      "含海鲜/鱼类"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "外婆红烧肉": {
+    "aliases": [],
+    "ingredients": [
+      "五花肉",
+      "老抽",
+      "生抽",
+      "黄冰糖",
+      "盐",
+      "料酒",
+      "大葱",
+      "生姜",
+      "油"
+    ],
+    "cooking_method": "红烧",
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖",
+      "可能高脂"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "大众可乐鸡翅": {
+    "aliases": [],
+    "ingredients": [
+      "鸡翅",
+      "可乐",
+      "葱",
+      "姜",
+      "蒜",
+      "料酒",
+      "老抽"
+    ],
+    "cooking_method": "烧",
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "奶油培根意大利面": {
+    "aliases": [],
+    "ingredients": [
+      "黄油",
+      "高筋粉",
+      "水",
+      "牛奶",
+      "盐",
+      "鸡精",
+      "白糖",
+      "意大利面",
+      "培根",
+      "口蘑",
+      "奶酪粉",
+      "鸡蛋黄",
+      "橄榄油",
+      "蒜末",
+      "奶油白酱",
+      "鲜奶油",
+      "香菜末",
+      "黑胡椒"
+    ],
+    "cooking_method": null,
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖",
+      "可能高脂",
+      "含蛋"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "家常水煮肉片": {
+    "aliases": [],
+    "ingredients": [
+      "猪里脊",
+      "娃娃菜",
+      "青红椒",
+      "姜丝",
+      "葱丝",
+      "干红辣椒",
+      "辣椒粉",
+      "白胡椒粉",
+      "老抽",
+      "盐",
+      "红油豆瓣",
+      "料酒",
+      "干淀粉",
+      "鸡精",
+      "蛋清",
+      "食用油"
+    ],
+    "cooking_method": "水煮",
+    "risk_tags": [
+      "可能高盐",
+      "含蛋"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "家常水煮鱼": {
+    "aliases": [],
+    "ingredients": [
+      "草鱼",
+      "黄豆芽",
+      "水煮细笋",
+      "盐",
+      "糖",
+      "鸡精",
+      "料酒",
+      "白胡椒粉",
+      "红薯淀粉",
+      "蛋清",
+      "色拉油",
+      "花生油",
+      "郫县豆瓣",
+      "白糖",
+      "清水",
+      "食用油",
+      "干红朝天椒",
+      "花椒",
+      "八角",
+      "桂皮",
+      "葱",
+      "姜",
+      "蒜"
+    ],
+    "cooking_method": "水煮",
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖",
+      "含海鲜/鱼类",
+      "含蛋"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "家常版鱼香肉丝": {
+    "aliases": [],
+    "ingredients": [
+      "瘦肉",
+      "尖椒",
+      "胡萝卜",
+      "葱",
+      "郫县豆瓣酱",
+      "糖"
+    ],
+    "cooking_method": null,
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖",
+      "含海鲜/鱼类"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "家常红烧排骨": {
+    "aliases": [],
+    "ingredients": [
+      "排骨",
+      "葱",
+      "姜",
+      "蒜",
+      "大料",
+      "桂皮",
+      "料酒",
+      "酱油",
+      "白糖"
+    ],
+    "cooking_method": "红烧",
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "家常红烧鱼": {
+    "aliases": [],
+    "ingredients": [
+      "海鱼",
+      "五花肉",
+      "植物油",
+      "盐",
+      "葱段",
+      "姜",
+      "蒜",
+      "酱油",
+      "料酒"
+    ],
+    "cooking_method": "红烧",
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖",
+      "可能高脂",
+      "含海鲜/鱼类"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "家常红烧鱼块": {
+    "aliases": [],
+    "ingredients": [
+      "鲤鱼",
+      "辣椒",
+      "姜",
+      "蒜"
+    ],
+    "cooking_method": "红烧",
+    "risk_tags": [
+      "可能高糖",
+      "含海鲜/鱼类"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "家常鱼香肉丝": {
+    "aliases": [],
+    "ingredients": [
+      "猪肉",
+      "黑木耳",
+      "胡萝卜丝",
+      "酒",
+      "生抽",
+      "糖",
+      "醋",
+      "水",
+      "盐",
+      "淀粉",
+      "姜",
+      "味精",
+      "蒜"
+    ],
+    "cooking_method": null,
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖",
+      "含海鲜/鱼类"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "家庭版水煮活鱼": {
+    "aliases": [],
+    "ingredients": [
+      "草鱼",
+      "土豆",
+      "黄瓜",
+      "辣椒干",
+      "花椒",
+      "蒜片",
+      "姜片",
+      "段",
+      "郫县豆瓣酱",
+      "淀粉",
+      "盐",
+      "鸡精",
+      "生抽",
+      "料酒",
+      "胡椒粉"
+    ],
+    "cooking_method": "水煮",
+    "risk_tags": [
+      "可能高盐",
+      "含海鲜/鱼类"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "家庭版鱼香肉丝": {
+    "aliases": [],
+    "ingredients": [
+      "肉丝",
+      "笋",
+      "香菇",
+      "胡萝卜",
+      "葱末",
+      "姜末",
+      "蒜末",
+      "生抽",
+      "郫县豆瓣",
+      "剁红辣椒",
+      "盐",
+      "味精",
+      "胡椒粉",
+      "干淀粉",
+      "水淀粉",
+      "料酒",
+      "蛋清"
+    ],
+    "cooking_method": null,
+    "risk_tags": [
+      "可能高盐",
+      "含海鲜/鱼类",
+      "含蛋"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "小清新版水煮鱼": {
+    "aliases": [],
+    "ingredients": [
+      "鲈鱼",
+      "毛豆籽",
+      "白玉菇",
+      "姜片",
+      "葱",
+      "料酒",
+      "蛋白",
+      "盐",
+      "牛肉粉",
+      "红辣椒",
+      "色拉油",
+      "红油",
+      "姜汁",
+      "生粉",
+      "花椒"
+    ],
+    "cooking_method": "水煮",
+    "risk_tags": [
+      "可能高盐",
+      "含海鲜/鱼类"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "山寨版鱼香肉丝": {
+    "aliases": [],
+    "ingredients": [
+      "猪肉",
+      "水发木耳",
+      "尖辣椒",
+      "青椒",
+      "土豆",
+      "鸡精",
+      "盐",
+      "糖",
+      "醋",
+      "老抽",
+      "生抽",
+      "料酒",
+      "花生油",
+      "蒜",
+      "葱",
+      "姜"
+    ],
+    "cooking_method": null,
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖",
+      "含海鲜/鱼类"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "山楂红烧肉": {
+    "aliases": [],
+    "ingredients": [
+      "五花肉",
+      "山楂",
+      "冰糖",
+      "八角",
+      "香叶",
+      "桂皮",
+      "姜",
+      "花椒",
+      "老抽",
+      "生抽",
+      "料酒",
+      "盐"
+    ],
+    "cooking_method": "红烧",
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖",
+      "可能高脂"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "川味水煮肉片": {
+    "aliases": [],
+    "ingredients": [
+      "前夹肉",
+      "娃娃菜",
+      "平菇",
+      "淀粉",
+      "豆瓣酱",
+      "辣椒粉",
+      "干辣椒",
+      "花椒籽",
+      "蒜蓉",
+      "姜末",
+      "大葱碎",
+      "无皮肥肉",
+      "老抽",
+      "胡椒粉",
+      "鸡精",
+      "蛋清",
+      "生抽"
+    ],
+    "cooking_method": "水煮",
+    "risk_tags": [
+      "可能高盐",
+      "可能高脂",
+      "含蛋"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "广式糖醋排骨": {
+    "aliases": [],
+    "ingredients": [
+      "肋排",
+      "洋葱",
+      "红椒",
+      "黄椒",
+      "木瓜",
+      "高浓度白酒",
+      "蛋黄",
+      "盐",
+      "生粉",
+      "茄汁",
+      "糖",
+      "鸡汁",
+      "白醋",
+      "老抽"
+    ],
+    "cooking_method": "糖醋",
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖",
+      "含蛋"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "微波炉巧做可乐鸡翅": {
+    "aliases": [],
+    "ingredients": [
+      "鸡中翅",
+      "可口可乐",
+      "糖",
+      "酱油"
+    ],
+    "cooking_method": "烧",
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "意大利红虾面": {
+    "aliases": [],
+    "ingredients": [
+      "意大利面",
+      "番茄",
+      "洋葱",
+      "香菇",
+      "虾",
+      "培根",
+      "青椒",
+      "红椒",
+      "胡萝卜",
+      "番茄酱",
+      "奶酪",
+      "黄油"
+    ],
+    "cooking_method": null,
+    "risk_tags": [
+      "可能高脂",
+      "含海鲜/鱼类"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "意大利肉酱面": {
+    "aliases": [],
+    "ingredients": [
+      "牛肉末",
+      "干制意大利面条",
+      "胡萝卜碎",
+      "芹菜碎",
+      "洋葱碎",
+      "大蒜碎",
+      "自制番茄酱",
+      "黑胡椒",
+      "精盐",
+      "白糖",
+      "红葡萄酒",
+      "烹调油"
+    ],
+    "cooking_method": null,
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "意大利蝴蝶面": {
+    "aliases": [],
+    "ingredients": [
+      "意大利蝴蝶面(原料)",
+      "洋葱",
+      "鸡蛋",
+      "青椒",
+      "红椒",
+      "牛肉丸",
+      "香葱",
+      "盐",
+      "植物油",
+      "番茄酱",
+      "生抽",
+      "味精",
+      "香油"
+    ],
+    "cooking_method": null,
+    "risk_tags": [
+      "可能高盐",
+      "含蛋"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "意大利螺丝面": {
+    "aliases": [],
+    "ingredients": [
+      "意大利螺丝面(原料)",
+      "西红柿",
+      "大葱",
+      "洋葱",
+      "青椒",
+      "西红柿酱",
+      "橄榄油",
+      "盐",
+      "花椒面"
+    ],
+    "cooking_method": null,
+    "risk_tags": [
+      "可能高盐"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "意大利螺旋面": {
+    "aliases": [],
+    "ingredients": [
+      "螺旋面",
+      "番茄",
+      "猪肉碎",
+      "洋葱",
+      "蒜末",
+      "盐",
+      "料酒",
+      "糖",
+      "黑胡椒",
+      "番茄酱"
+    ],
+    "cooking_method": null,
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "意大利面(菜品)": {
+    "aliases": [],
+    "ingredients": [
+      "番茄",
+      "洋葱",
+      "大蒜",
+      "黄油",
+      "牛至叶",
+      "罗勒",
+      "白糖",
+      "盐"
+    ],
+    "cooking_method": null,
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "意式肉酱面": {
+    "aliases": [],
+    "ingredients": [
+      "意大利面",
+      "橄榄油",
+      "番茄酱",
+      "意大利面调料",
+      "去皮去蒂番茄",
+      "香肠",
+      "西兰花",
+      "小番茄"
+    ],
+    "cooking_method": null,
+    "risk_tags": [],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "懒人水煮肉片": {
+    "aliases": [],
+    "ingredients": [
+      "猪肉",
+      "油菜",
+      "金针菇",
+      "胡萝卜",
+      "水煮肉片调料"
+    ],
+    "cooking_method": "水煮",
+    "risk_tags": [],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "懒人版糖醋排骨": {
+    "aliases": [],
+    "ingredients": [
+      "排骨",
+      "水",
+      "料酒",
+      "糖",
+      "醋",
+      "酱油"
+    ],
+    "cooking_method": "糖醋",
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "改良版可乐鸡翅": {
+    "aliases": [],
+    "ingredients": [
+      "鸡中翅",
+      "可乐",
+      "圣女果干蜜饯",
+      "盐",
+      "鸡精",
+      "姜丝",
+      "料酒",
+      "生菜"
+    ],
+    "cooking_method": "烧",
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "无油版可乐鸡翅": {
+    "aliases": [],
+    "ingredients": [
+      "鸡翅中",
+      "可乐",
+      "姜",
+      "蒜",
+      "料酒",
+      "生抽",
+      "老抽"
+    ],
+    "cooking_method": "烧",
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "无油版糖醋排骨": {
+    "aliases": [],
+    "ingredients": [
+      "猪肋排",
+      "姜",
+      "葱",
+      "八角",
+      "料酒",
+      "醋",
+      "白糖",
+      "老抽",
+      "水"
+    ],
+    "cooking_method": "糖醋",
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "无油红烧肉": {
+    "aliases": [],
+    "ingredients": [
+      "五花肉",
+      "大葱",
+      "老姜",
+      "八角",
+      "花椒",
+      "黄酒",
+      "老抽",
+      "生抽",
+      "冰糖",
+      "高度白酒"
+    ],
+    "cooking_method": "红烧",
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖",
+      "可能高脂"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "无酱油版红烧排骨": {
+    "aliases": [],
+    "ingredients": [
+      "猪排",
+      "姜",
+      "白糖",
+      "胡椒粉",
+      "香叶",
+      "盐",
+      "八角",
+      "大葱",
+      "洋葱"
+    ],
+    "cooking_method": "红烧",
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "本帮红烧肉": {
+    "aliases": [],
+    "ingredients": [
+      "五花肉",
+      "黄酒",
+      "老姜",
+      "冰糖",
+      "老抽",
+      "生抽",
+      "玉米油"
+    ],
+    "cooking_method": "红烧",
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖",
+      "可能高脂"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "杏鲍菇鱼香肉丝": {
+    "aliases": [],
+    "ingredients": [
+      "猪肉",
+      "杏鲍菇",
+      "青椒",
+      "胡萝卜",
+      "黑木耳",
+      "水淀粉",
+      "油",
+      "料酒",
+      "葱",
+      "姜",
+      "蒜",
+      "郫县豆瓣",
+      "泡野山椒",
+      "生抽",
+      "醋",
+      "糖",
+      "盐",
+      "清水",
+      "淀粉"
+    ],
+    "cooking_method": null,
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖",
+      "含海鲜/鱼类"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "柠檬可乐鸡翅": {
+    "aliases": [],
+    "ingredients": [
+      "鸡中翅",
+      "可乐",
+      "柠檬",
+      "葱",
+      "姜",
+      "酱油",
+      "料酒",
+      "盐",
+      "牙签",
+      "植物油"
+    ],
+    "cooking_method": "烧",
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "柠香可乐鸡翅": {
+    "aliases": [],
+    "ingredients": [
+      "鸡翅",
+      "可乐",
+      "柠檬",
+      "葱",
+      "料酒",
+      "生抽",
+      "蒜",
+      "姜"
+    ],
+    "cooking_method": "烧",
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "栗子红烧肉": {
+    "aliases": [],
+    "ingredients": [
+      "五花肉",
+      "板栗",
+      "姜片",
+      "桂皮",
+      "酱油",
+      "冰糖",
+      "八角",
+      "香叶",
+      "甘草",
+      "油",
+      "盐"
+    ],
+    "cooking_method": "红烧",
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖",
+      "可能高脂"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "桂香红烧肉": {
+    "aliases": [],
+    "ingredients": [
+      "五花肉",
+      "葱",
+      "姜",
+      "桂皮",
+      "香叶",
+      "老抽",
+      "生抽",
+      "冰糖",
+      "料酒"
+    ],
+    "cooking_method": "红烧",
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖",
+      "可能高脂"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "椒麻水煮鱼": {
+    "aliases": [],
+    "ingredients": [
+      "草鱼",
+      "葱",
+      "郫县豆瓣",
+      "姜",
+      "蒜"
+    ],
+    "cooking_method": "水煮",
+    "risk_tags": [
+      "含海鲜/鱼类"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "橙汁黑椒牛肉意面": {
+    "aliases": [],
+    "ingredients": [
+      "牛肉馅",
+      "意面",
+      "洋葱",
+      "橄榄油",
+      "盐",
+      "黑胡椒粉",
+      "白朗姆酒",
+      "浓缩橙汁",
+      "罗勒叶",
+      "白糖",
+      "白醋",
+      "美极鲜酱油"
+    ],
+    "cooking_method": "煮/炒",
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "橙香可乐鸡翅": {
+    "aliases": [],
+    "ingredients": [
+      "鸡翅",
+      "橙子",
+      "葱",
+      "生抽",
+      "可乐",
+      "盐",
+      "姜"
+    ],
+    "cooking_method": "烧",
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "橙香糖醋排骨": {
+    "aliases": [],
+    "ingredients": [
+      "猪排",
+      "橙子",
+      "葱",
+      "八角",
+      "桂皮",
+      "盐",
+      "糖",
+      "醋",
+      "姜"
+    ],
+    "cooking_method": "糖醋",
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "正宗川菜水煮鱼": {
+    "aliases": [],
+    "ingredients": [
+      "昂刺鱼",
+      "香菇",
+      "蘑菇",
+      "豆腐",
+      "葱",
+      "淀粉",
+      "红尖椒",
+      "香菜",
+      "花生油",
+      "盐",
+      "郫县豆瓣酱",
+      "姜",
+      "蒜"
+    ],
+    "cooking_method": "水煮",
+    "risk_tags": [
+      "可能高盐",
+      "含海鲜/鱼类"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "毛家红烧肉": {
+    "aliases": [],
+    "ingredients": [
+      "带皮五花肉",
+      "葱",
+      "姜",
+      "八角茴",
+      "红辣椒",
+      "花椒",
+      "香叶",
+      "料酒",
+      "蜂蜜",
+      "白糖",
+      "生抽",
+      "油",
+      "盐"
+    ],
+    "cooking_method": "红烧",
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖",
+      "可能高脂"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "毛氏红烧肉": {
+    "aliases": [],
+    "ingredients": [
+      "精选五花肉",
+      "油菜",
+      "干辣椒",
+      "姜",
+      "葱白",
+      "八角",
+      "白砂糖",
+      "黄酒",
+      "冰糖",
+      "盐"
+    ],
+    "cooking_method": "红烧",
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖",
+      "可能高脂"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "水煮活鱼": {
+    "aliases": [],
+    "ingredients": [
+      "草鱼",
+      "猪血",
+      "豆腐",
+      "豆芽",
+      "蛋白",
+      "高汤",
+      "葱",
+      "姜",
+      "蒜",
+      "盐",
+      "料酒",
+      "花椒",
+      "干红椒",
+      "淀粉",
+      "郫县豆瓣酱",
+      "白芝麻",
+      "花生"
+    ],
+    "cooking_method": "水煮",
+    "risk_tags": [
+      "可能高盐",
+      "含海鲜/鱼类"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "水煮牛肉片": {
+    "aliases": [],
+    "ingredients": [
+      "牛肉",
+      "豆芽",
+      "香菜",
+      "盐",
+      "鸡精",
+      "地瓜粉",
+      "郫县豆瓣酱",
+      "姜片",
+      "糖",
+      "清水",
+      "料酒",
+      "辣椒干",
+      "花椒",
+      "色拉油"
+    ],
+    "cooking_method": "水煮",
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "水煮羊肉片": {
+    "aliases": [],
+    "ingredients": [
+      "羊肉片",
+      "香菜",
+      "土豆",
+      "金针菇",
+      "粉丝",
+      "花椒",
+      "八角",
+      "香叶",
+      "桂皮",
+      "郫县豆瓣酱",
+      "盐",
+      "鸡精"
+    ],
+    "cooking_method": "水煮",
+    "risk_tags": [
+      "可能高盐"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "水煮肉片": {
+    "aliases": [],
+    "ingredients": [
+      "猪里脊",
+      "油菜",
+      "金针菇",
+      "绿豆芽",
+      "陴县豆瓣酱",
+      "蒜",
+      "姜",
+      "麻椒",
+      "干红辣椒",
+      "生抽",
+      "淀粉",
+      "料酒",
+      "白糖",
+      "胡椒粉"
+    ],
+    "cooking_method": "水煮",
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "水煮豆腐鱼": {
+    "aliases": [],
+    "ingredients": [
+      "白鲢鱼",
+      "豆腐",
+      "四川豆瓣酱",
+      "干辣椒",
+      "干花椒",
+      "盐",
+      "泡椒",
+      "料酒",
+      "青花椒粉",
+      "大蒜",
+      "大葱",
+      "姜"
+    ],
+    "cooking_method": "水煮",
+    "risk_tags": [
+      "可能高盐",
+      "含海鲜/鱼类"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "水煮鱼": {
+    "aliases": [],
+    "ingredients": [
+      "草鱼",
+      "黄豆芽",
+      "干辣椒",
+      "花椒",
+      "姜"
+    ],
+    "cooking_method": "水煮",
+    "risk_tags": [
+      "含海鲜/鱼类"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "水煮鱼块": {
+    "aliases": [],
+    "ingredients": [
+      "花鲢",
+      "芹菜",
+      "大葱",
+      "盐",
+      "料酒",
+      "蒜",
+      "生姜",
+      "花椒",
+      "豆瓣",
+      "油",
+      "豆豉",
+      "清水",
+      "鸡精"
+    ],
+    "cooking_method": "水煮",
+    "risk_tags": [
+      "可能高盐",
+      "含海鲜/鱼类"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "水煮鱼片": {
+    "aliases": [],
+    "ingredients": [
+      "草鱼",
+      "莴苣叶",
+      "豆芽",
+      "生姜",
+      "大蒜",
+      "干辣椒",
+      "大葱",
+      "香菜",
+      "小葱",
+      "蛋清",
+      "盐",
+      "胡椒粉",
+      "辣椒碎",
+      "花椒粉",
+      "辣椒粉",
+      "料酒"
+    ],
+    "cooking_method": "水煮",
+    "risk_tags": [
+      "可能高盐",
+      "含海鲜/鱼类",
+      "含蛋"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "水煮龙利鱼": {
+    "aliases": [],
+    "ingredients": [
+      "金针菇",
+      "龙利鱼",
+      "盐",
+      "胡椒粉",
+      "红薯淀粉",
+      "蒜末",
+      "姜末",
+      "料酒",
+      "自制火锅料"
+    ],
+    "cooking_method": "水煮",
+    "risk_tags": [
+      "可能高盐",
+      "含海鲜/鱼类"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "汽水红烧肉": {
+    "aliases": [],
+    "ingredients": [
+      "五花肉",
+      "罐装汽水",
+      "姜",
+      "蒜",
+      "干辣椒",
+      "生抽",
+      "老抽",
+      "料酒"
+    ],
+    "cooking_method": "红烧",
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖",
+      "可能高脂"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "泡椒黑木耳": {
+    "aliases": [],
+    "ingredients": [
+      "黑木耳",
+      "泡椒",
+      "红椒",
+      "糖",
+      "青椒",
+      "盐",
+      "白醋"
+    ],
+    "cooking_method": null,
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "海参红烧肉": {
+    "aliases": [],
+    "ingredients": [
+      "海参",
+      "五花肉",
+      "姜",
+      "葱",
+      "八角",
+      "香叶",
+      "桂皮",
+      "干辣椒",
+      "生抽",
+      "老抽",
+      "盐",
+      "冰糖"
+    ],
+    "cooking_method": "红烧",
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖",
+      "可能高脂"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "海鲜意大利面": {
+    "aliases": [],
+    "ingredients": [
+      "意大利面",
+      "虾仁",
+      "扇贝肉",
+      "洋葱",
+      "紫甘蓝",
+      "西兰花",
+      "苦菊",
+      "番茄酱",
+      "橄榄油",
+      "盐",
+      "糖"
+    ],
+    "cooking_method": null,
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖",
+      "含海鲜/鱼类"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "海鲜意面": {
+    "aliases": [],
+    "ingredients": [
+      "意面",
+      "虾",
+      "鱿鱼",
+      "西兰花",
+      "圣女果",
+      "洋葱",
+      "盐",
+      "罗勒",
+      "黑胡椒",
+      "橄榄油"
+    ],
+    "cooking_method": "煮/炒",
+    "risk_tags": [
+      "可能高盐",
+      "含海鲜/鱼类"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "清香版水煮肉片": {
+    "aliases": [],
+    "ingredients": [
+      "里脊肉",
+      "生菜",
+      "高汤",
+      "姜蒜",
+      "连枝爆花椒",
+      "小米辣",
+      "蒜苗",
+      "玉米淀粉",
+      "啤酒",
+      "鸡蛋",
+      "油",
+      "盐",
+      "辣椒红油",
+      "蒜蓉辣酱",
+      "味素"
+    ],
+    "cooking_method": "水煮",
+    "risk_tags": [
+      "可能高盐",
+      "含蛋"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "爽心木耳沙拉": {
+    "aliases": [],
+    "ingredients": [
+      "黑木耳",
+      "圣女果",
+      "彩椒",
+      "麻辣花生",
+      "干辣椒",
+      "姜",
+      "花椒",
+      "香草醋",
+      "生抽",
+      "白糖",
+      "橄榄油",
+      "盐"
+    ],
+    "cooking_method": null,
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "牛排意大利面": {
+    "aliases": [],
+    "ingredients": [
+      "意大利卷面",
+      "牛排",
+      "牛肉末",
+      "番茄",
+      "洋葱",
+      "亨氏番茄酱",
+      "糖"
+    ],
+    "cooking_method": null,
+    "risk_tags": [
+      "可能高糖"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "牛油果酱海鲜意面": {
+    "aliases": [],
+    "ingredients": [
+      "意大利面",
+      "牛油果",
+      "虾仁",
+      "蟹柳",
+      "柠檬汁",
+      "牛奶",
+      "培根",
+      "蒜",
+      "白胡椒粉",
+      "盐",
+      "橄榄油"
+    ],
+    "cooking_method": "煮/炒",
+    "risk_tags": [
+      "可能高盐",
+      "可能高脂",
+      "含海鲜/鱼类"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "牛肉味番茄意大利面": {
+    "aliases": [],
+    "ingredients": [
+      "意大利面",
+      "番茄",
+      "洋葱",
+      "大蒜",
+      "牛肉味浓汤宝",
+      "番茄酱",
+      "菜籽油",
+      "白糖",
+      "盐",
+      "味精",
+      "奶粉"
+    ],
+    "cooking_method": null,
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "生炒糖醋排骨": {
+    "aliases": [],
+    "ingredients": [
+      "猪肋排",
+      "葱",
+      "姜",
+      "蒜",
+      "小香葱",
+      "料酒",
+      "生抽",
+      "老抽",
+      "蚝油",
+      "糖",
+      "陈醋",
+      "盐",
+      "食用油"
+    ],
+    "cooking_method": "糖醋",
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "番茄培根意大利面": {
+    "aliases": [],
+    "ingredients": [
+      "培根",
+      "番茄罐头",
+      "罗勒",
+      "西芹",
+      "小胡萝卜",
+      "香菇",
+      "大蒜",
+      "洋葱"
+    ],
+    "cooking_method": null,
+    "risk_tags": [
+      "可能高脂"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "番茄意大利面": {
+    "aliases": [],
+    "ingredients": [
+      "意大利面",
+      "猪肉",
+      "番茄沙司",
+      "番茄",
+      "洋葱",
+      "生抽",
+      "黑胡椒粉",
+      "卡夫芝士粉",
+      "蚝油",
+      "糖",
+      "盐",
+      "料酒",
+      "蒜瓣",
+      "橄榄油"
+    ],
+    "cooking_method": null,
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "番茄水煮鱼": {
+    "aliases": [],
+    "ingredients": [
+      "草鱼",
+      "番茄酱",
+      "植物油",
+      "盐",
+      "料酒",
+      "葱",
+      "花椒粒",
+      "胡椒粉",
+      "白糖",
+      "淀粉",
+      "姜"
+    ],
+    "cooking_method": "水煮",
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖",
+      "含海鲜/鱼类"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "番茄肉末意大利面": {
+    "aliases": [],
+    "ingredients": [
+      "意大利直条面",
+      "猪肉末",
+      "番茄",
+      "番茄酱",
+      "洋葱",
+      "盐",
+      "黑胡椒粉",
+      "罗勒",
+      "糖",
+      "橄榄油",
+      "葡萄酒"
+    ],
+    "cooking_method": null,
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "番茄肉酱意大利面": {
+    "aliases": [],
+    "ingredients": [
+      "意面",
+      "番茄",
+      "洋葱",
+      "肉末",
+      "蒜",
+      "橄榄油",
+      "芝士粉",
+      "盐",
+      "番茄酱"
+    ],
+    "cooking_method": null,
+    "risk_tags": [
+      "可能高盐"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "番茄肉酱烩意大利面": {
+    "aliases": [],
+    "ingredients": [
+      "意大利面",
+      "番茄",
+      "番茄酱",
+      "肉沫",
+      "盐",
+      "料酒",
+      "色拉油",
+      "鸡精",
+      "青椒",
+      "洋葱",
+      "大蒜片",
+      "黑胡椒",
+      "清水",
+      "淀粉"
+    ],
+    "cooking_method": null,
+    "risk_tags": [
+      "可能高盐"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "番茄酱意大利面": {
+    "aliases": [],
+    "ingredients": [
+      "意大利面",
+      "洋葱",
+      "番茄",
+      "鸡蛋",
+      "橄榄油",
+      "黄油",
+      "奶酪",
+      "番茄酱",
+      "香叶"
+    ],
+    "cooking_method": null,
+    "risk_tags": [
+      "含蛋"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "番茄鲜虾意大利面": {
+    "aliases": [],
+    "ingredients": [
+      "鲜虾",
+      "大番茄",
+      "红辣椒",
+      "甜罗勒",
+      "大蒜",
+      "意大利细面",
+      "橄榄油",
+      "黑胡椒",
+      "现磨海盐"
+    ],
+    "cooking_method": null,
+    "risk_tags": [
+      "可能高盐",
+      "含海鲜/鱼类"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "私房水煮肉片": {
+    "aliases": [],
+    "ingredients": [
+      "里脊肉",
+      "青菜",
+      "莴笋",
+      "火腿",
+      "蘑菇",
+      "豆芽",
+      "虾仁",
+      "芝麻",
+      "剁椒",
+      "香菜",
+      "蒜苗",
+      "郫县豆瓣酱",
+      "豆豉",
+      "浓汤宝",
+      "辣椒丝",
+      "花椒",
+      "盐",
+      "鸡精"
+    ],
+    "cooking_method": "水煮",
+    "risk_tags": [
+      "可能高盐",
+      "含海鲜/鱼类"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "秘制红烧排骨": {
+    "aliases": [],
+    "ingredients": [
+      "净排",
+      "葱",
+      "姜",
+      "冰糖",
+      "红烧酱油",
+      "黄豆酱油",
+      "香叶",
+      "花椒",
+      "八角",
+      "陈皮",
+      "桂皮",
+      "茴香",
+      "盐",
+      "草果"
+    ],
+    "cooking_method": "红烧",
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "秘制红烧肉": {
+    "aliases": [],
+    "ingredients": [
+      "五花肉",
+      "生姜",
+      "李锦记秘制红烧汁"
+    ],
+    "cooking_method": "红烧",
+    "risk_tags": [
+      "可能高糖",
+      "可能高脂"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "笋干红烧肉": {
+    "aliases": [],
+    "ingredients": [
+      "三层肉",
+      "嫩笋干",
+      "盐",
+      "酱油",
+      "料酒",
+      "白糖",
+      "姜",
+      "葱",
+      "蒜",
+      "八角",
+      "桂皮"
+    ],
+    "cooking_method": "红烧",
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "简单的可乐鸡翅": {
+    "aliases": [],
+    "ingredients": [
+      "鸡翅",
+      "生抽",
+      "老抽",
+      "姜",
+      "胡椒",
+      "葱",
+      "可乐",
+      "料酒"
+    ],
+    "cooking_method": "烧",
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "糖醋小排骨": {
+    "aliases": [],
+    "ingredients": [
+      "排骨",
+      "八角",
+      "香叶",
+      "姜",
+      "蒜",
+      "葱花",
+      "油",
+      "盐",
+      "香醋",
+      "料酒",
+      "老抽",
+      "冰糖"
+    ],
+    "cooking_method": "糖醋",
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "糖醋排骨": {
+    "aliases": [],
+    "ingredients": [
+      "排骨",
+      "姜片",
+      "葱段",
+      "姜末",
+      "蒜末",
+      "小葱",
+      "水",
+      "糖",
+      "盐",
+      "醋",
+      "水淀粉"
+    ],
+    "cooking_method": "糖醋",
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "糖醋烤排骨": {
+    "aliases": [],
+    "ingredients": [
+      "排骨",
+      "葱姜",
+      "醋",
+      "糖",
+      "生抽",
+      "蚝油",
+      "五香粉",
+      "蜂蜜",
+      "盐",
+      "鸡精"
+    ],
+    "cooking_method": "糖醋",
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "糖醋焖排骨": {
+    "aliases": [],
+    "ingredients": [
+      "排骨",
+      "大料",
+      "姜片",
+      "葱段",
+      "料酒",
+      "酱油",
+      "清水",
+      "白糖",
+      "醋"
+    ],
+    "cooking_method": "糖醋",
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "糖醋素排骨": {
+    "aliases": [],
+    "ingredients": [
+      "山药",
+      "油豆皮",
+      "蚝油",
+      "料酒",
+      "白糖"
+    ],
+    "cooking_method": "糖醋",
+    "risk_tags": [
+      "可能高糖"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "素鱼香肉丝": {
+    "aliases": [],
+    "ingredients": [
+      "素肉丝",
+      "木耳",
+      "胡萝卜",
+      "青椒",
+      "土豆",
+      "湿淀粉",
+      "油",
+      "酱油",
+      "醋",
+      "白糖盐",
+      "豆瓣酱",
+      "姜",
+      "蒜",
+      "葱"
+    ],
+    "cooking_method": null,
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖",
+      "含海鲜/鱼类"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "红火水煮鱼": {
+    "aliases": [],
+    "ingredients": [
+      "鲤鱼",
+      "豆芽",
+      "金针磨",
+      "红干椒",
+      "麻椒",
+      "盐",
+      "味精",
+      "鸡精",
+      "淀粉",
+      "料酒",
+      "香油",
+      "老抽",
+      "郫县豆瓣酱",
+      "糖",
+      "葱",
+      "姜",
+      "蒜"
+    ],
+    "cooking_method": "水煮",
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖",
+      "含海鲜/鱼类"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "红烧全鱼": {
+    "aliases": [],
+    "ingredients": [
+      "草鱼",
+      "面粉",
+      "辣椒",
+      "香芹",
+      "大蒜",
+      "精盐",
+      "酱油",
+      "十三香",
+      "鸡精",
+      "料酒"
+    ],
+    "cooking_method": "红烧",
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖",
+      "含海鲜/鱼类"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "红烧多宝鱼": {
+    "aliases": [],
+    "ingredients": [
+      "多宝鱼",
+      "肥猪肉",
+      "葱",
+      "姜",
+      "白砂糖",
+      "酱油",
+      "美极鲜",
+      "醋",
+      "白酒",
+      "清水",
+      "花生油",
+      "盐",
+      "蒜"
+    ],
+    "cooking_method": "红烧",
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖",
+      "含海鲜/鱼类"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "红烧安康鱼": {
+    "aliases": [],
+    "ingredients": [
+      "安康鱼",
+      "葱",
+      "姜",
+      "蒜",
+      "酱油",
+      "盐",
+      "白糖",
+      "醋"
+    ],
+    "cooking_method": "红烧",
+    "risk_tags": [
+      "可能高盐",
+      "可能高糖",
+      "含海鲜/鱼类"
+    ],
+    "notes": "来自 CookBook-KG mini 图谱的菜谱选材关系，适合作为候选菜谱和风险标签参考。",
+    "source": "CookBook-KG"
+  },
+  "西兰花炒鸡胸肉": {
+    "aliases": [
+      "鸡胸肉炒西兰花",
+      "轻食鸡胸西兰花"
+    ],
+    "ingredients": [
+      "鸡胸肉",
+      "西兰花"
+    ],
+    "cooking_method": "炒",
+    "risk_tags": [],
+    "notes": "若少油少盐处理，通常更适合作为高蛋白、减脂搭配。",
+    "source": "local",
+    "ambiguity_level": "low"
+  },
+  "农家一品锅": {
+    "aliases": [
+      "农家一品煲"
+    ],
+    "ingredients": [
+      "五花肉",
+      "豆腐",
+      "白菜"
+    ],
+    "cooking_method": "炖",
+    "risk_tags": [
+      "歧义菜名",
+      "可能高脂",
+      "可能高盐"
+    ],
+    "notes": "不同门店配方差异较大，常见为混合炖锅类菜品。",
+    "source": "local",
+    "ambiguity_level": "high"
+  },
+  "家常豆腐": {
+    "aliases": [
+      "老家豆腐"
+    ],
+    "ingredients": [
+      "豆腐",
+      "猪肉",
+      "生抽",
+      "油"
+    ],
+    "cooking_method": "炒",
+    "risk_tags": [
+      "红肉",
+      "可能高盐"
+    ],
+    "notes": "常见做法会加入肉末和调味酱汁，素食和低盐场景需确认。",
+    "source": "local",
+    "ambiguity_level": "medium"
+  },
+  "麻辣小龙虾": {
+    "aliases": [
+      "麻小",
+      "十三香小龙虾"
+    ],
+    "ingredients": [
+      "小龙虾",
+      "辣椒",
+      "花椒",
+      "油",
+      "盐"
+    ],
+    "cooking_method": "炒/焖",
+    "risk_tags": [
+      "含海鲜/鱼类",
+      "可能高油",
+      "可能高盐",
+      "高嘌呤"
+    ],
+    "notes": "常见做法重油重盐，且水产类对海鲜过敏和高尿酸人群不友好。",
+    "source": "local",
+    "ambiguity_level": "low"
+  },
+  "胡辣汤": {
+    "aliases": [],
+    "ingredients": [
+      "胡椒",
+      "木耳",
+      "花生",
+      "豆腐皮",
+      "盐"
+    ],
+    "cooking_method": "煮",
+    "risk_tags": [
+      "可能高盐"
+    ],
+    "notes": "早餐汤类，常带辛辣调味和较高钠含量。",
+    "source": "local",
+    "ambiguity_level": "low"
+  },
+  "豆腐脑": {
+    "aliases": [
+      "豆腐脑（甜/咸）",
+      "豆花"
+    ],
+    "ingredients": [
+      "豆腐",
+      "糖",
+      "盐"
+    ],
+    "cooking_method": "煮",
+    "risk_tags": [
+      "可能高糖",
+      "可能高盐"
+    ],
+    "notes": "甜咸做法差异较大，控糖或低盐场景需确认口味。",
+    "source": "local",
+    "ambiguity_level": "medium"
+  },
+  "荠菜鲜肉小馄饨": {
+    "aliases": [
+      "荠菜鲜肉小混沌",
+      "鲜肉小馄饨"
+    ],
+    "ingredients": [
+      "猪肉",
+      "荠菜",
+      "面粉",
+      "盐"
+    ],
+    "cooking_method": "煮",
+    "risk_tags": [
+      "红肉",
+      "可能高盐",
+      "碳水来源"
+    ],
+    "notes": "小馄饨通常含面皮和猪肉馅，需关注钠和主食量。",
+    "source": "local",
+    "ambiguity_level": "low"
+  },
+  "鸡蛋红肠粉": {
+    "aliases": [
+      "鸡蛋红肠肠粉"
+    ],
+    "ingredients": [
+      "鸡蛋",
+      "红肠",
+      "米浆",
+      "酱油"
+    ],
+    "cooking_method": "蒸",
+    "risk_tags": [
+      "含蛋",
+      "可能高盐",
+      "碳水来源"
+    ],
+    "notes": "肠粉类菜品含碳水与调味酱汁，过敏和低盐人群需注意。",
+    "source": "local",
+    "ambiguity_level": "low"
+  },
+  "香辣鸡腿堡": {
+    "aliases": [],
+    "ingredients": [
+      "鸡腿肉",
+      "面包",
+      "酱料"
+    ],
+    "cooking_method": "炸/夹",
+    "risk_tags": [
+      "可能高脂",
+      "可能高盐"
+    ],
+    "notes": "快餐汉堡通常热量和钠较高。",
+    "source": "local",
+    "ambiguity_level": "low"
+  },
+  "劲脆超霸堡": {
+    "aliases": [],
+    "ingredients": [
+      "鸡肉",
+      "面包",
+      "酱料"
+    ],
+    "cooking_method": "炸/夹",
+    "risk_tags": [
+      "可能高脂",
+      "可能高盐"
+    ],
+    "notes": "快餐汉堡通常热量和钠较高。",
+    "source": "local",
+    "ambiguity_level": "low"
+  }
+}

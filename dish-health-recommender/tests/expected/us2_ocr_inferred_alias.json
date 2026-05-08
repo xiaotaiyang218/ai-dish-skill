@@ -1,0 +1,11 @@
+{
+  "expected_recommendation": "avoid",
+  "expected_risk_tags": [
+    "含蛋"
+  ],
+  "expected_need_confirm": [],
+  "assert_explanation_contains": [
+    "OCR 文本推断"
+  ],
+  "expected_normalized_dish": "番茄炒蛋"
+}

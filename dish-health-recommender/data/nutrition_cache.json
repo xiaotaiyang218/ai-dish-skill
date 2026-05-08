@@ -1,0 +1,25 @@
+{
+  "chocolate": {
+    "source": "USDA FoodData Central",
+    "matched_food": "CHOCOLATE",
+    "fdc_id": 2626435,
+    "nutrition_tags": [
+      "能量较高"
+    ],
+    "risk_tags": [
+      "可能高糖",
+      "可能高脂"
+    ],
+    "cautions": [
+      "USDA 数据显示糖含量可能较高，控糖人群应控制。",
+      "USDA 数据显示脂肪含量可能较高，减脂或低脂人群应控制。"
+    ],
+    "nutrients_per_100g": {
+      "energy_kcal": 600.0,
+      "protein_g": 6.67,
+      "fat_g": 40.0,
+      "sugars_g": 53.3,
+      "sodium_mg": 67.0
+    }
+  }
+}

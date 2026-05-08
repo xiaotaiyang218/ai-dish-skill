@@ -1,0 +1,12 @@
+{
+  "expected_recommendation": "recommend",
+  "expected_risk_tags": [
+    "含蛋"
+  ],
+  "expected_need_confirm": [],
+  "assert_explanation_contains": [
+    "家常菜"
+  ],
+  "expected_normalized_dish": "番茄炒蛋",
+  "expect_human_field": false
+}

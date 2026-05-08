@@ -1,0 +1,13 @@
+{
+  "expected_recommendation": "need_confirm",
+  "expected_risk_tags": [
+    "歧义菜名"
+  ],
+  "expected_need_confirm": [
+    "具体配方"
+  ],
+  "assert_explanation_contains": [
+    "配方差异"
+  ],
+  "offline_only": true
+}

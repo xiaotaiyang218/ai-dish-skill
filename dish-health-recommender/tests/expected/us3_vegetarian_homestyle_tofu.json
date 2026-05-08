@@ -1,0 +1,11 @@
+{
+  "expected_recommendation": "avoid",
+  "expected_risk_tags": [
+    "红肉"
+  ],
+  "expected_need_confirm": [],
+  "assert_explanation_contains": [
+    "动物性食材"
+  ],
+  "expected_normalized_dish": "家常豆腐"
+}

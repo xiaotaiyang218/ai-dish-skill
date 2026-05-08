@@ -543,7 +543,7 @@ def load_feedback_store() -> dict[str, Any]:
 def build_provider_context(request: dict[str, Any]) -> dict[str, Any]:
     image_path = request.get("image_path") or request.get("image_reference")
     if image_path and not Path(image_path).is_absolute():
-        image_path = str(SKILL_DIR.parents[2] / image_path)
+        image_path = str(SKILL_DIR.parent / image_path)
     image_path = image_path if image_path and Path(image_path).exists() else ""
     summary = validate_all_cases()
     image_case = get_image_case_by_path(image_path) if image_path else None
@@ -567,17 +567,91 @@ def corrected_raw_name(raw_name: str) -> str:
     return (store.get("corrections") or {}).get(raw_name, raw_name)
 
 
+def image_candidate_terms(request: dict[str, Any], provider_context: dict[str, Any]) -> list[str]:
+    stopwords = {"Administration", "行政", "特色档口菜单", "主荤", "半荤", "素菜", "例汤", "主食", "粗粮", "小吃"}
+    terms: list[str] = []
+    if request.get("ocr_text"):
+        terms.extend(part.strip() for part in re.split(r"[\s,，、/]+", request["ocr_text"]) if part.strip())
+    ocr_result = provider_context.get("ocr_result")
+    if ocr_result:
+        terms.extend(line.strip() for line in (ocr_result.lines or []) if line.strip())
+    vision_result = provider_context.get("vision_result")
+    if vision_result:
+        terms.extend(item.strip() for item in (vision_result.candidates or []) if item.strip())
+    filtered: list[str] = []
+    for term in terms:
+        if term in stopwords:
+            continue
+        if len(term) < 2:
+            continue
+        if term not in filtered:
+            filtered.append(term)
+    return filtered
+
+
+def choose_image_seed_candidate(request: dict[str, Any], provider_context: dict[str, Any]) -> tuple[dict[str, Any] | None, list[dict[str, Any]]]:
+    ranked: dict[str, dict[str, Any]] = {}
+    for term in image_candidate_terms(request, provider_context):
+        normalized, confidence, candidates = normalize_dish(term)
+        if not normalized:
+            continue
+        item = {
+            "raw_name": term,
+            "canonical_name": normalized,
+            "confidence": confidence,
+            "source": "image_provider",
+            "candidates": candidates,
+        }
+        previous = ranked.get(normalized)
+        if previous is None or confidence > previous["confidence"]:
+            ranked[normalized] = item
+    ordered = sorted(ranked.values(), key=lambda item: (-item["confidence"], item["canonical_name"]))
+    if not ordered:
+        return None, []
+    top = ordered[0]
+    second = ordered[1] if len(ordered) > 1 else None
+    if top["confidence"] >= 0.88 and (second is None or top["confidence"] - second["confidence"] >= 0.08):
+        return top, ordered[:5]
+    if top["confidence"] >= 0.95 and second is None:
+        return top, ordered[:5]
+    return None, ordered[:5]
+
+
 def apply_feedback_bias(result: dict[str, Any], normalized_dish: str | None) -> dict[str, Any]:
     if not normalized_dish:
         return result
     store = load_feedback_store()
     bias = (store.get("bias") or {}).get(normalized_dish, {})
-    if bias:
-        result["feedback_bias"] = {normalized_dish: bias}
-        if bias.get("favorites", 0) > 0:
-            result["confidence"] = min(1.0, round(float(result.get("confidence", 0)) + 0.05 * bias.get("favorites", 0), 2))
-        if bias.get("rejects", 0) > 0 and result.get("recommendation") == "recommend":
+    if not bias:
+        return result
+    result["feedback_bias"] = {normalized_dish: bias}
+    accepts = int(bias.get("accepts", 0) or 0)
+    rejects = int(bias.get("rejects", 0) or 0)
+    favorites = int(bias.get("favorites", 0) or 0)
+    confidence_delta = 0.03 * accepts + 0.05 * favorites - 0.04 * rejects
+    result["confidence"] = round(min(1.0, max(0.0, float(result.get("confidence", 0)) + confidence_delta)), 2)
+    explanation = result.get("explanation", "")
+    notes: list[str] = []
+    if accepts > 0:
+        notes.append(f"历史接受 {accepts} 次")
+    if favorites > 0:
+        notes.append(f"历史收藏 {favorites} 次")
+    if rejects > 0:
+        notes.append(f"历史拒绝 {rejects} 次")
+    if rejects > 0:
+        if result.get("recommendation") == "recommend":
             result["recommendation"] = "caution"
+        elif result.get("recommendation") == "caution" and rejects >= accepts + favorites:
+            result["recommendation"] = "avoid"
+        if not result.get("need_confirm"):
+            result["need_confirm"] = []
+        if "近期反馈偏好" not in result["need_confirm"]:
+            result["need_confirm"].append("近期反馈偏好")
+    if notes:
+        addition = f"；用户反馈信号：{'，'.join(notes)}。"
+        if explanation and not explanation.endswith('。'):
+            explanation += '。'
+        result["explanation"] = (explanation or "结论：需要确认。依据：") + addition if explanation else f"结论：需要确认。依据：用户反馈信号：{'，'.join(notes)}。"
     return result
 
 
@@ -600,8 +674,13 @@ def recommend(payload: dict[str, Any]) -> dict[str, Any]:
     profile = request["user_profile"]
     terms = profile_terms(profile)
     degraded_input: list[str] = []
+    image_seed, image_seed_candidates = choose_image_seed_candidate(request, provider_context)
 
-    if request["image_reference"] and not raw_name:
+    if not raw_name and image_seed:
+        raw_name = image_seed["raw_name"]
+        degraded_input.append("image_inferred_dish_name")
+
+    if request["image_reference"] and not raw_name and not image_seed:
         degraded_input.append("image_reference_without_ocr")
         result = build_result(
             normalized_dish=None,
@@ -610,10 +689,11 @@ def recommend(payload: dict[str, Any]) -> dict[str, Any]:
             ingredients=request["ingredients"],
             cooking_method=request["cooking_method"],
             nutrition_tags=[],
-            risk_tags=["缺少文本识别结果"],
+            risk_tags=["缺少可用图片识别结果"],
             nutrition_evidence={},
-            explanation="结论：需要确认。依据：当前输入只有图片引用，运行环境未直接接入视觉/OCR识别，请补充菜名、OCR 文本或主要食材。",
+            explanation="结论：需要确认。依据：当前输入只有图片引用，但 OCR 与视觉候选都不足以稳定识别菜品，请补充菜名、OCR 文本或主要食材。",
             need_confirm=["菜名", "OCR文本", "主要食材"],
+            candidates=image_seed_candidates,
             degraded_input=degraded_input,
             output_mode=request["output_mode"],
         )
@@ -625,6 +705,27 @@ def recommend(payload: dict[str, Any]) -> dict[str, Any]:
         return result
 
     normalized, confidence, candidates = normalize_dish(raw_name)
+    if request.get("image_reference") and not request.get("dish_name") and normalized and "image_inferred_dish_name" not in degraded_input:
+        degraded_input.append("image_inferred_dish_name")
+    if image_seed and normalized == image_seed["canonical_name"]:
+        confidence = max(confidence, image_seed["confidence"])
+    if image_seed_candidates:
+        merged_candidates: list[dict[str, Any]] = []
+        seen_names: set[str] = set()
+        for item in candidates + [
+            {
+                "canonical_name": candidate["canonical_name"],
+                "confidence": candidate["confidence"],
+                "source": candidate.get("source", "image_provider"),
+            }
+            for candidate in image_seed_candidates
+        ]:
+            canonical_name = item.get("canonical_name")
+            if not canonical_name or canonical_name in seen_names:
+                continue
+            seen_names.add(canonical_name)
+            merged_candidates.append(item)
+        candidates = merged_candidates
     if not normalized and not request["ingredients"]:
         result = build_result(
             normalized_dish=None,
@@ -742,9 +843,14 @@ def recommend(payload: dict[str, Any]) -> dict[str, Any]:
         reasons.append("该菜名存在歧义或餐厅配方差异，严格限制场景下需确认实际食材。")
 
     if request["image_reference"] and not request["ocr_text"]:
-        degraded_input.append("image_reference_without_ocr")
-        need_confirm.append("OCR文本")
-        reasons.append("已收到图片引用，但当前流程未直接执行视觉/OCR识别，建议补充 OCR 文本。")
+        if image_seed:
+            reasons.append("当前结论已参考图片 OCR/视觉候选参与主链路识别，低置信度场景仍建议人工确认。")
+            if confidence < 0.95:
+                need_confirm.append("图片识别候选")
+        else:
+            degraded_input.append("image_reference_without_ocr")
+            need_confirm.append("OCR文本")
+            reasons.append("已收到图片引用，但当前流程未获得足够稳定的 OCR/视觉候选，建议补充 OCR 文本。")
 
     if request["ocr_text"] and not request["dish_name"]:
         degraded_input.append("ocr_text_inferred")

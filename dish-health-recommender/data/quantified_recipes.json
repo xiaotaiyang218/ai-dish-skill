@@ -92,6 +92,95 @@
         "标准早餐配方"
       ],
       "confidence_note": "估算值，酱汁会影响钠含量"
+    },
+    {
+      "dish_name": "家常豆腐",
+      "aliases": [
+        "老家豆腐"
+      ],
+      "portion_basis": "1份家常菜",
+      "nutrition_basis": "标准家常豆腐配方估算",
+      "energy_kcal": 310,
+      "protein_g": 19,
+      "fat_g": 19,
+      "carbohydrate_g": 14,
+      "sugars_g": 4,
+      "sodium_mg": 930,
+      "source_refs": [
+        "中国食物成分表",
+        "标准家常豆腐配方"
+      ],
+      "confidence_note": "估算值，酱汁和肉末比例会影响钠与脂肪"
+    },
+    {
+      "dish_name": "胡辣汤",
+      "aliases": [],
+      "portion_basis": "1碗早餐",
+      "nutrition_basis": "标准胡辣汤配方估算",
+      "energy_kcal": 180,
+      "protein_g": 7,
+      "fat_g": 6,
+      "carbohydrate_g": 24,
+      "sugars_g": 3,
+      "sodium_mg": 980,
+      "source_refs": [
+        "中国食物成分表",
+        "标准早餐汤品配方"
+      ],
+      "confidence_note": "估算值，胡椒和勾芡比例会影响口感与钠含量"
+    },
+    {
+      "dish_name": "荠菜鲜肉小馄饨",
+      "aliases": [
+        "鲜肉小馄饨"
+      ],
+      "portion_basis": "1碗小馄饨",
+      "nutrition_basis": "标准小馄饨配方估算",
+      "energy_kcal": 260,
+      "protein_g": 12,
+      "fat_g": 9,
+      "carbohydrate_g": 31,
+      "sugars_g": 2,
+      "sodium_mg": 910,
+      "source_refs": [
+        "中国食物成分表",
+        "标准小馄饨配方"
+      ],
+      "confidence_note": "估算值，汤底和蘸料会影响钠含量"
+    },
+    {
+      "dish_name": "香辣鸡腿堡",
+      "aliases": [],
+      "portion_basis": "1个汉堡",
+      "nutrition_basis": "标准快餐汉堡配方估算",
+      "energy_kcal": 470,
+      "protein_g": 21,
+      "fat_g": 22,
+      "carbohydrate_g": 45,
+      "sugars_g": 7,
+      "sodium_mg": 1120,
+      "source_refs": [
+        "中国食物成分表",
+        "标准快餐配方"
+      ],
+      "confidence_note": "估算值，炸制和酱料会明显影响热量与钠含量"
+    },
+    {
+      "dish_name": "劲脆超霸堡",
+      "aliases": [],
+      "portion_basis": "1个汉堡",
+      "nutrition_basis": "标准快餐汉堡配方估算",
+      "energy_kcal": 560,
+      "protein_g": 24,
+      "fat_g": 30,
+      "carbohydrate_g": 48,
+      "sugars_g": 8,
+      "sodium_mg": 1280,
+      "source_refs": [
+        "中国食物成分表",
+        "标准快餐配方"
+      ],
+      "confidence_note": "估算值，双层肉排和酱料会显著提高热量与脂肪"
     }
   ]
 }

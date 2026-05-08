@@ -55,7 +55,7 @@ It resolves data in this order:
 Example:
 
 ```bash
-python3 .agents/skills/dish-health-recommender/scripts/recommend.py <<'JSON'
+python3 dish-health-recommender/scripts/recommend.py <<'JSON'
 {
   "dish_name": "番茄炒蛋",
   "user_profile": {

@@ -6,7 +6,7 @@ from pathlib import Path
 from typing import Any
 
 SKILL_DIR = Path(__file__).resolve().parents[1]
-REPO_ROOT = SKILL_DIR.parents[2]
+REPO_ROOT = SKILL_DIR.parent
 IMAGE_TEST_CASES_PATH = SKILL_DIR / 'data' / 'image_test_cases.json'
 REQUIRED_FIELDS = {
     'image_id', 'image_path', 'image_type', 'source_hint', 'expected_task', 'expected_focus',

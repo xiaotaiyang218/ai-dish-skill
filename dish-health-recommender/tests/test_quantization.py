@@ -26,7 +26,7 @@ class QuantizationTests(unittest.TestCase):
 
     def test_quantified_recipes_count(self):
         data = json.loads(DATA_PATH.read_text(encoding='utf-8'))
-        self.assertGreaterEqual(len(data.get('recipes', [])), 5)
+        self.assertGreaterEqual(len(data.get('recipes', [])), 10)
 
     def test_quant_fields_exist_for_standard_recipe(self):
         result = RECOMMEND.recommend({'dish_name': '番茄炒蛋'})
@@ -35,6 +35,13 @@ class QuantizationTests(unittest.TestCase):
             self.assertIn(key, result['nutrition_quantitative'])
         self.assertIn('nutrition_basis', result)
         self.assertIn('portion_basis', result)
+
+    def test_added_quantified_dishes(self):
+        for dish_name in ['家常豆腐', '胡辣汤', '荠菜鲜肉小馄饨', '香辣鸡腿堡', '劲脆超霸堡']:
+            result = RECOMMEND.recommend({'dish_name': dish_name})
+            self.assertIn('nutrition_quantitative', result)
+            self.assertIn('nutrition_basis', result)
+            self.assertIn('portion_basis', result)
 
     def test_missing_standard_recipe_has_no_quant(self):
         result = RECOMMEND.recommend({'dish_name': '老板推荐'})

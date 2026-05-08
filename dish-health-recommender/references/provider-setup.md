@@ -31,7 +31,7 @@
 配置完成后运行：
 
 ```bash
-python3 .agents/skills/dish-health-recommender/scripts/validate_apis.py
+python3 dish-health-recommender/scripts/validate_apis.py
 ```
 
 期望：

@@ -35,11 +35,21 @@ class FeedbackTests(unittest.TestCase):
         FEEDBACK.record_feedback({'input_payload': {'dish_name': '番茄炒蛋'}, 'normalized_dish': '番茄炒蛋', 'feedback_type': 'favorite'})
         boosted = RECOMMEND.recommend({'dish_name': '番茄炒蛋'})
         self.assertGreaterEqual(boosted['confidence'], base['confidence'])
+        self.assertIn('历史收藏 1 次', boosted['explanation'])
+
+    def test_accept_boosts_confidence_and_explanation(self):
+        base = RECOMMEND.recommend({'dish_name': '西兰花炒鸡胸肉'})
+        FEEDBACK.record_feedback({'input_payload': {'dish_name': '西兰花炒鸡胸肉'}, 'normalized_dish': '西兰花炒鸡胸肉', 'feedback_type': 'accept'})
+        boosted = RECOMMEND.recommend({'dish_name': '西兰花炒鸡胸肉'})
+        self.assertGreaterEqual(boosted['confidence'], base['confidence'])
+        self.assertIn('历史接受 1 次', boosted['explanation'])
 
     def test_reject_downgrades_recommendation(self):
         FEEDBACK.record_feedback({'input_payload': {'dish_name': '西兰花炒鸡胸肉'}, 'normalized_dish': '西兰花炒鸡胸肉', 'feedback_type': 'reject'})
         result = RECOMMEND.recommend({'dish_name': '西兰花炒鸡胸肉', 'user_profile': {'goals': ['高蛋白']}})
         self.assertIn(result['recommendation'], {'caution', 'avoid'})
+        self.assertIn('历史拒绝 1 次', result['explanation'])
+        self.assertIn('近期反馈偏好', result['need_confirm'])
 
     def test_correct_dish_name_affects_next_lookup(self):
         FEEDBACK.record_feedback({'input_payload': {'dish_name': '番茄鸡蛋'}, 'normalized_dish': '番茄炒蛋', 'feedback_type': 'correct_dish_name', 'corrected_dish_name': '番茄炒蛋'})

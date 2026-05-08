@@ -2,8 +2,8 @@ import sys
 import unittest
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[5]
-SKILL_DIR = ROOT / '.agents' / 'skills' / 'dish-health-recommender'
+ROOT = Path(__file__).resolve().parents[3]
+SKILL_DIR = ROOT / 'dish-health-recommender'
 sys.path.insert(0, str(SKILL_DIR))
 
 from providers import nutrition_provider as MODULE  # noqa: E402

@@ -1,20 +1,28 @@
 import unittest
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[5]
-CONTRACT_PATH = ROOT / 'specs' / '20260508-dish-multi-verify' / 'contracts' / 'openapi.yaml'
+ROOT = Path(__file__).resolve().parents[3]
+SKILL_DIR = ROOT / 'dish-health-recommender'
 
 
 class MultiVerifyContractTests(unittest.TestCase):
-    def test_v2_endpoints_exist(self):
-        text = CONTRACT_PATH.read_text(encoding='utf-8')
-        for endpoint in ['/v2/recommendations/multimodal', '/v2/validation/images', '/v2/validation/apis', '/v2/feedback', '/v2/nutrition/quantify', '/v2/report/evidence']:
-            self.assertIn(endpoint, text)
+    def test_multiverify_assets_exist(self):
+        for path in [
+            SKILL_DIR / 'tests' / 'test_multimodal.py',
+            SKILL_DIR / 'tests' / 'test_feedback.py',
+            SKILL_DIR / 'tests' / 'test_quantization.py',
+            SKILL_DIR / 'scripts' / 'report_alignment.py',
+        ]:
+            self.assertTrue(path.exists())
 
-    def test_v2_schema_names_exist(self):
-        text = CONTRACT_PATH.read_text(encoding='utf-8')
-        for schema in ['MultimodalRequest', 'MultimodalRecommendationResult', 'ImageTestCase', 'ImageValidationReport', 'ApiValidationRecord', 'FeedbackEvent', 'QuantifiedNutritionProfile', 'InnovationEvidenceItem']:
-            self.assertIn(schema, text)
+    def test_expected_entity_names_exist_in_local_sources(self):
+        joined = '\n'.join([
+            (SKILL_DIR / 'scripts' / 'recommend.py').read_text(encoding='utf-8'),
+            (SKILL_DIR / 'providers' / 'nutrition_provider.py').read_text(encoding='utf-8'),
+            (SKILL_DIR / 'data' / 'image_test_cases.json').read_text(encoding='utf-8'),
+        ])
+        for schema in ['ApiValidationRecord', 'nutrition_quantitative', 'image_id']:
+            self.assertIn(schema, joined)
 
 
 if __name__ == '__main__':

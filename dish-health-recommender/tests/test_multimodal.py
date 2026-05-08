@@ -5,7 +5,7 @@ from pathlib import Path
 
 TESTS_DIR = Path(__file__).resolve().parent
 SKILL_DIR = TESTS_DIR.parent
-REPO_ROOT = SKILL_DIR.parents[2]
+REPO_ROOT = SKILL_DIR.parent
 SCRIPT_PATH = SKILL_DIR / 'scripts' / 'recommend.py'
 IMAGE_CASES_PATH = SKILL_DIR / 'data' / 'image_test_cases.json'
 
@@ -57,10 +57,17 @@ class MultimodalTests(unittest.TestCase):
             for dish in expected:
                 self.assertIn(dish, raw)
 
+    def test_image_only_path_uses_provider_candidates_when_available(self):
+        result = run_recommend({'image_reference': 'pic/20260508-123047.jpg'})
+        self.assertEqual('荠菜鲜肉小馄饨', result['normalized_dish'])
+        self.assertNotEqual('need_confirm', result['recommendation'])
+        self.assertIn('image_inferred_dish_name', result.get('degraded_input', []))
+        self.assertIn('raw_image_result', result)
+
     def test_need_confirm_on_noisy_unknown_image(self):
         result = run_recommend({'image_reference': 'raw/0e329814-19c4-452d-9ecf-f3828b1a3417.jpg'})
         self.assertEqual('need_confirm', result['recommendation'])
-        self.assertIn('缺少文本识别结果', result['risk_tags'])
+        self.assertIn('缺少可用图片识别结果', result['risk_tags'])
 
 
 def test_menu_image_records_ocr_status(self):

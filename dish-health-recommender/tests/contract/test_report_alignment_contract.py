@@ -4,8 +4,8 @@ import sys
 import unittest
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[5]
-SCRIPT_PATH = ROOT / '.agents' / 'skills' / 'dish-health-recommender' / 'scripts' / 'report_alignment.py'
+ROOT = Path(__file__).resolve().parents[3]
+SCRIPT_PATH = ROOT / 'dish-health-recommender' / 'scripts' / 'report_alignment.py'
 
 
 class ReportAlignmentContractTests(unittest.TestCase):

@@ -4,9 +4,9 @@
 
 本项目面向日常饮食管理、健康菜谱筛选和家庭点餐决策场景，设计一套基于人工智能的多模态菜谱理解与个性化健康推荐系统。系统支持菜名、菜单文字、OCR 文本、菜谱图片和菜肴照片等多种入口，通过菜名归一化、候选菜谱召回、营养知识映射和健康约束比对，判断菜品是否适合用户食用，并输出可解释理由。与传统 OCR 工具和普通菜谱平台相比，本项目不只完成“看见文字”，而是进一步解决“理解菜品、匹配菜谱、判断风险、解释原因”的连续任务。
 
-当前能力分为三层：第一，**已实现能力**，包括本地菜谱库与营养知识库联动、规则化健康比对、中文可解释输出、命中标准配方时的营养量化、`accept / reject / favorite / correct_dish_name` 反馈闭环，以及基于 `user_id`、`context_tags` 和时间衰减 replay 的长期反馈 profile；第二，**已建链路但保留降级的能力**，包括图片输入、OCR / vision provider、`raw_image_result` 中间结果保留、图片样本底表和多模态测试；第三，**待继续增强的能力**，包括更强的真实视觉融合、更广的标准配方量化覆盖和基于更大规模真实数据的反馈学习。
+当前系统已实现本地菜谱库与营养知识库联动、规则化健康比对、中文可解释输出、命中标准配方时的营养量化，以及 `accept / reject / favorite / correct_dish_name` 反馈闭环。图片输入、OCR / vision provider 和在线菜谱候选已接入主流程，但这些能力会根据凭证、网络和候选质量自动降级；当证据不足时，系统会返回 `need_confirm`，而不是给出没有依据的确定判断。
 
-系统优先使用国内中式菜谱与营养数据源。当前运行时主依赖为本地结构化菜谱、营养知识库和标准量化配方；在线菜谱候选按 `CookBook-KG -> xiachufang -> douguo -> xiangha -> Spoonacular` 顺序作为可降级参考链路，其中 `xiachufang`、`douguo`、`xiangha` 仅使用搜索页结果做运行时 reference-only 候选，不视为稳定 API 或运行时必需依赖，`Spoonacular` 仍是带配额限制的可选 recipe search 参考源；USDA FoodData Central 用于缺失食材时的营养补充 fallback；百度菜品识别等能力作为可选增强；老乡鸡标准化菜谱、中国营养学会资料库、FoodWake、NutriData 等保留为后续扩展来源。项目围绕“数据、算力、算法”三要素构建方案：以结构化菜谱、食材营养表和用户健康约束作为数据基础，以 OCR、视觉识别和文本解析能力作为算力支撑，以多输入归一化、相似度匹配、规则推理和轻量反馈偏置作为算法核心。
+系统采用本地优先、在线增强的技术路线。运行时主依赖为本地结构化菜谱、营养知识库和标准量化配方；在线候选只作为可降级参考，按 `CookBook-KG -> xiachufang -> douguo -> xiangha -> Spoonacular` 顺序补充本地缺失内容；百度菜品识别等能力作为可选图片增强，不作为系统必需条件。项目围绕“数据、算力、算法”三要素构建方案：以结构化菜谱、食材营养表和用户健康约束作为数据基础，以 OCR、视觉识别和文本解析能力作为算力支撑，以多输入归一化、相似度匹配、规则推理和轻量反馈偏置作为算法核心。
 
 本系统的创新点主要体现在三方面：一是多输入不完整条件下的菜名归一、歧义消解、OCR / 图片辅助识别与显式降级机制；二是标准菜谱库与营养知识库联动的健康比对引擎；三是反馈驱动的可解释推荐最小闭环。项目具有较强的生活实用性、人工智能综合应用价值和后续扩展空间。
 
@@ -161,7 +161,7 @@ flowchart TD
 
 这些示例体现系统的可解释性：推荐结论不是黑盒输出，而是由菜谱匹配结果、营养知识和用户规则共同推导。
 
-### 4.4 预期成果
+### 4.4 当前成果与待完善方向
 
 当前系统已形成以下成果：
 
@@ -173,7 +173,7 @@ flowchart TD
 6. 已对一批标准配方菜品输出标准份量营养量化结果，并保留未命中标准配方时的边界说明。
 7. 已建立扩展源离线导入入口、manifest 审计字段与本地快照优先运行边界。
 
-下一步仍需继续补齐的方向包括：扩大量化菜谱覆盖、继续采集更大规模真实测试指标、提升复杂图片场景下的识别稳定性，以及在更长周期、更大样本的真实数据上验证反馈学习效果。
+这些成果说明系统已经形成从输入识别、菜谱理解、健康比对到反馈修正的完整闭环。下一步仍需继续补齐的方向包括：扩大量化菜谱覆盖、采集更大规模真实测试指标、提升复杂图片场景下的识别稳定性，并在更长周期、更大样本的真实数据上验证反馈学习效果。
 
 ## 五、结论与展望
 
@@ -185,7 +185,7 @@ flowchart TD
 
 ### 5.2 展望
 
-后续可从四方面继续完善。第一，继续扩充中式菜谱库、别名库和标准配方量化覆盖，提升地方菜、家常菜和高频快餐的稳定命中率。第二，完善经验证的国内 OCR / vision provider 接入，增强复杂菜单图、噪声图和真实拍摄场景下的识别能力。第三，完成真实测试集采集与统计，量化 OCR 准确率、Top-1/Top-3 识别率、健康比对正确率和响应时间。第四，在积累更长期的真实用户反馈后，再评估是否引入排序模型或强化学习方法，使推荐结果进一步个性化。
+后续可从四方面继续完善。第一，继续扩充中式菜谱库、别名库和标准配方量化覆盖，提升地方菜、家常菜和高频快餐的稳定命中率。第二，完善经验证的国内 OCR / vision provider 接入，增强复杂菜单图、噪声图和真实拍摄场景下的识别能力。第三，采集更大规模的真实测试集，量化 OCR 准确率、Top-1/Top-3 识别率、健康比对正确率和响应时间。第四，在积累更长期的真实用户反馈后，再评估是否引入排序模型或强化学习方法，使推荐结果进一步个性化。老乡鸡标准化菜谱、中国营养学会资料库、FoodWake 和 NutriData 等来源可作为后续扩展方向，但在完成授权、稳定性和接入方式核验前，不作为运行时主依赖。
 
 ## 六、参考文献
 
@@ -200,50 +200,3 @@ flowchart TD
 [5] USDA Agricultural Research Service. FoodData Central[OL]. https://fdc.nal.usda.gov/.
 
 [6] Open Food Facts. Open Food Facts Database[OL]. https://world.openfoodfacts.org/.
-
-## 附录A 盲评合规检查清单
-
-| 检查项 | 状态 |
-| --- | --- |
-| 报告正文不出现学生姓名 | 待提交前确认 |
-| 报告正文不出现学校名称 | 待提交前确认 |
-| 图片、截图、视频不出现个人信息 | 待提交前确认 |
-| 文件名符合“项目标题-组别”要求 | 待提交前确认 |
-| 实验数据均来自真实测试或标注待补充 | 待提交前确认 |
-| 第三方数据源授权和使用方式已核验 | 待提交前确认 |
-
-## 附录B 后续 Skill 设计依据
-
-后续可将本报告生成流程设计为“AI 创想家参赛报告优化器” skill。该 skill 的输入包括比赛规则、报告模板、原始作品、获奖参考材料和数据源清单；处理流程包括抽取硬性要求、重组报告结构、补齐评分维度、生成创新点、标注待验证内容和输出 Markdown；输出包括优化版报告、待补充实验数据表、数据源核验清单、盲评合规检查和 PPT/展板提炼要点。
-
-skill 必须遵守边界：不能编造实验数据，不能声称未实现功能已经完成，不能保证第三方 API 当前可用或授权可缓存，不能替代真实系统测试。凡是缺少证据的能力、数据和指标，都应标注为“待验证”“建议实测填写”或“可扩展方向”。
-
-## 附录C 当前实现状态与后续修订输入（2026-05-08）
-
-为避免报告表述与当前实现脱节，现将关键能力分为三类：
-
-- **已实现（implemented）**：本地菜谱库 + 营养知识库联动的健康比对引擎；结构化 JSON 输出；中文可解释输出；`accept / reject / favorite / correct_dish_name` 反馈闭环；基于 `user_id`、`context_tags` 与时间衰减 replay 的长期反馈 profile；命中标准配方时的营养量化；自动化回归与报告对齐验证。
-- **可降级（degradable）**：图片输入、多模态主链路、OCR / vision provider、在线 fallback 当前均已接入，但在 provider 未配置、识别质量不足、候选冲突或未知图场景下会显式降级到 `need_confirm`。
-- **待验证（pending validation）**：真实比赛环境下的大规模 OCR / Top-1 识别率统计、更广覆盖的标准配方量化、基于长期真实数据的反馈学习增强。
-
-后续修订报告时，凡未完成大规模真实实验量化、未完成更广泛视觉泛化验证的数据项，均应继续使用“待验证”“建议实测填写”或“可扩展方向”措辞。
-
-## 附录D 创新点增强实现摘要（2026-05-08）
-
-本轮对创新点相关实现进一步完成了以下补强：
-
-1. **多模态图片验证链路**：基于 `dish-health-recommender/data/image_test_cases.json` 建立图片验证底表，并在 `dish-health-recommender/tests/test_multimodal.py` 中验证菜单图、菜肴图、图片候选与显式降级场景；图片 OCR / vision 候选已接入 `dish-health-recommender/scripts/recommend.py` 主链路。
-2. **联网能力状态化**：在 provider 层保留 `validated / needs_credentials / unavailable / degraded` 四态记录，并已把 `CookBook-KG`、`xiachufang`、`douguo`、`xiangha`、`Spoonacular`、`USDA_FDC` 纳入统一验证矩阵；其中中文站点搜索仅作为 reference-only 运行时增强，通过 `dish-health-recommender/references/provider-setup.md` 与相关脚本说明其入口、配置和降级方式。
-3. **最小反馈闭环**：`dish-health-recommender/scripts/apply_feedback.py` 与 `dish-health-recommender/tests/test_feedback.py` 已覆盖 accept、reject、favorite、correct_dish_name 四类反馈事件，并验证其对 confidence、解释文本和推荐等级的可观测影响。
-4. **标准菜谱级营养量化**：`dish-health-recommender/data/quantified_recipes.json` 已扩展到一批代表性菜品，并由 `dish-health-recommender/tests/test_quantization.py` 验证命中标准配方时的量化字段输出。
-
-后续正式修订报告正文和实验表时，应以 `dish-health-recommender/tests/test_multimodal.py`、`dish-health-recommender/tests/test_feedback.py`、`dish-health-recommender/tests/test_quantization.py`、`dish-health-recommender/tests/test_alignment.py` 与 `dish-health-recommender/references/report-alignment-checklist.md` 作为主要证据来源。
-
-## 附录E 未来扩展数据源说明（2026-05-08）
-
-以下来源当前不作为运行时主依赖，仅保留为后续扩展方向；扩展源只允许通过离线导入脚本落到本地快照后再被主链路消费，不能直接变成在线必需依赖：
-
-- **老乡鸡标准化菜谱**：适合作为标准菜谱本地导入源，用于进一步增强 `dish-health-recommender/data/quantified_recipes.json`。
-- **中国营养学会资源库**：当前更适合作为权威资料与规则依据来源，后续可考虑将其资料整理为本地规则或参考数据。
-- **FoodWake / NutriData**：保留为未来营养增强 API 候选来源，待后续确认接入方式与稳定性后再启用。
-

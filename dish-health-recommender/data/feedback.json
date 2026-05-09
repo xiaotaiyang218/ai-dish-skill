@@ -1,5 +1,11 @@
 {
   "events": [],
-  "bias": {},
-  "corrections": {}
+  "profiles": {
+    "dish": {},
+    "user_dish": {}
+  },
+  "corrections": {},
+  "meta": {
+    "last_feedback_at": ""
+  }
 }

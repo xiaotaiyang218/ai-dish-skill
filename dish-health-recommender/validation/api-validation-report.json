@@ -1,0 +1,212 @@
+{
+  "report_name": "api_validation",
+  "report_path": "/Users/bytedance/code/ai-dish-skill/dish-health-recommender/validation/api-validation-report.json",
+  "records": [
+    {
+      "provider_name": "CookBook-KG",
+      "provider_type": "fallback",
+      "status": "validated",
+      "request_sample": {
+        "url": "https://raw.githubusercontent.com/ngl567/CookBook-KG/master/visualization/vizdata.json"
+      },
+      "response_sample": {
+        "nodes": 702,
+        "links": 2218
+      },
+      "error_message": "",
+      "latency_ms": 474,
+      "credential_hint": "",
+      "degrade_strategy": "",
+      "runtime_mode": "local_snapshot_first",
+      "runtime_enabled_sources": [
+        "CookBook-KG"
+      ]
+    },
+    {
+      "provider_name": "xiachufang",
+      "provider_type": "reference",
+      "status": "validated",
+      "request_sample": {
+        "url": "https://www.xiachufang.com/search/?keyword=%E7%BA%A2%E7%83%A7%E8%82%89&cat=1001&via=home",
+        "method": "GET"
+      },
+      "response_sample": {
+        "matched_titles": 30
+      },
+      "error_message": "",
+      "latency_ms": 379,
+      "credential_hint": "",
+      "degrade_strategy": "skip online search provider and keep local-first fallback chain",
+      "runtime_mode": "local_snapshot_first",
+      "runtime_enabled_sources": [
+        "CookBook-KG"
+      ]
+    },
+    {
+      "provider_name": "douguo",
+      "provider_type": "reference",
+      "status": "validated",
+      "request_sample": {
+        "url": "https://www.douguo.com/caipu/%E7%BA%A2%E7%83%A7%E8%82%89",
+        "method": "GET"
+      },
+      "response_sample": {
+        "matched_titles": 16
+      },
+      "error_message": "",
+      "latency_ms": 408,
+      "credential_hint": "",
+      "degrade_strategy": "skip online search provider and keep local-first fallback chain",
+      "runtime_mode": "local_snapshot_first",
+      "runtime_enabled_sources": [
+        "CookBook-KG"
+      ]
+    },
+    {
+      "provider_name": "xiangha",
+      "provider_type": "reference",
+      "status": "validated",
+      "request_sample": {
+        "url": "https://www.xiangha.com/so/?s=%E7%BA%A2%E7%83%A7%E8%82%89",
+        "method": "GET"
+      },
+      "response_sample": {
+        "matched_titles": 20
+      },
+      "error_message": "",
+      "latency_ms": 634,
+      "credential_hint": "",
+      "degrade_strategy": "skip online search provider and keep local-first fallback chain",
+      "runtime_mode": "local_snapshot_first",
+      "runtime_enabled_sources": [
+        "CookBook-KG"
+      ]
+    },
+    {
+      "provider_name": "Spoonacular",
+      "provider_type": "reference",
+      "status": "validated",
+      "request_sample": {
+        "url": "https://api.spoonacular.com/recipes/complexSearch?query=tomato+soup&number=1&addRecipeInformation=true&fillIngredients=true&apiKey=e6a13cfc37e64f958caf69770d7a3f3a"
+      },
+      "response_sample": {
+        "results": 1
+      },
+      "error_message": "",
+      "latency_ms": 1482,
+      "credential_hint": "SPOONACULAR_API_KEY",
+      "degrade_strategy": "",
+      "runtime_mode": "local_snapshot_first",
+      "runtime_enabled_sources": [
+        "CookBook-KG"
+      ]
+    },
+    {
+      "provider_name": "USDA_FDC",
+      "provider_type": "fallback",
+      "status": "degraded",
+      "request_sample": {
+        "url": "https://api.nal.usda.gov/fdc/v1/foods/search?query=tomato&api_key=DEMO_KEY&pageSize=1"
+      },
+      "response_sample": {},
+      "error_message": "HTTP Error 429: Too Many Requests",
+      "latency_ms": 785,
+      "credential_hint": "",
+      "degrade_strategy": "use local nutrition_knowledge.json only",
+      "runtime_mode": "local_snapshot_first",
+      "runtime_enabled_sources": [
+        "CookBook-KG"
+      ]
+    },
+    {
+      "provider_name": "baidu_dish_recognition",
+      "provider_type": "vision",
+      "status": "degraded",
+      "request_sample": {
+        "image_path": "/Users/bytedance/code/ai-dish-skill/pic/20260508-123047.jpg"
+      },
+      "response_sample": {
+        "candidates": [],
+        "raw_result": {
+          "result": [
+            {
+              "probability": "0.87904",
+              "has_calorie": false,
+              "name": "非菜"
+            }
+          ],
+          "result_num": 1,
+          "log_id": 2053043838930646118
+        }
+      },
+      "error_message": "",
+      "latency_ms": 1168,
+      "credential_hint": "",
+      "degrade_strategy": "fallback to OCR-assisted vision"
+    },
+    {
+      "provider_name": "ocr_assisted_vision",
+      "provider_type": "vision",
+      "status": "validated",
+      "request_sample": {
+        "image_path": "/Users/bytedance/code/ai-dish-skill/pic/20260508-123047.jpg"
+      },
+      "response_sample": {
+        "candidates": [
+          "可回9555",
+          "《红床富”很饨",
+          "荠菜鲜肉小馄饨"
+        ],
+        "raw_result": {
+          "ocr_provider": "mac_vision_ocr",
+          "ocr_status": "validated"
+        }
+      },
+      "error_message": "",
+      "latency_ms": 701,
+      "credential_hint": "",
+      "degrade_strategy": "use OCR text / manual review"
+    },
+    {
+      "provider_name": "domestic_ocr_api",
+      "provider_type": "vision",
+      "status": "needs_credentials",
+      "request_sample": {
+        "image_path": "/Users/bytedance/code/ai-dish-skill/pic/20260508-123047.jpg"
+      },
+      "response_sample": {
+        "lines": [],
+        "text": ""
+      },
+      "error_message": "",
+      "latency_ms": 0,
+      "credential_hint": "set DOMESTIC_OCR_ENDPOINT and DOMESTIC_OCR_API_KEY",
+      "degrade_strategy": "fallback to local mac vision OCR"
+    },
+    {
+      "provider_name": "mac_vision_ocr",
+      "provider_type": "vision",
+      "status": "validated",
+      "request_sample": {
+        "image_path": "/Users/bytedance/code/ai-dish-skill/pic/20260508-123047.jpg"
+      },
+      "response_sample": {
+        "lines": [
+          "Administration",
+          "行政",
+          "特色档口菜单",
+          "可回9555",
+          "9555"
+        ],
+        "text": "Administration\n行政\n特色档口菜单\n可回9555\n9555\n《红床富”很饨\n荠菜鲜肉小馄饨\nPark & Vegetable Wanton Soup",
+        "raw_result": {
+          "engine": "Vision"
+        }
+      },
+      "error_message": "",
+      "latency_ms": 637,
+      "credential_hint": "",
+      "degrade_strategy": ""
+    }
+  ]
+}

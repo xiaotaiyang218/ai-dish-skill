@@ -9,9 +9,35 @@ ALLOWED_STATUS = {"implemented", "degradable", "pending_validation"}
 SKILL_DIR = Path(__file__).resolve().parents[1]
 REPO_ROOT = SKILL_DIR.parent
 REPORT_PATH = REPO_ROOT / 'report' / 'AI创想家_菜谱识别推荐系统_优化版报告.md'
+VALIDATION_DIR = SKILL_DIR / 'validation'
+OUTPUT_JSON = VALIDATION_DIR / 'report-alignment-report.json'
+IMAGE_VALIDATION_PATH = VALIDATION_DIR / 'image-validation-report.json'
 
 
-def default_items() -> list[dict]:
+def load_image_validation_report() -> dict:
+    if not IMAGE_VALIDATION_PATH.exists():
+        return {}
+    return json.loads(IMAGE_VALIDATION_PATH.read_text(encoding='utf-8'))
+
+
+def format_image_metric_summary(report: dict) -> str:
+    metrics = report.get('metrics', {}) if isinstance(report, dict) else {}
+    if not metrics:
+        return '图片验证脚本已输出 OCR hit rate、Top-1/Top-3 命中率、health rule accuracy 与 p50/p95 latency，可作为报告证据入口。'
+    return (
+        '图片验证产物显示 '
+        f"OCR hit rate={metrics.get('ocr_hit_rate', 0)}, "
+        f"Top-1={metrics.get('top1_hit_rate', 0)}, "
+        f"Top-3={metrics.get('top3_hit_rate', 0)}, "
+        f"health rule accuracy={metrics.get('health_rule_accuracy', 0)}, "
+        f"p50/p95 latency={metrics.get('p50_latency_ms', 0)}/{metrics.get('p95_latency_ms', 0)}ms，"
+        '可直接作为报告指标证据入口。'
+    )
+
+
+def default_items(image_validation_report: dict | None = None) -> list[dict]:
+    image_validation_report = image_validation_report or {}
+    image_metric_summary = format_image_metric_summary(image_validation_report)
     return [
         {
             "report_section": "摘要/总体能力",
@@ -42,8 +68,11 @@ def default_items() -> list[dict]:
                 "dish-health-recommender/data/image_test_cases.json",
             ],
             "status": "implemented",
-            "validation_refs": ["dish-health-recommender/tests/test_multimodal.py"],
-            "metric_summary": "已建立图片样本底表，并让 OCR/vision 候选参与主链路归一化和推荐判断。",
+            "validation_refs": [
+                "dish-health-recommender/tests/test_multimodal.py",
+                "dish-health-recommender/validation/image-validation-report.json"
+            ],
+            "metric_summary": image_metric_summary,
             "boundary_note": "多模态链路已接入主流程，但对未知图、噪声图和候选冲突场景仍保留 need_confirm。",
         },
         {
@@ -117,11 +146,26 @@ def validate_items(items: list[dict]) -> dict:
 
 
 def main() -> None:
+    VALIDATION_DIR.mkdir(parents=True, exist_ok=True)
     if len(sys.argv) > 1:
         payload = json.loads(Path(sys.argv[1]).read_text(encoding='utf-8'))
         print(json.dumps(validate_items(payload.get('items', [])), ensure_ascii=False, indent=2))
         return
-    print(json.dumps({'report': str(REPORT_PATH), 'items': default_items(), 'summary': validate_items(default_items())}, ensure_ascii=False, indent=2))
+    image_validation_report = load_image_validation_report()
+    items = default_items(image_validation_report)
+    report = {
+        'report_name': 'report_alignment',
+        'report_path': str(OUTPUT_JSON),
+        'report': str(REPORT_PATH),
+        'items': items,
+        'summary': validate_items(items),
+        'evidence_summary': {
+            'image_validation_report': str(IMAGE_VALIDATION_PATH),
+            'image_metrics': image_validation_report.get('metrics', {}),
+        },
+    }
+    OUTPUT_JSON.write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+    print(json.dumps(report, ensure_ascii=False, indent=2))
 
 
 if __name__ == '__main__':

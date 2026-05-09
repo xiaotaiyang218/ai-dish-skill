@@ -2,9 +2,18 @@
   "sources": [
     {
       "name": "CookBook-KG",
-      "url": "https://raw.githubusercontent.com/ngl567/CookBook-KG/master/visualization/vizdata.json",
+      "source_type": "recipe",
+      "url_or_origin": "https://raw.githubusercontent.com/ngl567/CookBook-KG/master/visualization/vizdata.json",
+      "license_status": "verified_for_current_usage",
+      "import_mode": "offline_snapshot",
       "fetched_at": "2026-05-07T15:30:13.708685+00:00",
-      "records": 120
+      "records": 120,
+      "records_imported": 130,
+      "target_files": [
+        "dish-health-recommender/data/dishes.json"
+      ],
+      "enabled_for_runtime": true,
+      "last_import_report": "/Users/bytedance/code/ai-dish-skill/dish-health-recommender/validation/source-import-report.json"
     }
   ]
 }

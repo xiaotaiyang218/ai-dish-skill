@@ -1,0 +1,120 @@
+{
+  "report_name": "report_alignment",
+  "report_path": "/Users/bytedance/code/ai-dish-skill/dish-health-recommender/validation/report-alignment-report.json",
+  "report": "/Users/bytedance/code/ai-dish-skill/report/AI创想家_菜谱识别推荐系统_优化版报告.md",
+  "items": [
+    {
+      "report_section": "摘要/总体能力",
+      "claim": "支持菜名、菜单文字、OCR 文本、图片引用和图片路径等输入",
+      "implementation_refs": [
+        "dish-health-recommender/scripts/recommend.py",
+        "dish-health-recommender/references/provider-setup.md"
+      ],
+      "test_refs": [
+        "dish-health-recommender/tests/test_recommend.py",
+        "dish-health-recommender/tests/test_multimodal.py"
+      ],
+      "status": "degradable",
+      "validation_refs": [
+        "dish-health-recommender/data/image_test_cases.json"
+      ],
+      "metric_summary": "图片输入已接入主推荐流程，未知图或低置信度图片仍会显式降级。",
+      "boundary_note": "当前图片链路依赖 OCR/vision provider 与样本验证，未承诺对任意真实场景图片都稳定识别。"
+    },
+    {
+      "report_section": "创新点一",
+      "claim": "多模态菜谱识别与语义还原",
+      "implementation_refs": [
+        "dish-health-recommender/scripts/recommend.py",
+        "dish-health-recommender/providers/ocr_provider.py",
+        "dish-health-recommender/providers/vision_provider.py"
+      ],
+      "test_refs": [
+        "dish-health-recommender/tests/test_multimodal.py",
+        "dish-health-recommender/data/image_test_cases.json"
+      ],
+      "status": "implemented",
+      "validation_refs": [
+        "dish-health-recommender/tests/test_multimodal.py",
+        "dish-health-recommender/validation/image-validation-report.json"
+      ],
+      "metric_summary": "图片验证产物显示 OCR hit rate=1.0, Top-1=0.3636, Top-3=0.3636, health rule accuracy=0.8636, p50/p95 latency=5083/9828ms，可直接作为报告指标证据入口。",
+      "boundary_note": "多模态链路已接入主流程，但对未知图、噪声图和候选冲突场景仍保留 need_confirm。"
+    },
+    {
+      "report_section": "创新点二",
+      "claim": "标准菜谱库与营养知识库联动的健康比对引擎",
+      "implementation_refs": [
+        "dish-health-recommender/data/dishes.json",
+        "dish-health-recommender/data/nutrition_knowledge.json",
+        "dish-health-recommender/data/quantified_recipes.json",
+        "dish-health-recommender/scripts/recommend.py"
+      ],
+      "test_refs": [
+        "dish-health-recommender/tests/test_recommend.py",
+        "dish-health-recommender/tests/test_quantization.py"
+      ],
+      "status": "implemented",
+      "validation_refs": [
+        "dish-health-recommender/tests/test_quantization.py"
+      ],
+      "metric_summary": "已支持标准配方命中时的量化输出，未命中时回退到定性标签与边界说明。",
+      "boundary_note": "定量值仅在命中标准配方时输出，未覆盖菜品不会伪造精确营养值。"
+    },
+    {
+      "report_section": "创新点三",
+      "claim": "用户反馈驱动的可解释推荐机制",
+      "implementation_refs": [
+        "dish-health-recommender/scripts/apply_feedback.py",
+        "dish-health-recommender/scripts/recommend.py",
+        "dish-health-recommender/tests/test_e2e_nl.py"
+      ],
+      "test_refs": [
+        "dish-health-recommender/tests/test_feedback.py",
+        "dish-health-recommender/tests/test_e2e_nl.py"
+      ],
+      "status": "implemented",
+      "validation_refs": [
+        "dish-health-recommender/tests/test_feedback.py"
+      ],
+      "metric_summary": "已支持 accept/reject/favorite/correct_dish_name 四类反馈，并可影响 confidence、说明文本与推荐等级。",
+      "boundary_note": "当前为最小本地闭环，不是训练式排序或强化学习系统。"
+    },
+    {
+      "report_section": "实验与结果/推荐结果示例",
+      "claim": "报告中的典型推荐示例可由真实脚本回归产生",
+      "implementation_refs": [
+        "dish-health-recommender/references/test-cases.md",
+        "dish-health-recommender/tests/expected/"
+      ],
+      "test_refs": [
+        "dish-health-recommender/tests/test_recommend.py",
+        "dish-health-recommender/tests/test_alignment.py"
+      ],
+      "status": "implemented",
+      "validation_refs": [
+        "dish-health-recommender/tests/test_alignment.py"
+      ],
+      "metric_summary": "回归样例、图片验证、反馈闭环和量化验证可共同支撑实验与报告更新。",
+      "boundary_note": "当前已具备自动化验证与示例证据，正式比赛指标仍需继续补真实统计。"
+    }
+  ],
+  "summary": {
+    "valid": true,
+    "invalid_items": [],
+    "implemented": 4,
+    "degradable": 1,
+    "pending_validation": 0
+  },
+  "evidence_summary": {
+    "image_validation_report": "/Users/bytedance/code/ai-dish-skill/dish-health-recommender/validation/image-validation-report.json",
+    "image_metrics": {
+      "ocr_hit_rate": 1.0,
+      "top1_hit_rate": 0.3636,
+      "top3_hit_rate": 0.3636,
+      "health_rule_accuracy": 0.8636,
+      "p50_latency_ms": 5083,
+      "p95_latency_ms": 9828
+    }
+  }
+}

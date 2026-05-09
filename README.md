@@ -35,8 +35,11 @@
 - `menu_text`
 - `ocr_text`
 - `image_reference`
+- `image_path`
 - `ingredients`
 - `user_profile`
+- `user_id`
+- `context_tags`
 - `output_mode`
 
 输出结论分为四类：
@@ -66,20 +69,24 @@
 
 - `dish-health-recommender/scripts/validate_apis.py`
 
-当前实现中，外部能力默认通过环境变量注入凭证；未配置时会保留降级路径，不会把未验证能力包装成已完成能力。
+当前实现中，外部能力默认通过环境变量或仓库根目录下的 `.local-secrets.json` 注入凭证；未配置时会保留降级路径，不会把未验证能力包装成已完成能力。当前在线菜谱增强按 `CookBook-KG -> xiachufang -> douguo -> xiangha -> Spoonacular` 顺序尝试，其中三个中文站点仅作为运行时 reference-only 搜索源，`Spoonacular` 仍需 `SPOONACULAR_API_KEY` 且仅作为可选参考源。
 
-### 4. 最小反馈闭环
+### 4. 长期反馈学习与可解释偏置
 
 相关脚本：
 
 - `dish-health-recommender/scripts/apply_feedback.py`
+- `dish-health-recommender/scripts/chat_recommend.py`
 
-当前支持的最小反馈事件包括：
+当前支持：
 
 - `accept`
 - `reject`
 - `favorite`
 - `correct_dish_name`
+- 基于 `user_id` 的 user-dish profile
+- `context_tags` 记录与 explanation 回显
+- 时间衰减窗口下的 replay/profile 重建
 
 ## 快速使用
 
@@ -108,6 +115,34 @@ python3 dish-health-recommender/scripts/validate_images.py
 python3 dish-health-recommender/scripts/validate_apis.py
 ```
 
+### 运行反馈回放
+
+```bash
+python3 dish-health-recommender/scripts/apply_feedback.py /dev/stdin <<'JSON'
+{
+  "action": "replay",
+  "storePath": "dish-health-recommender/data/feedback.json",
+  "profileMode": "user_dish",
+  "decayWindowDays": 30
+}
+JSON
+```
+
+### 运行离线导入
+
+```bash
+python3 dish-health-recommender/scripts/import_sources.py /dev/stdin <<'JSON'
+{
+  "sourceName": "CookBook-KG",
+  "sourceType": "recipe",
+  "importMode": "offline_snapshot",
+  "sourceLocation": "https://raw.githubusercontent.com/ngl567/CookBook-KG/master/visualization/vizdata.json",
+  "targetFiles": ["dish-health-recommender/data/dishes.json"],
+  "enableForRuntime": true
+}
+JSON
+```
+
 ## 测试说明
 
 测试资产位于 `dish-health-recommender/tests/`，包含：
@@ -119,9 +154,23 @@ python3 dish-health-recommender/scripts/validate_apis.py
 
 说明：当前仓库已包含测试代码与测试文档，但本地环境是否能直接运行完整测试取决于是否安装了对应测试依赖。
 
+当前已验证通过的关键测试包括：
+
+- `test_recommend.py`
+- `test_multimodal.py`
+- `test_quantization.py`
+- `test_feedback.py`
+- `test_e2e_nl.py`
+- `test_alignment.py`
+- `test_import_sources.py`
+- `tests/contract/` 合同测试套件
+
 ## 数据与边界
 
 - 本仓库优先使用本地菜谱与营养知识做判断。
+- 扩展源只允许通过离线导入落到本地快照，不作为运行时强依赖。
+- 在线菜谱增强按 `CookBook-KG -> xiachufang -> douguo -> xiangha -> Spoonacular` 顺序尝试；其中 `xiachufang`、`douguo`、`xiangha` 仅作为运行时 reference-only 搜索增强，未配置、超时、反爬或页面变化时都不会阻断本地推荐链路。
+- `Spoonacular` 仅作为带配额限制的可选在线参考源；未配置或失败时同样不会阻断本地推荐链路。
 - 第三方能力通过环境变量接入，不在仓库中提交真实凭证。
 - 未验证的 OCR、vision、nutrition API 不应被视为已稳定可用。
 - 输出仅作为饮食参考，不构成医疗诊断或治疗建议。
@@ -139,4 +188,13 @@ python3 dish-health-recommender/scripts/validate_apis.py
 
 - 展示 skill 从规则、数据、脚本到测试的完整实现材料
 - 做中文菜谱健康推荐相关的二次开发
-- 基于当前数据与测试资产继续扩展菜谱库、规则引擎和多模态验证链路
+- 基于当前数据、反馈回放、离线导入和测试资产继续扩展菜谱库、规则引擎和多模态验证链路
+
+## 当前证据产物
+
+- 图片验证指标：`dish-health-recommender/validation/image-validation-report.json`
+- 报告对齐产物：`dish-health-recommender/validation/report-alignment-report.json`
+- 反馈回放产物：`dish-health-recommender/validation/feedback-replay-report.json`
+- 导入产物：`dish-health-recommender/validation/source-import-report.json`
+
+当前图片指标样本统计：OCR hit rate `1.0`，Top-1 `0.3636`，Top-3 `0.3636`，health rule accuracy `0.8636`，p50/p95 latency `5083/9828ms`

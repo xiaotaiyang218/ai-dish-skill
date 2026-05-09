@@ -208,21 +208,39 @@ def answer_user_query(payload: dict[str, Any]) -> str:
     if intent['intent'] == 'variant_question':
         return render_variant_tofu_nao(profile)
     if intent['intent'] == 'menu_selection':
-        result = core.recommend({'image_path': payload.get('image_path') or payload.get('image_reference') or '', 'user_profile': profile, 'output_mode': 'json'})
+        result = core.recommend({
+            'image_path': payload.get('image_path') or payload.get('image_reference') or '',
+            'user_profile': profile,
+            'output_mode': 'json',
+            'user_id': payload.get('user_id', ''),
+            'context_tags': profile.get('goals', []) + profile.get('conditions', []),
+        })
         image_result = result.get('raw_image_result', {})
         candidates = extract_menu_candidates(image_result)
         if not candidates:
             return render_clarification(payload, '菜单文字识别结果不足')
         return render_menu_answer(user_query, candidates, profile, top_n)
     if payload.get('image_path') or payload.get('image_reference'):
-        result = core.recommend({'image_path': payload.get('image_path') or payload.get('image_reference') or '', 'user_profile': profile, 'output_mode': 'json'})
+        result = core.recommend({
+            'image_path': payload.get('image_path') or payload.get('image_reference') or '',
+            'user_profile': profile,
+            'output_mode': 'json',
+            'user_id': payload.get('user_id', ''),
+            'context_tags': profile.get('goals', []) + profile.get('conditions', []),
+        })
         image_result = result.get('raw_image_result', {})
         vision_candidates = image_result.get('vision', {}).get('candidates', [])
         if not vision_candidates and result.get('recommendation') == 'need_confirm':
             return render_clarification(payload, '图片识别结果不足')
         chosen = vision_candidates[-1] if vision_candidates else result.get('normalized_dish') or ''
         if chosen:
-            result = core.recommend({'dish_name': chosen, 'user_profile': profile, 'output_mode': 'json'})
+            result = core.recommend({
+                'dish_name': chosen,
+                'user_profile': profile,
+                'output_mode': 'json',
+                'user_id': payload.get('user_id', ''),
+                'context_tags': profile.get('goals', []) + profile.get('conditions', []),
+            })
         return render_single_dish_answer(user_query, result)
     # pure text flow
     if '豆腐脑' in user_query and ('甜' in user_query or '咸' in user_query):
@@ -241,15 +259,23 @@ def answer_user_query(payload: dict[str, Any]) -> str:
                 dish_name = m.group(1)
     if not dish_name:
         return '我还不能确定你想分析的是哪一道菜。你可以直接告诉我菜名，或者把菜单/菜肴图片发给我，我再帮你判断。'
-    result = core.recommend({'dish_name': dish_name, 'user_profile': profile, 'output_mode': 'json'})
+    result = core.recommend({
+        'dish_name': dish_name,
+        'user_profile': profile,
+        'output_mode': 'json',
+        'user_id': payload.get('user_id', ''),
+        'context_tags': profile.get('goals', []) + profile.get('conditions', []),
+    })
     answer = render_single_dish_answer(user_query, result)
     feedback_bias = result.get('feedback_bias', {})
     if feedback_bias:
         bias = next(iter(feedback_bias.values()))
         if bias.get('rejects', 0) > 0:
-            answer += '\n另外，我注意到你之前对这类菜有过拒绝反馈，所以这次我没有把它按最高优先级推荐。'
+            answer += '\n另外，我结合你的个人反馈做了保守处理，所以这次没有把它按最高优先级推荐。'
         if bias.get('favorites', 0) > 0:
-            answer += '\n另外，你之前似乎比较偏好这类菜，所以我在判断时提高了它的优先级。'
+            answer += '\n另外，我参考了你的个人反馈偏好，适当提高了它的优先级。'
+        if bias.get('context_tags'):
+            answer += f"\n这些反馈主要来自：{'、'.join(bias.get('context_tags', [])[:3])}。"
     return answer
 
 

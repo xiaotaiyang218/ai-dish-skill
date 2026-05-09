@@ -1,8 +1,8 @@
 import unittest
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[5]
-CONTRACT_PATH = ROOT / 'specs' / '20260508-dish-multi-verify' / 'contracts' / 'openapi.yaml'
+CODE_ROOT = Path(__file__).resolve().parents[4]
+CONTRACT_PATH = CODE_ROOT / 'chuang' / 'specs' / '20260508-dish-multi-verify' / 'contracts' / 'openapi.yaml'
 
 
 class QuantizationContractTests(unittest.TestCase):

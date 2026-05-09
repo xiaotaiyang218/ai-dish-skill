@@ -1,0 +1,19 @@
+{
+  "profileMode": "user_dish",
+  "decayWindowDays": 30,
+  "profileCount": 1,
+  "outputPath": "/Users/bytedance/code/ai-dish-skill/dish-health-recommender/validation/feedback-replay-report.json",
+  "profiles": {
+    "alice::番茄炒蛋": {
+      "accepts": 0,
+      "rejects": 0,
+      "favorites": 1,
+      "last_feedback_at": "1778145997",
+      "context_tags": [
+        "减脂"
+      ],
+      "user_id": "alice",
+      "dish_name": "番茄炒蛋"
+    }
+  }
+}

@@ -1,0 +1,2093 @@
+{
+  "report_name": "image_validation",
+  "report_path": "/Users/bytedance/code/ai-dish-skill/dish-health-recommender/validation/image-validation-report.json",
+  "total": 22,
+  "passed": 13,
+  "failed": 9,
+  "metrics": {
+    "ocr_hit_rate": 1.0,
+    "top1_hit_rate": 0.3636,
+    "top3_hit_rate": 0.3636,
+    "health_rule_accuracy": 0.8636,
+    "p50_latency_ms": 5083,
+    "p95_latency_ms": 9828
+  },
+  "results": [
+    {
+      "image_id": "20260508-122944",
+      "image_path": "pic/20260508-122944.jpg",
+      "image_type": "menu",
+      "status": "passed",
+      "expected_dishes": [
+        "泰式柠檬虾",
+        "香烤鸡腿",
+        "胡辣汤",
+        "豆腐脑"
+      ],
+      "matched_expected": [
+        "泰式柠檬虾",
+        "香烤鸡腿"
+      ],
+      "recommendation": "caution",
+      "need_confirm": [
+        "具体配方"
+      ],
+      "latency_ms": 5081,
+      "raw_image_result": {
+        "ocr": {
+          "provider_name": "mac_vision_ocr",
+          "status": "validated",
+          "latency_ms": 1580,
+          "raw_result": {
+            "engine": "Vision"
+          },
+          "text": "Administration\n行政\n3F巧厨娘•好食汇\n海苔肉松炒饭\n清炒小青菜\n剁椒蒸排骨\n绿豆汤\n3F简卡轻食\n泰式柠檬虾\n香烤鸡腿\n清炒芹菜\n魔芋豆腐\n清炒杭白菜\n孜然杏鲍菇\n热拌术耳\n清炒西兰花\n清炒冬瓜\n水煮蛋\n圣女果\n紫菜蛋花汤\n蒸南瓜\n烤士豆\n芝麻海苔寿司饭\nT2A餐厅档口菜单\n4F红庆台•馄饨水饺\n蟹黃竹笋鲜肉双拼小馄饨\n鲍鱼鲜肉大馄饨\n牛肉荠菜水饺\n西葫芦鸡蛋水饺\n天妇罗虾\n7F南洋料理\n新加坡叻沙粉\n咖喱皇鸡肉饭\n杭白菜\n炸虾片\n4F韩小匠•石锅拌饭\n番茄牛肉丼饭\n黑金卤肉丼饭\n照烧鸡排丼饭\n小酥肉部队锅\n煎鸡蛋\n味噌汤\n4F粵港烧腊\n烤鸭拼猪脚饭\n烤鸭拼叉烧饭\n烤鸭豉油鸡拼卤鸭肫饭\n杭白菜\n红薯桂花酒酿\n5F川湘一品•擂饭\n巴西烤肉擂饭\n豆干炒扣肉擂饭\n泡椒酸菜牛肉锅\n鱼香肉丝\n小青菜\n孜然鸭锁骨\n桂花番薯甜汤\n5F生煎小笼\n三丁鲜肉烧麦\n鲜肉生煎\n马蹄香菇鲜肉蒸饺\n玉米排骨汤\n炸鸡块\n6F沪尚秦川•手工面\n油泼扯面\n骨汤臊子面\n骨汤臊子米线\n剁椒肥肠拌面\n牛肉荞麦面\n老潼关肘子肉夹馍\n5F中西餐仓\n北京片皮鸭\n玉米酒酿圆子羹\n5F川江鱼韵•酸菜鱼\n泡椒鱼\n藤椒鱼\n番茄鱼\n椰子鸡\n香辣牛蛙』\n双色糕\n6F韭菜姑•猪肚鸡\n原味猪肚鸡/虾滑小锅\n香辣猪肚鸡/虾滑小锅\n红酸汤猪肚鸡/虾滑小锅\n藤椒猪肚鸡/虾滑小锅\n金汤猪肚鸡/虾滑小锅\n原味虾滑粉\n羊杂小锅\n脆骨肠\n7F淮南牛肉汤\n淮南白切牛肉粉丝/粿条汤\n红烧牛肉粉丝/粿条汤广\n拆骨肉粉丝/粿条汤\n卤汤牛脖骨\n油酥烧饼\n芝麻小烧饼\n5F味爱特•麻辣烫\n5F南昌拌粉\n肉片麻辣烫】/香锅\n鸭血麻辣烫 /香锅\n基围虾麻辣烫 /香锅\n鸭肠麻辣烫 /香锅\n红枣银耳汤\n红烧牛杂肥汁米线/面\n黄豆烧鸡爪肥汁米线/面产\n上海青\n6F粵香饭点\n雪梨莲藕排骨汤\n海底椰鸡汤\n杭白菜\n胡萝卜咸肉饭\n肉末萝卜干\n7F轻ING•轻食\n金枪鱼寿司＋鸡腿肉沙拉\n（~890KCAL）\n黑松露牛肉贝果\n（~580KCAL）\n红豆汤",
+          "lines": [
+            "Administration",
+            "行政",
+            "3F巧厨娘•好食汇",
+            "海苔肉松炒饭",
+            "清炒小青菜",
+            "剁椒蒸排骨",
+            "绿豆汤",
+            "3F简卡轻食",
+            "泰式柠檬虾",
+            "香烤鸡腿",
+            "清炒芹菜",
+            "魔芋豆腐",
+            "清炒杭白菜",
+            "孜然杏鲍菇",
+            "热拌术耳",
+            "清炒西兰花",
+            "清炒冬瓜",
+            "水煮蛋",
+            "圣女果",
+            "紫菜蛋花汤",
+            "蒸南瓜",
+            "烤士豆",
+            "芝麻海苔寿司饭",
+            "T2A餐厅档口菜单",
+            "4F红庆台•馄饨水饺",
+            "蟹黃竹笋鲜肉双拼小馄饨",
+            "鲍鱼鲜肉大馄饨",
+            "牛肉荠菜水饺",
+            "西葫芦鸡蛋水饺",
+            "天妇罗虾",
+            "7F南洋料理",
+            "新加坡叻沙粉",
+            "咖喱皇鸡肉饭",
+            "杭白菜",
+            "炸虾片",
+            "4F韩小匠•石锅拌饭",
+            "番茄牛肉丼饭",
+            "黑金卤肉丼饭",
+            "照烧鸡排丼饭",
+            "小酥肉部队锅",
+            "煎鸡蛋",
+            "味噌汤",
+            "4F粵港烧腊",
+            "烤鸭拼猪脚饭",
+            "烤鸭拼叉烧饭",
+            "烤鸭豉油鸡拼卤鸭肫饭",
+            "杭白菜",
+            "红薯桂花酒酿",
+            "5F川湘一品•擂饭",
+            "巴西烤肉擂饭",
+            "豆干炒扣肉擂饭",
+            "泡椒酸菜牛肉锅",
+            "鱼香肉丝",
+            "小青菜",
+            "孜然鸭锁骨",
+            "桂花番薯甜汤",
+            "5F生煎小笼",
+            "三丁鲜肉烧麦",
+            "鲜肉生煎",
+            "马蹄香菇鲜肉蒸饺",
+            "玉米排骨汤",
+            "炸鸡块",
+            "6F沪尚秦川•手工面",
+            "油泼扯面",
+            "骨汤臊子面",
+            "骨汤臊子米线",
+            "剁椒肥肠拌面",
+            "牛肉荞麦面",
+            "老潼关肘子肉夹馍",
+            "5F中西餐仓",
+            "北京片皮鸭",
+            "玉米酒酿圆子羹",
+            "5F川江鱼韵•酸菜鱼",
+            "泡椒鱼",
+            "藤椒鱼",
+            "番茄鱼",
+            "椰子鸡",
+            "香辣牛蛙』",
+            "双色糕",
+            "6F韭菜姑•猪肚鸡",
+            "原味猪肚鸡/虾滑小锅",
+            "香辣猪肚鸡/虾滑小锅",
+            "红酸汤猪肚鸡/虾滑小锅",
+            "藤椒猪肚鸡/虾滑小锅",
+            "金汤猪肚鸡/虾滑小锅",
+            "原味虾滑粉",
+            "羊杂小锅",
+            "脆骨肠",
+            "7F淮南牛肉汤",
+            "淮南白切牛肉粉丝/粿条汤",
+            "红烧牛肉粉丝/粿条汤广",
+            "拆骨肉粉丝/粿条汤",
+            "卤汤牛脖骨",
+            "油酥烧饼",
+            "芝麻小烧饼",
+            "5F味爱特•麻辣烫",
+            "5F南昌拌粉",
+            "肉片麻辣烫】/香锅",
+            "鸭血麻辣烫 /香锅",
+            "基围虾麻辣烫 /香锅",
+            "鸭肠麻辣烫 /香锅",
+            "红枣银耳汤",
+            "红烧牛杂肥汁米线/面",
+            "黄豆烧鸡爪肥汁米线/面产",
+            "上海青",
+            "6F粵香饭点",
+            "雪梨莲藕排骨汤",
+            "海底椰鸡汤",
+            "杭白菜",
+            "胡萝卜咸肉饭",
+            "肉末萝卜干",
+            "7F轻ING•轻食",
+            "金枪鱼寿司＋鸡腿肉沙拉",
+            "（~890KCAL）",
+            "黑松露牛肉贝果",
+            "（~580KCAL）",
+            "红豆汤"
+          ],
+          "error_message": "",
+          "credential_hint": "",
+          "degrade_strategy": ""
+        },
+        "vision": {
+          "provider_name": "ocr_assisted_vision",
+          "status": "validated",
+          "latency_ms": 1059,
+          "candidates": [
+            "3F巧厨娘•好食汇",
+            "海苔肉松炒饭",
+            "清炒小青菜",
+            "绿豆汤",
+            "3F简卡轻食",
+            "泰式柠檬虾",
+            "香烤鸡腿",
+            "清炒芹菜"
+          ],
+          "raw_result": {
+            "ocr_provider": "mac_vision_ocr",
+            "ocr_status": "validated"
+          },
+          "error_message": "",
+          "credential_hint": "",
+          "degrade_strategy": "use OCR text / manual review"
+        }
+      }
+    },
+    {
+      "image_id": "20260508-123005",
+      "image_path": "pic/20260508-123005.jpg",
+      "image_type": "menu",
+      "status": "passed",
+      "expected_dishes": [
+        "主荤",
+        "半荤",
+        "素菜"
+      ],
+      "matched_expected": [
+        "主荤",
+        "半荤",
+        "素菜"
+      ],
+      "recommendation": "recommend",
+      "need_confirm": [],
+      "latency_ms": 3148,
+      "raw_image_result": {
+        "ocr": {
+          "provider_name": "mac_vision_ocr",
+          "status": "validated",
+          "latency_ms": 772,
+          "raw_result": {
+            "engine": "Vision"
+          },
+          "text": "Administration\n行政\n主荤\n半荤\n素菜\n例汤\n主食\n粗粮\n小吃\nT2A餐厅餐线菜单\n3F 现炒自选餐\n6F 乡厨自选餐\n柠檬雪碧虾』\n干锅肥肠 、椒麻手撕鸭\n蒜苔炒肉\n韭菜煎蛋、五花白菜焖油豆腐\n酸辣藕片 、小炒茼蒿\n薏米冬瓜小排汤、银耳红薯汤\n杂粮饭、米饭\n奶黄包、小馒头\n蒸紫薯\n甘梅地瓜条\n番茄烩牛肉\n香酥鸡腿、菠萝咕咾肉\n木耳烩山药\n干锅莲藕 、菜心炒肉\n青椒士豆丝 、手撕包菜\n海带排骨汤、桂花番薯甜汤\n杂粮饭、米饭\n红糖发糕、黑米馒头\n花生\n孜然鸭锁骨\n7F 江浙印象\n酱鸭腿\n芥兰炒牛肉、鹌鹑蛋红烧肉\n孜然杏鲍菇炒肉\n芹菜木耳炒鸡肉、西红柿炒鸡蛋\n红枣蒸南瓜、素炒杭白菜\n莲藕花生排骨汤、绿豆粥\n杂粮饭、米饭\n黑米馒头、桂花糕\n蒸玉米\n原味鸡块",
+          "lines": [
+            "Administration",
+            "行政",
+            "主荤",
+            "半荤",
+            "素菜",
+            "例汤",
+            "主食",
+            "粗粮",
+            "小吃",
+            "T2A餐厅餐线菜单",
+            "3F 现炒自选餐",
+            "6F 乡厨自选餐",
+            "柠檬雪碧虾』",
+            "干锅肥肠 、椒麻手撕鸭",
+            "蒜苔炒肉",
+            "韭菜煎蛋、五花白菜焖油豆腐",
+            "酸辣藕片 、小炒茼蒿",
+            "薏米冬瓜小排汤、银耳红薯汤",
+            "杂粮饭、米饭",
+            "奶黄包、小馒头",
+            "蒸紫薯",
+            "甘梅地瓜条",
+            "番茄烩牛肉",
+            "香酥鸡腿、菠萝咕咾肉",
+            "木耳烩山药",
+            "干锅莲藕 、菜心炒肉",
+            "青椒士豆丝 、手撕包菜",
+            "海带排骨汤、桂花番薯甜汤",
+            "杂粮饭、米饭",
+            "红糖发糕、黑米馒头",
+            "花生",
+            "孜然鸭锁骨",
+            "7F 江浙印象",
+            "酱鸭腿",
+            "芥兰炒牛肉、鹌鹑蛋红烧肉",
+            "孜然杏鲍菇炒肉",
+            "芹菜木耳炒鸡肉、西红柿炒鸡蛋",
+            "红枣蒸南瓜、素炒杭白菜",
+            "莲藕花生排骨汤、绿豆粥",
+            "杂粮饭、米饭",
+            "黑米馒头、桂花糕",
+            "蒸玉米",
+            "原味鸡块"
+          ],
+          "error_message": "",
+          "credential_hint": "",
+          "degrade_strategy": ""
+        },
+        "vision": {
+          "provider_name": "ocr_assisted_vision",
+          "status": "validated",
+          "latency_ms": 793,
+          "candidates": [
+            "3F 现炒自选餐",
+            "6F 乡厨自选餐",
+            "柠檬雪碧虾』",
+            "干锅肥肠 、椒麻手撕鸭",
+            "蒜苔炒肉",
+            "韭菜煎蛋、五花白菜焖油豆腐",
+            "酸辣藕片 、小炒茼蒿",
+            "薏米冬瓜小排汤、银耳红薯汤"
+          ],
+          "raw_result": {
+            "ocr_provider": "mac_vision_ocr",
+            "ocr_status": "validated"
+          },
+          "error_message": "",
+          "credential_hint": "",
+          "degrade_strategy": "use OCR text / manual review"
+        }
+      }
+    },
+    {
+      "image_id": "20260508-123010",
+      "image_path": "pic/20260508-123010.jpg",
+      "image_type": "menu",
+      "status": "passed",
+      "expected_dishes": [],
+      "matched_expected": [],
+      "recommendation": "recommend",
+      "need_confirm": [],
+      "latency_ms": 7705,
+      "raw_image_result": {
+        "ocr": {
+          "provider_name": "mac_vision_ocr",
+          "status": "validated",
+          "latency_ms": 722,
+          "raw_result": {
+            "engine": "Vision"
+          },
+          "text": "Administration\n行政\n香满楼兰\nLOULAN PILAF RICE\n澧驭拌面\nJIANGYU NOODLE\n清真菜单\n满记牛肉面\nMANKEE BEEF NOODLE\n档口位置\nT2-A-4层满座/\n草原牧歌\nSTEWED MEAT WITH RICE\n• 羊腿手抓饭\n配菜：\n• 炝炒包菜\n• 莴笋木耳\n• 红枣雪梨汤\n•辣皮子牛肉拌面\n• 酸菜羊肉拌面\n•大盘鸡拌面力\n配菜：\n• 西葫芦炒鸡蛋\n•炝炒包菜\n• 莴笋木耳\n• 红枣雪梨汤\n• 兰州牛肉面\n• 酸菜牛肉面\n•金汤牛肚\n配菜：\n• 骨肉相连\n• 小油菜\n• 炝炒包菜\n配菜：\n• 炝炒包菜\n• 莴笋木耳\n•红枣雪梨汤\n众\n不难调\n好\n吃选满座儿",
+          "lines": [
+            "Administration",
+            "行政",
+            "香满楼兰",
+            "LOULAN PILAF RICE",
+            "澧驭拌面",
+            "JIANGYU NOODLE",
+            "清真菜单",
+            "满记牛肉面",
+            "MANKEE BEEF NOODLE",
+            "档口位置",
+            "T2-A-4层满座/",
+            "草原牧歌",
+            "STEWED MEAT WITH RICE",
+            "• 羊腿手抓饭",
+            "配菜：",
+            "• 炝炒包菜",
+            "• 莴笋木耳",
+            "• 红枣雪梨汤",
+            "•辣皮子牛肉拌面",
+            "• 酸菜羊肉拌面",
+            "•大盘鸡拌面力",
+            "配菜：",
+            "• 西葫芦炒鸡蛋",
+            "•炝炒包菜",
+            "• 莴笋木耳",
+            "• 红枣雪梨汤",
+            "• 兰州牛肉面",
+            "• 酸菜牛肉面",
+            "•金汤牛肚",
+            "配菜：",
+            "• 骨肉相连",
+            "• 小油菜",
+            "• 炝炒包菜",
+            "配菜：",
+            "• 炝炒包菜",
+            "• 莴笋木耳",
+            "•红枣雪梨汤",
+            "众",
+            "不难调",
+            "好",
+            "吃选满座儿"
+          ],
+          "error_message": "",
+          "credential_hint": "",
+          "degrade_strategy": ""
+        },
+        "vision": {
+          "provider_name": "ocr_assisted_vision",
+          "status": "validated",
+          "latency_ms": 745,
+          "candidates": [
+            "澧驭拌面",
+            "满记牛肉面",
+            "T2-A-4层满座/",
+            "羊腿手抓饭",
+            "炝炒包菜",
+            "红枣雪梨汤",
+            "辣皮子牛肉拌面",
+            "酸菜羊肉拌面"
+          ],
+          "raw_result": {
+            "ocr_provider": "mac_vision_ocr",
+            "ocr_status": "validated"
+          },
+          "error_message": "",
+          "credential_hint": "",
+          "degrade_strategy": "use OCR text / manual review"
+        }
+      }
+    },
+    {
+      "image_id": "20260508-123014",
+      "image_path": "pic/20260508-123014.jpg",
+      "image_type": "dish",
+      "status": "passed",
+      "expected_dishes": [],
+      "matched_expected": [],
+      "recommendation": "need_confirm",
+      "need_confirm": [
+        "主要食材",
+        "菜名或图片"
+      ],
+      "latency_ms": 2738,
+      "raw_image_result": {
+        "ocr": {
+          "provider_name": "mac_vision_ocr",
+          "status": "validated",
+          "latency_ms": 563,
+          "raw_result": {
+            "engine": "Vision"
+          },
+          "text": "",
+          "lines": [],
+          "error_message": "",
+          "credential_hint": "",
+          "degrade_strategy": ""
+        },
+        "vision": {
+          "provider_name": "baidu_dish_recognition",
+          "status": "degraded",
+          "latency_ms": 1606,
+          "candidates": [],
+          "raw_result": {
+            "result": [
+              {
+                "probability": "0.996863",
+                "has_calorie": false,
+                "name": "非菜"
+              }
+            ],
+            "result_num": 1,
+            "log_id": 2053043395407149494
+          },
+          "error_message": "",
+          "credential_hint": "",
+          "degrade_strategy": "fallback to OCR-assisted vision"
+        }
+      }
+    },
+    {
+      "image_id": "20260508-123019",
+      "image_path": "pic/20260508-123019.jpg",
+      "image_type": "dish",
+      "status": "passed",
+      "expected_dishes": [],
+      "matched_expected": [],
+      "recommendation": "need_confirm",
+      "need_confirm": [
+        "主要食材",
+        "菜名或图片"
+      ],
+      "latency_ms": 3299,
+      "raw_image_result": {
+        "ocr": {
+          "provider_name": "mac_vision_ocr",
+          "status": "validated",
+          "latency_ms": 566,
+          "raw_result": {
+            "engine": "Vision"
+          },
+          "text": "◎ @肯德基",
+          "lines": [
+            "◎ @肯德基"
+          ],
+          "error_message": "",
+          "credential_hint": "",
+          "degrade_strategy": ""
+        },
+        "vision": {
+          "provider_name": "baidu_dish_recognition",
+          "status": "validated",
+          "latency_ms": 2070,
+          "candidates": [
+            "炸鸡腿",
+            "鸡翅包饭"
+          ],
+          "raw_result": {
+            "result": [
+              {
+                "probability": "0.610585",
+                "has_calorie": true,
+                "calorie": "194",
+                "name": "鸡翅"
+              },
+              {
+                "probability": "0.120797",
+                "has_calorie": true,
+                "calorie": "261",
+                "name": "炸鸡腿"
+              },
+              {
+                "probability": "0.120641",
+                "has_calorie": true,
+                "calorie": "206",
+                "name": "鸡块"
+              },
+              {
+                "probability": "0.0554441",
+                "has_calorie": true,
+                "calorie": "203",
+                "name": "鸡翅包饭"
+              },
+              {
+                "probability": "0.0161256",
+                "has_calorie": true,
+                "calorie": "194",
+                "name": "烤翅"
+              }
+            ],
+            "result_num": 5,
+            "log_id": 2053043408732038201
+          },
+          "error_message": "",
+          "credential_hint": "",
+          "degrade_strategy": "fallback to OCR-assisted vision"
+        }
+      }
+    },
+    {
+      "image_id": "20260508-123023",
+      "image_path": "pic/20260508-123023.jpg",
+      "image_type": "menu",
+      "status": "passed",
+      "expected_dishes": [
+        "劲脆超霸堡",
+        "香辣鸡腿堡",
+        "黄金脆皮鸡"
+      ],
+      "matched_expected": [
+        "劲脆超霸堡",
+        "香辣鸡腿堡",
+        "黄金脆皮鸡"
+      ],
+      "recommendation": "recommend",
+      "need_confirm": [],
+      "latency_ms": 7046,
+      "raw_image_result": {
+        "ocr": {
+          "provider_name": "mac_vision_ocr",
+          "status": "validated",
+          "latency_ms": 1160,
+          "raw_result": {
+            "engine": "Vision"
+          },
+          "text": "KFC\n劲脆超霸堡\nMega Extra-Tasty Crispy Burger\nKFC\n香辣鸡腿堡\nZinger Crispy Burger\n每日精选四件套\n• 小食（三选一）\n+\n或\n黄金脆皮鸡\nCrispy Fried Chicken\n• 配餐（三选一）\n香辣鸡翅（2块）\nHot Wings\n新奥尔良烤翅（2块）\nNew Orleans Roasted Wings\n+\n香甜玉米杯\nCom-on-the-cob\n• 饮料（四选一）\n葡式蛋挞\nEgg Tart\n薯条（中）\nFrench Fries\n+\n或\n百事可乐\nPensi Cola\n爆汁三柠茶\nJulcV Lemonea\n粉泡泡无糖柠多乐\nPink Bubble Sugar- Free Lemon Dolce\n热柠檬红茶\nKFC\n肯德基 永远好滋味\n每日精选四件套\n• 小食（三选一）\n十\n黄金脆皮鸡\nCrispy Fried Chicken\n• 配餐（三选一）\n香辣鸡翅（2块）\nHot Wings\n新奥尔良烤翅（2块）\nNew Orleans Roasted Wings\n+\n或\n香甜玉米杯\nCom-on-the-cb\n• 饮料（四选一）\n葡式蛋挞\nEgg Tart\n薯条（（中）\nFrench Fries\n百事可乐\nPepsiCola\n爆汁三柠茶\nJuicy Lemon Tea\n粉泡泡无糖柠多乐\n热柠檬红茶\nPink Bubble Sugar-Free Lemon Dolce\nLemon Tea\nKFC\n肯德基 永远好滋味\nKFC\n每日精选四件套\n• 小食（三选一）\n或\n黄金脆皮鸡\nCrispy Fried Chicken\n• 配餐（三选一）\n香辣鸡翅（2块）\nHotWings\n新奥尔良烤翅（2块）\nNew Orleans Roasted Wings\n或\n或\n香甜玉米杯\nCorn-on-the-cob\n• 饮料（四选一）\n或\n葡式蛋挞\nEgg Tart\n薯条（中）\nFrenchFries\n汁汁双层嫩牛堡（美式风味）\nDouble Deck Tender & Juicy Beef Burger\n百事可乐\nPepsl Cola\n爆汁三柠茶\n粉泡泡无糖柠多乐\nJulcv Lemon|ea\nPink Bubble sugar-Free Lemon Dolce\n热柠繚惩茶\nKFC\n肯德基 永远好滋味\nKFC\n每日精选五件套\n• 小食（三选一）\n醇香土豆泥\nPotato & Gravy\n十\n或\n黄金脆皮鸡\nCrispy Fried Chicken\n• 配餐（三选一）\n香辣鸡翅（2块）\nHot Wings\n新奥尔良烤翅（2块）\nNew Orleans Roasted Wings\n+\n或\n或\n香甜玉米杯\nCorn-on-the-cob\n• 饮料（四选一）\n葡式蛋挞\nEgg Tart\n薯条（中）\nFrench Fries\n十\n老北京鸡肉卷\nDragon Twister\n百事可乐\nPepsiCola\n爆汁三柠茶\nJuicy Lemon Tea\n粉泡泡无糖柠多乐\nPink Bubble Sugar-free Lemon Dolce\n热柠檬红茶\nLemon Tea\nKFC\n肯德基 永远好滋味",
+          "lines": [
+            "KFC",
+            "劲脆超霸堡",
+            "Mega Extra-Tasty Crispy Burger",
+            "KFC",
+            "香辣鸡腿堡",
+            "Zinger Crispy Burger",
+            "每日精选四件套",
+            "• 小食（三选一）",
+            "+",
+            "或",
+            "黄金脆皮鸡",
+            "Crispy Fried Chicken",
+            "• 配餐（三选一）",
+            "香辣鸡翅（2块）",
+            "Hot Wings",
+            "新奥尔良烤翅（2块）",
+            "New Orleans Roasted Wings",
+            "+",
+            "香甜玉米杯",
+            "Com-on-the-cob",
+            "• 饮料（四选一）",
+            "葡式蛋挞",
+            "Egg Tart",
+            "薯条（中）",
+            "French Fries",
+            "+",
+            "或",
+            "百事可乐",
+            "Pensi Cola",
+            "爆汁三柠茶",
+            "JulcV Lemonea",
+            "粉泡泡无糖柠多乐",
+            "Pink Bubble Sugar- Free Lemon Dolce",
+            "热柠檬红茶",
+            "KFC",
+            "肯德基 永远好滋味",
+            "每日精选四件套",
+            "• 小食（三选一）",
+            "十",
+            "黄金脆皮鸡",
+            "Crispy Fried Chicken",
+            "• 配餐（三选一）",
+            "香辣鸡翅（2块）",
+            "Hot Wings",
+            "新奥尔良烤翅（2块）",
+            "New Orleans Roasted Wings",
+            "+",
+            "或",
+            "香甜玉米杯",
+            "Com-on-the-cb",
+            "• 饮料（四选一）",
+            "葡式蛋挞",
+            "Egg Tart",
+            "薯条（（中）",
+            "French Fries",
+            "百事可乐",
+            "PepsiCola",
+            "爆汁三柠茶",
+            "Juicy Lemon Tea",
+            "粉泡泡无糖柠多乐",
+            "热柠檬红茶",
+            "Pink Bubble Sugar-Free Lemon Dolce",
+            "Lemon Tea",
+            "KFC",
+            "肯德基 永远好滋味",
+            "KFC",
+            "每日精选四件套",
+            "• 小食（三选一）",
+            "或",
+            "黄金脆皮鸡",
+            "Crispy Fried Chicken",
+            "• 配餐（三选一）",
+            "香辣鸡翅（2块）",
+            "HotWings",
+            "新奥尔良烤翅（2块）",
+            "New Orleans Roasted Wings",
+            "或",
+            "或",
+            "香甜玉米杯",
+            "Corn-on-the-cob",
+            "• 饮料（四选一）",
+            "或",
+            "葡式蛋挞",
+            "Egg Tart",
+            "薯条（中）",
+            "FrenchFries",
+            "汁汁双层嫩牛堡（美式风味）",
+            "Double Deck Tender & Juicy Beef Burger",
+            "百事可乐",
+            "Pepsl Cola",
+            "爆汁三柠茶",
+            "粉泡泡无糖柠多乐",
+            "Julcv Lemon|ea",
+            "Pink Bubble sugar-Free Lemon Dolce",
+            "热柠繚惩茶",
+            "KFC",
+            "肯德基 永远好滋味",
+            "KFC",
+            "每日精选五件套",
+            "• 小食（三选一）",
+            "醇香土豆泥",
+            "Potato & Gravy",
+            "十",
+            "或",
+            "黄金脆皮鸡",
+            "Crispy Fried Chicken",
+            "• 配餐（三选一）",
+            "香辣鸡翅（2块）",
+            "Hot Wings",
+            "新奥尔良烤翅（2块）",
+            "New Orleans Roasted Wings",
+            "+",
+            "或",
+            "或",
+            "香甜玉米杯",
+            "Corn-on-the-cob",
+            "• 饮料（四选一）",
+            "葡式蛋挞",
+            "Egg Tart",
+            "薯条（中）",
+            "French Fries",
+            "十",
+            "老北京鸡肉卷",
+            "Dragon Twister",
+            "百事可乐",
+            "PepsiCola",
+            "爆汁三柠茶",
+            "Juicy Lemon Tea",
+            "粉泡泡无糖柠多乐",
+            "Pink Bubble Sugar-free Lemon Dolce",
+            "热柠檬红茶",
+            "Lemon Tea",
+            "KFC",
+            "肯德基 永远好滋味"
+          ],
+          "error_message": "",
+          "credential_hint": "",
+          "degrade_strategy": ""
+        },
+        "vision": {
+          "provider_name": "ocr_assisted_vision",
+          "status": "validated",
+          "latency_ms": 1119,
+          "candidates": [
+            "劲脆超霸堡",
+            "香辣鸡腿堡",
+            "黄金脆皮鸡",
+            "香辣鸡翅（2块）",
+            "新奥尔良烤翅（2块）",
+            "粉泡泡无糖柠多乐",
+            "薯条（（中）",
+            "汁汁双层嫩牛堡（美式风味）"
+          ],
+          "raw_result": {
+            "ocr_provider": "mac_vision_ocr",
+            "ocr_status": "validated"
+          },
+          "error_message": "",
+          "credential_hint": "",
+          "degrade_strategy": "use OCR text / manual review"
+        }
+      }
+    },
+    {
+      "image_id": "20260508-123029",
+      "image_path": "pic/20260508-123029.jpg",
+      "image_type": "menu",
+      "status": "needs_review",
+      "expected_dishes": [],
+      "matched_expected": [],
+      "recommendation": "recommend",
+      "need_confirm": [],
+      "latency_ms": 10136,
+      "raw_image_result": {
+        "ocr": {
+          "provider_name": "mac_vision_ocr",
+          "status": "validated",
+          "latency_ms": 1002,
+          "raw_result": {
+            "engine": "Vision"
+          },
+          "text": "套餐A\n每日精选四件套\n•小食（三选一）\n流心可生食扒炉煎蛋\nRunny Pan-Seared Egg\n十\n~523\n大卡\n金枪鱼鸡蛋恰巴塔帕尼尼\nTuna & Egg Ciabatta Panini\n•配餐（三选一）\n拌饭泡菜\nKimchi\n•饮料（三选一）\n无糖\n柠檬可乐\nSugar-Free Lemon Cola\n清爽菜心\nGreen vegetables\n苹果\n热红茶\nHotapple tea\n香酥海苔碎\nCrispy Seaweed Flakes\n抹茶\n柠檬茶\nC2aslemon\n套餐B\n~578\n大卡\n藤椒风味鸡焖饭能量碗\nRattan Pepper Chicken Braised Rice Bowl\n每日精选四件套\n0小食（三选一）\nKoasteu cnickenThgn\nRoasted Wings\n•配餐（三选一）\n拌饭泡菜\nKimchi\n•饮料（三选一）\n清爽菜心\nGreen vegetables\n无糖\n柠檬可乐\n或\nSugar-Free Lemon Cola\n苹果\n热红茶\nHotappletea\n流心可生食扒炉煎蛋\nKunny Fan-seared Egg\n（Sashimi-Grade）\n蔬菜碗\nBuddha Bowll\n香酥海苔碎\nCrispy Seaweed Flakes\n抹茶\n柠檬茶\n2時Lemon\n套餐C\n~538\n大卡\n嫩烤鸡胸荞麦面碗配味增汁\nRoasted Chicken Soba Bowl with Dressing\n每日精选四件套\n0小食（三选一）\n嫩烤鸡腿肉（4块）招牌烤翅（2块）\n◎配餐（三选一）\n拌饭泡菜\nKimchi\n•饮料（三选一）\n清爽菜心\nGreen vegetables\n无糖\n柠檬可乐\nSugarFree Lemon Cola\n苹果\n热红茶\nHotapple tea\n流心可生食扒炉煎蛋\nKunny Pan-seared Ege\n（Sashimi-Grade）\n香酥海苔碎\nCrispy Seaweed Flakes\n抹茶\n柠檬茶\nCwaLemon",
+          "lines": [
+            "套餐A",
+            "每日精选四件套",
+            "•小食（三选一）",
+            "流心可生食扒炉煎蛋",
+            "Runny Pan-Seared Egg",
+            "十",
+            "~523",
+            "大卡",
+            "金枪鱼鸡蛋恰巴塔帕尼尼",
+            "Tuna & Egg Ciabatta Panini",
+            "•配餐（三选一）",
+            "拌饭泡菜",
+            "Kimchi",
+            "•饮料（三选一）",
+            "无糖",
+            "柠檬可乐",
+            "Sugar-Free Lemon Cola",
+            "清爽菜心",
+            "Green vegetables",
+            "苹果",
+            "热红茶",
+            "Hotapple tea",
+            "香酥海苔碎",
+            "Crispy Seaweed Flakes",
+            "抹茶",
+            "柠檬茶",
+            "C2aslemon",
+            "套餐B",
+            "~578",
+            "大卡",
+            "藤椒风味鸡焖饭能量碗",
+            "Rattan Pepper Chicken Braised Rice Bowl",
+            "每日精选四件套",
+            "0小食（三选一）",
+            "Koasteu cnickenThgn",
+            "Roasted Wings",
+            "•配餐（三选一）",
+            "拌饭泡菜",
+            "Kimchi",
+            "•饮料（三选一）",
+            "清爽菜心",
+            "Green vegetables",
+            "无糖",
+            "柠檬可乐",
+            "或",
+            "Sugar-Free Lemon Cola",
+            "苹果",
+            "热红茶",
+            "Hotappletea",
+            "流心可生食扒炉煎蛋",
+            "Kunny Fan-seared Egg",
+            "（Sashimi-Grade）",
+            "蔬菜碗",
+            "Buddha Bowll",
+            "香酥海苔碎",
+            "Crispy Seaweed Flakes",
+            "抹茶",
+            "柠檬茶",
+            "2時Lemon",
+            "套餐C",
+            "~538",
+            "大卡",
+            "嫩烤鸡胸荞麦面碗配味增汁",
+            "Roasted Chicken Soba Bowl with Dressing",
+            "每日精选四件套",
+            "0小食（三选一）",
+            "嫩烤鸡腿肉（4块）招牌烤翅（2块）",
+            "◎配餐（三选一）",
+            "拌饭泡菜",
+            "Kimchi",
+            "•饮料（三选一）",
+            "清爽菜心",
+            "Green vegetables",
+            "无糖",
+            "柠檬可乐",
+            "SugarFree Lemon Cola",
+            "苹果",
+            "热红茶",
+            "Hotapple tea",
+            "流心可生食扒炉煎蛋",
+            "Kunny Pan-seared Ege",
+            "（Sashimi-Grade）",
+            "香酥海苔碎",
+            "Crispy Seaweed Flakes",
+            "抹茶",
+            "柠檬茶",
+            "CwaLemon"
+          ],
+          "error_message": "",
+          "credential_hint": "",
+          "degrade_strategy": ""
+        },
+        "vision": {
+          "provider_name": "ocr_assisted_vision",
+          "status": "validated",
+          "latency_ms": 1018,
+          "candidates": [
+            "流心可生食扒炉煎蛋",
+            "金枪鱼鸡蛋恰巴塔帕尼尼",
+            "拌饭泡菜",
+            "清爽菜心",
+            "藤椒风味鸡焖饭能量碗",
+            "蔬菜碗",
+            "嫩烤鸡胸荞麦面碗配味增汁",
+            "嫩烤鸡腿肉（4块）招牌烤翅（2块）"
+          ],
+          "raw_result": {
+            "ocr_provider": "mac_vision_ocr",
+            "ocr_status": "validated"
+          },
+          "error_message": "",
+          "credential_hint": "",
+          "degrade_strategy": "use OCR text / manual review"
+        }
+      }
+    },
+    {
+      "image_id": "20260508-123032",
+      "image_path": "pic/20260508-123032.jpg",
+      "image_type": "menu",
+      "status": "needs_review",
+      "expected_dishes": [],
+      "matched_expected": [],
+      "recommendation": "recommend",
+      "need_confirm": [],
+      "latency_ms": 9828,
+      "raw_image_result": {
+        "ocr": {
+          "provider_name": "mac_vision_ocr",
+          "status": "validated",
+          "latency_ms": 979,
+          "raw_result": {
+            "engine": "Vision"
+          },
+          "text": "套餐A\n每日精选四件套\n•小食（三选一）\n流心可生食扒炉煎蛋\nRunny Pan-Seared Egg\n十\n~523\n大卡\n金枪鱼鸡蛋恰巴塔帕尼尼\nTuna & Egg Ciabatta Panini\n•配餐（三选一）\n拌饭泡菜\nKimchi\n•饮料（三选一）\n无糖\n柠檬可乐\nSugar-Free Lemon Cola\n清爽菜心\nGreen vegetables\n苹果\n热红茶\nHotapple tea\n香酥海苔碎\nCrispy Seaweed Flakes\n抹茶\n柠檬茶\nC2aslemon\n套餐B\n~578\n大卡\n藤椒风味鸡焖饭能量碗\nRattan Pepper Chicken Braised Rice Bowl\n每日精选四件套\n0小食（三选一）\nKoasteu cnickenThgn\nRoasted Wings\n•配餐（三选一）\n拌饭泡菜\nKimchi\n•饮料（三选一）\n清爽菜心\nGreen vegetables\n无糖\n柠檬可乐\n或\nSugar-Free Lemon Cola\n苹果\n热红茶\nHotappletea\n流心可生食扒炉煎蛋\nKunny Fan-seared Egg\n（Sashimi-Grade）\n蔬菜碗\nBuddha Bowll\n香酥海苔碎\nCrispy Seaweed Flakes\n抹茶\n柠檬茶\n2時Lemon\n套餐C\n~538\n大卡\n嫩烤鸡胸荞麦面碗配味增汁\nRoasted Chicken Soba Bowl with Dressing\n每日精选四件套\n0小食（三选一）\n嫩烤鸡腿肉（4块）招牌烤翅（2块）\n◎配餐（三选一）\n拌饭泡菜\nKimchi\n•饮料（三选一）\n清爽菜心\nGreen vegetables\n无糖\n柠檬可乐\nSugarFree Lemon Cola\n苹果\n热红茶\nHotapple tea\n流心可生食扒炉煎蛋\nKunny Pan-seared Ege\n（Sashimi-Grade）\n香酥海苔碎\nCrispy Seaweed Flakes\n抹茶\n柠檬茶\nCwaLemon",
+          "lines": [
+            "套餐A",
+            "每日精选四件套",
+            "•小食（三选一）",
+            "流心可生食扒炉煎蛋",
+            "Runny Pan-Seared Egg",
+            "十",
+            "~523",
+            "大卡",
+            "金枪鱼鸡蛋恰巴塔帕尼尼",
+            "Tuna & Egg Ciabatta Panini",
+            "•配餐（三选一）",
+            "拌饭泡菜",
+            "Kimchi",
+            "•饮料（三选一）",
+            "无糖",
+            "柠檬可乐",
+            "Sugar-Free Lemon Cola",
+            "清爽菜心",
+            "Green vegetables",
+            "苹果",
+            "热红茶",
+            "Hotapple tea",
+            "香酥海苔碎",
+            "Crispy Seaweed Flakes",
+            "抹茶",
+            "柠檬茶",
+            "C2aslemon",
+            "套餐B",
+            "~578",
+            "大卡",
+            "藤椒风味鸡焖饭能量碗",
+            "Rattan Pepper Chicken Braised Rice Bowl",
+            "每日精选四件套",
+            "0小食（三选一）",
+            "Koasteu cnickenThgn",
+            "Roasted Wings",
+            "•配餐（三选一）",
+            "拌饭泡菜",
+            "Kimchi",
+            "•饮料（三选一）",
+            "清爽菜心",
+            "Green vegetables",
+            "无糖",
+            "柠檬可乐",
+            "或",
+            "Sugar-Free Lemon Cola",
+            "苹果",
+            "热红茶",
+            "Hotappletea",
+            "流心可生食扒炉煎蛋",
+            "Kunny Fan-seared Egg",
+            "（Sashimi-Grade）",
+            "蔬菜碗",
+            "Buddha Bowll",
+            "香酥海苔碎",
+            "Crispy Seaweed Flakes",
+            "抹茶",
+            "柠檬茶",
+            "2時Lemon",
+            "套餐C",
+            "~538",
+            "大卡",
+            "嫩烤鸡胸荞麦面碗配味增汁",
+            "Roasted Chicken Soba Bowl with Dressing",
+            "每日精选四件套",
+            "0小食（三选一）",
+            "嫩烤鸡腿肉（4块）招牌烤翅（2块）",
+            "◎配餐（三选一）",
+            "拌饭泡菜",
+            "Kimchi",
+            "•饮料（三选一）",
+            "清爽菜心",
+            "Green vegetables",
+            "无糖",
+            "柠檬可乐",
+            "SugarFree Lemon Cola",
+            "苹果",
+            "热红茶",
+            "Hotapple tea",
+            "流心可生食扒炉煎蛋",
+            "Kunny Pan-seared Ege",
+            "（Sashimi-Grade）",
+            "香酥海苔碎",
+            "Crispy Seaweed Flakes",
+            "抹茶",
+            "柠檬茶",
+            "CwaLemon"
+          ],
+          "error_message": "",
+          "credential_hint": "",
+          "degrade_strategy": ""
+        },
+        "vision": {
+          "provider_name": "ocr_assisted_vision",
+          "status": "validated",
+          "latency_ms": 1037,
+          "candidates": [
+            "流心可生食扒炉煎蛋",
+            "金枪鱼鸡蛋恰巴塔帕尼尼",
+            "拌饭泡菜",
+            "清爽菜心",
+            "藤椒风味鸡焖饭能量碗",
+            "蔬菜碗",
+            "嫩烤鸡胸荞麦面碗配味增汁",
+            "嫩烤鸡腿肉（4块）招牌烤翅（2块）"
+          ],
+          "raw_result": {
+            "ocr_provider": "mac_vision_ocr",
+            "ocr_status": "validated"
+          },
+          "error_message": "",
+          "credential_hint": "",
+          "degrade_strategy": "use OCR text / manual review"
+        }
+      }
+    },
+    {
+      "image_id": "20260508-123034",
+      "image_path": "pic/20260508-123034.jpg",
+      "image_type": "menu",
+      "status": "needs_review",
+      "expected_dishes": [],
+      "matched_expected": [],
+      "recommendation": "recommend",
+      "need_confirm": [],
+      "latency_ms": 9563,
+      "raw_image_result": {
+        "ocr": {
+          "provider_name": "mac_vision_ocr",
+          "status": "validated",
+          "latency_ms": 1014,
+          "raw_result": {
+            "engine": "Vision"
+          },
+          "text": "套餐A\n每日精选四件套\n•小食（三选一）\n流心可生食扒炉煎蛋\nRunny Pan-Seared Egg\n十\n~523\n大卡\n金枪鱼鸡蛋恰巴塔帕尼尼\nTuna & Egg Ciabatta Panini\n•配餐（三选一）\n拌饭泡菜\nKimchi\n•饮料（三选一）\n无糖\n柠檬可乐\nSugar-Free Lemon Cola\n清爽菜心\nGreen vegetables\n苹果\n热红茶\nHotapple tea\n香酥海苔碎\nCrispy Seaweed Flakes\n抹茶\n柠檬茶\nC2aslemon\n套餐B\n~578\n大卡\n藤椒风味鸡焖饭能量碗\nRattan Pepper Chicken Braised Rice Bowl\n每日精选四件套\n0小食（三选一）\nKoasteu cnickenThgn\nRoasted Wings\n•配餐（三选一）\n拌饭泡菜\nKimchi\n•饮料（三选一）\n清爽菜心\nGreen vegetables\n无糖\n柠檬可乐\n或\nSugar-Free Lemon Cola\n苹果\n热红茶\nHotappletea\n流心可生食扒炉煎蛋\nKunny Fan-seared Egg\n（Sashimi-Grade）\n蔬菜碗\nBuddha Bowll\n香酥海苔碎\nCrispy Seaweed Flakes\n抹茶\n柠檬茶\n2時Lemon\n套餐C\n~538\n大卡\n嫩烤鸡胸荞麦面碗配味增汁\nRoasted Chicken Soba Bowl with Dressing\n每日精选四件套\n0小食（三选一）\n嫩烤鸡腿肉（4块）招牌烤翅（2块）\n◎配餐（三选一）\n拌饭泡菜\nKimchi\n•饮料（三选一）\n清爽菜心\nGreen vegetables\n无糖\n柠檬可乐\nSugarFree Lemon Cola\n苹果\n热红茶\nHotapple tea\n流心可生食扒炉煎蛋\nKunny Pan-seared Ege\n（Sashimi-Grade）\n香酥海苔碎\nCrispy Seaweed Flakes\n抹茶\n柠檬茶\nCwaLemon",
+          "lines": [
+            "套餐A",
+            "每日精选四件套",
+            "•小食（三选一）",
+            "流心可生食扒炉煎蛋",
+            "Runny Pan-Seared Egg",
+            "十",
+            "~523",
+            "大卡",
+            "金枪鱼鸡蛋恰巴塔帕尼尼",
+            "Tuna & Egg Ciabatta Panini",
+            "•配餐（三选一）",
+            "拌饭泡菜",
+            "Kimchi",
+            "•饮料（三选一）",
+            "无糖",
+            "柠檬可乐",
+            "Sugar-Free Lemon Cola",
+            "清爽菜心",
+            "Green vegetables",
+            "苹果",
+            "热红茶",
+            "Hotapple tea",
+            "香酥海苔碎",
+            "Crispy Seaweed Flakes",
+            "抹茶",
+            "柠檬茶",
+            "C2aslemon",
+            "套餐B",
+            "~578",
+            "大卡",
+            "藤椒风味鸡焖饭能量碗",
+            "Rattan Pepper Chicken Braised Rice Bowl",
+            "每日精选四件套",
+            "0小食（三选一）",
+            "Koasteu cnickenThgn",
+            "Roasted Wings",
+            "•配餐（三选一）",
+            "拌饭泡菜",
+            "Kimchi",
+            "•饮料（三选一）",
+            "清爽菜心",
+            "Green vegetables",
+            "无糖",
+            "柠檬可乐",
+            "或",
+            "Sugar-Free Lemon Cola",
+            "苹果",
+            "热红茶",
+            "Hotappletea",
+            "流心可生食扒炉煎蛋",
+            "Kunny Fan-seared Egg",
+            "（Sashimi-Grade）",
+            "蔬菜碗",
+            "Buddha Bowll",
+            "香酥海苔碎",
+            "Crispy Seaweed Flakes",
+            "抹茶",
+            "柠檬茶",
+            "2時Lemon",
+            "套餐C",
+            "~538",
+            "大卡",
+            "嫩烤鸡胸荞麦面碗配味增汁",
+            "Roasted Chicken Soba Bowl with Dressing",
+            "每日精选四件套",
+            "0小食（三选一）",
+            "嫩烤鸡腿肉（4块）招牌烤翅（2块）",
+            "◎配餐（三选一）",
+            "拌饭泡菜",
+            "Kimchi",
+            "•饮料（三选一）",
+            "清爽菜心",
+            "Green vegetables",
+            "无糖",
+            "柠檬可乐",
+            "SugarFree Lemon Cola",
+            "苹果",
+            "热红茶",
+            "Hotapple tea",
+            "流心可生食扒炉煎蛋",
+            "Kunny Pan-seared Ege",
+            "（Sashimi-Grade）",
+            "香酥海苔碎",
+            "Crispy Seaweed Flakes",
+            "抹茶",
+            "柠檬茶",
+            "CwaLemon"
+          ],
+          "error_message": "",
+          "credential_hint": "",
+          "degrade_strategy": ""
+        },
+        "vision": {
+          "provider_name": "ocr_assisted_vision",
+          "status": "validated",
+          "latency_ms": 1045,
+          "candidates": [
+            "流心可生食扒炉煎蛋",
+            "金枪鱼鸡蛋恰巴塔帕尼尼",
+            "拌饭泡菜",
+            "清爽菜心",
+            "藤椒风味鸡焖饭能量碗",
+            "蔬菜碗",
+            "嫩烤鸡胸荞麦面碗配味增汁",
+            "嫩烤鸡腿肉（4块）招牌烤翅（2块）"
+          ],
+          "raw_result": {
+            "ocr_provider": "mac_vision_ocr",
+            "ocr_status": "validated"
+          },
+          "error_message": "",
+          "credential_hint": "",
+          "degrade_strategy": "use OCR text / manual review"
+        }
+      }
+    },
+    {
+      "image_id": "20260508-123043",
+      "image_path": "pic/20260508-123043.jpg",
+      "image_type": "dish",
+      "status": "passed",
+      "expected_dishes": [],
+      "matched_expected": [],
+      "recommendation": "need_confirm",
+      "need_confirm": [
+        "主要食材",
+        "菜名或图片"
+      ],
+      "latency_ms": 4361,
+      "raw_image_result": {
+        "ocr": {
+          "provider_name": "mac_vision_ocr",
+          "status": "validated",
+          "latency_ms": 645,
+          "raw_result": {
+            "engine": "Vision"
+          },
+          "text": "",
+          "lines": [],
+          "error_message": "",
+          "credential_hint": "",
+          "degrade_strategy": ""
+        },
+        "vision": {
+          "provider_name": "baidu_dish_recognition",
+          "status": "degraded",
+          "latency_ms": 3074,
+          "candidates": [],
+          "raw_result": {
+            "result": [
+              {
+                "probability": "0.911366",
+                "has_calorie": false,
+                "name": "非菜"
+              }
+            ],
+            "result_num": 1,
+            "log_id": 2053043580277555678
+          },
+          "error_message": "",
+          "credential_hint": "",
+          "degrade_strategy": "fallback to OCR-assisted vision"
+        }
+      }
+    },
+    {
+      "image_id": "20260508-123047",
+      "image_path": "pic/20260508-123047.jpg",
+      "image_type": "dish",
+      "status": "passed",
+      "expected_dishes": [
+        "荠菜鲜肉小馄饨"
+      ],
+      "matched_expected": [
+        "荠菜鲜肉小馄饨"
+      ],
+      "recommendation": "recommend",
+      "need_confirm": [],
+      "latency_ms": 2397,
+      "raw_image_result": {
+        "ocr": {
+          "provider_name": "mac_vision_ocr",
+          "status": "validated",
+          "latency_ms": 605,
+          "raw_result": {
+            "engine": "Vision"
+          },
+          "text": "Administration\n行政\n特色档口菜单\n可回9555\n9555\n《红床富”很饨\n荠菜鲜肉小馄饨\nPark & Vegetable Wanton Soup",
+          "lines": [
+            "Administration",
+            "行政",
+            "特色档口菜单",
+            "可回9555",
+            "9555",
+            "《红床富”很饨",
+            "荠菜鲜肉小馄饨",
+            "Park & Vegetable Wanton Soup"
+          ],
+          "error_message": "",
+          "credential_hint": "",
+          "degrade_strategy": ""
+        },
+        "vision": {
+          "provider_name": "ocr_assisted_vision",
+          "status": "validated",
+          "latency_ms": 683,
+          "candidates": [
+            "可回9555",
+            "《红床富”很饨",
+            "荠菜鲜肉小馄饨"
+          ],
+          "raw_result": {
+            "ocr_provider": "mac_vision_ocr",
+            "ocr_status": "validated"
+          },
+          "error_message": "",
+          "credential_hint": "",
+          "degrade_strategy": "use OCR text / manual review"
+        }
+      }
+    },
+    {
+      "image_id": "20260508-123050",
+      "image_path": "pic/20260508-123050.jpg",
+      "image_type": "dish",
+      "status": "passed",
+      "expected_dishes": [
+        "鸡蛋红肠粉"
+      ],
+      "matched_expected": [
+        "鸡蛋红肠粉"
+      ],
+      "recommendation": "recommend",
+      "need_confirm": [],
+      "latency_ms": 2500,
+      "raw_image_result": {
+        "ocr": {
+          "provider_name": "mac_vision_ocr",
+          "status": "validated",
+          "latency_ms": 646,
+          "raw_result": {
+            "engine": "Vision"
+          },
+          "text": "Administration\n行政\n特色档口菜单\n鸡蛋红肠粉\nSteamed Red Rice Noodle Roll with Egg",
+          "lines": [
+            "Administration",
+            "行政",
+            "特色档口菜单",
+            "鸡蛋红肠粉",
+            "Steamed Red Rice Noodle Roll with Egg"
+          ],
+          "error_message": "",
+          "credential_hint": "",
+          "degrade_strategy": ""
+        },
+        "vision": {
+          "provider_name": "ocr_assisted_vision",
+          "status": "validated",
+          "latency_ms": 717,
+          "candidates": [
+            "鸡蛋红肠粉"
+          ],
+          "raw_result": {
+            "ocr_provider": "mac_vision_ocr",
+            "ocr_status": "validated"
+          },
+          "error_message": "",
+          "credential_hint": "",
+          "degrade_strategy": "use OCR text / manual review"
+        }
+      }
+    },
+    {
+      "image_id": "20260508-123054",
+      "image_path": "pic/20260508-123054.jpg",
+      "image_type": "dish",
+      "status": "passed",
+      "expected_dishes": [],
+      "matched_expected": [],
+      "recommendation": "recommend",
+      "need_confirm": [],
+      "latency_ms": 5711,
+      "raw_image_result": {
+        "ocr": {
+          "provider_name": "mac_vision_ocr",
+          "status": "validated",
+          "latency_ms": 650,
+          "raw_result": {
+            "engine": "Vision"
+          },
+          "text": "Administration\n行政\n特色档口菜单\n香菇肉酱面/粉\nShiitake and Pork\nSaucE Noodles/Rice\nNoodles\n素鸡面/粉\nBriased Tofu\nNoodles/RicE Noodles\n西红柿鸡蛋面/粉\nTomato and\nFried Egg with\nNoodles/Rice\nNaodles\n热干面\nHot Dry Noodles",
+          "lines": [
+            "Administration",
+            "行政",
+            "特色档口菜单",
+            "香菇肉酱面/粉",
+            "Shiitake and Pork",
+            "SaucE Noodles/Rice",
+            "Noodles",
+            "素鸡面/粉",
+            "Briased Tofu",
+            "Noodles/RicE Noodles",
+            "西红柿鸡蛋面/粉",
+            "Tomato and",
+            "Fried Egg with",
+            "Noodles/Rice",
+            "Naodles",
+            "热干面",
+            "Hot Dry Noodles"
+          ],
+          "error_message": "",
+          "credential_hint": "",
+          "degrade_strategy": ""
+        },
+        "vision": {
+          "provider_name": "baidu_dish_recognition",
+          "status": "validated",
+          "latency_ms": 1030,
+          "candidates": [
+            "牛肉拉面",
+            "担担面",
+            "鸡丝面",
+            "豌杂面"
+          ],
+          "raw_result": {
+            "result": [
+              {
+                "probability": "0.559477",
+                "has_calorie": true,
+                "calorie": "238",
+                "name": "牛肉拉面"
+              },
+              {
+                "probability": "0.140672",
+                "has_calorie": true,
+                "calorie": "132",
+                "name": "小面"
+              },
+              {
+                "probability": "0.0914029",
+                "has_calorie": true,
+                "calorie": "146",
+                "name": "担担面"
+              },
+              {
+                "probability": "0.0556583",
+                "has_calorie": false,
+                "name": "鸡丝面"
+              },
+              {
+                "probability": "0.0294519",
+                "has_calorie": true,
+                "calorie": "476",
+                "name": "豌杂面"
+              }
+            ],
+            "result_num": 5,
+            "log_id": 2053043610692457540
+          },
+          "error_message": "",
+          "credential_hint": "",
+          "degrade_strategy": "fallback to OCR-assisted vision"
+        }
+      }
+    },
+    {
+      "image_id": "20260508-123058",
+      "image_path": "pic/20260508-123058.jpg",
+      "image_type": "dish",
+      "status": "passed",
+      "expected_dishes": [
+        "胡辣汤",
+        "豆腐脑"
+      ],
+      "matched_expected": [
+        "胡辣汤",
+        "豆腐脑"
+      ],
+      "recommendation": "recommend",
+      "need_confirm": [],
+      "latency_ms": 2568,
+      "raw_image_result": {
+        "ocr": {
+          "provider_name": "mac_vision_ocr",
+          "status": "validated",
+          "latency_ms": 727,
+          "raw_result": {
+            "engine": "Vision"
+          },
+          "text": "Administration\n行政\n特色档口菜单\n胡辣汤\nHu La Tang （Spicy & Sour\nSoup with Peanuts, Day\nLily and Black Fungus）\n豆腐脑（甜/咸）\nSoft Tofu Pudding （ Sweet/Salt）",
+          "lines": [
+            "Administration",
+            "行政",
+            "特色档口菜单",
+            "胡辣汤",
+            "Hu La Tang （Spicy & Sour",
+            "Soup with Peanuts, Day",
+            "Lily and Black Fungus）",
+            "豆腐脑（甜/咸）",
+            "Soft Tofu Pudding （ Sweet/Salt）"
+          ],
+          "error_message": "",
+          "credential_hint": "",
+          "degrade_strategy": ""
+        },
+        "vision": {
+          "provider_name": "ocr_assisted_vision",
+          "status": "validated",
+          "latency_ms": 713,
+          "candidates": [
+            "胡辣汤",
+            "豆腐脑（甜/咸）"
+          ],
+          "raw_result": {
+            "ocr_provider": "mac_vision_ocr",
+            "ocr_status": "validated"
+          },
+          "error_message": "",
+          "credential_hint": "",
+          "degrade_strategy": "use OCR text / manual review"
+        }
+      }
+    },
+    {
+      "image_id": "20260508-123102",
+      "image_path": "pic/20260508-123102.jpg",
+      "image_type": "dish",
+      "status": "passed",
+      "expected_dishes": [],
+      "matched_expected": [],
+      "recommendation": "recommend",
+      "need_confirm": [],
+      "latency_ms": 6230,
+      "raw_image_result": {
+        "ocr": {
+          "provider_name": "mac_vision_ocr",
+          "status": "validated",
+          "latency_ms": 629,
+          "raw_result": {
+            "engine": "Vision"
+          },
+          "text": "Administration\n行政\n特色档口菜单\n豆浆\nGoybean Milk\n猪肉粉丝谄饼/梅干菜馅饼\nPork and Vermicelli Pan-Fried\nPie/Preserved Vegetable\nPan-Fried Pie",
+          "lines": [
+            "Administration",
+            "行政",
+            "特色档口菜单",
+            "豆浆",
+            "Goybean Milk",
+            "猪肉粉丝谄饼/梅干菜馅饼",
+            "Pork and Vermicelli Pan-Fried",
+            "Pie/Preserved Vegetable",
+            "Pan-Fried Pie"
+          ],
+          "error_message": "",
+          "credential_hint": "",
+          "degrade_strategy": ""
+        },
+        "vision": {
+          "provider_name": "ocr_assisted_vision",
+          "status": "validated",
+          "latency_ms": 875,
+          "candidates": [
+            "猪肉粉丝谄饼/梅干菜馅饼"
+          ],
+          "raw_result": {
+            "ocr_provider": "mac_vision_ocr",
+            "ocr_status": "validated"
+          },
+          "error_message": "",
+          "credential_hint": "",
+          "degrade_strategy": "use OCR text / manual review"
+        }
+      }
+    },
+    {
+      "image_id": "20260508-123106",
+      "image_path": "pic/20260508-123106.jpg",
+      "image_type": "menu",
+      "status": "needs_review",
+      "expected_dishes": [],
+      "matched_expected": [],
+      "recommendation": "recommend",
+      "need_confirm": [],
+      "latency_ms": 2580,
+      "raw_image_result": {
+        "ocr": {
+          "provider_name": "mac_vision_ocr",
+          "status": "validated",
+          "latency_ms": 931,
+          "raw_result": {
+            "engine": "Vision"
+          },
+          "text": "Administration\n行政\nT4B早餐菜单\n7/8F自选暖厨\n面点：酸菜猪肉包、红糖杂粮包、烧麦、双色米糕\n煎炸：油条、荠菜猪肉煎包、炸土豆块\n流食：白粥、胡辣汤、豆浆、牛奶、果汁\n炒制：炒火鸡面\n热菜：清炒茼蒿、黄瓜炒蛋、佛手瓜炒肉\n杂粮：蒸玉米、蒸红薯\n蛋类：咸鸭蛋、白煮蛋\n西式：切片原味吐司、切片全麦吐司、蛋挞、蓝莓椰蓉蛋糕、牛角包、椒盐烧饼、谷维滋\n佐菜：五仁酱丁、香甜脆瓜\n7F金元宝\n杭帮虾籽面\n春笋肉丝虾籽面\n7F铁板滋味\n鸡蛋灌饼\n杂粮煎饼\n鲜肉大葱骨汤小馄饨",
+          "lines": [
+            "Administration",
+            "行政",
+            "T4B早餐菜单",
+            "7/8F自选暖厨",
+            "面点：酸菜猪肉包、红糖杂粮包、烧麦、双色米糕",
+            "煎炸：油条、荠菜猪肉煎包、炸土豆块",
+            "流食：白粥、胡辣汤、豆浆、牛奶、果汁",
+            "炒制：炒火鸡面",
+            "热菜：清炒茼蒿、黄瓜炒蛋、佛手瓜炒肉",
+            "杂粮：蒸玉米、蒸红薯",
+            "蛋类：咸鸭蛋、白煮蛋",
+            "西式：切片原味吐司、切片全麦吐司、蛋挞、蓝莓椰蓉蛋糕、牛角包、椒盐烧饼、谷维滋",
+            "佐菜：五仁酱丁、香甜脆瓜",
+            "7F金元宝",
+            "杭帮虾籽面",
+            "春笋肉丝虾籽面",
+            "7F铁板滋味",
+            "鸡蛋灌饼",
+            "杂粮煎饼",
+            "鲜肉大葱骨汤小馄饨"
+          ],
+          "error_message": "",
+          "credential_hint": "",
+          "degrade_strategy": ""
+        },
+        "vision": {
+          "provider_name": "ocr_assisted_vision",
+          "status": "validated",
+          "latency_ms": 815,
+          "candidates": [
+            "7/8F自选暖厨",
+            "面点：酸菜猪肉包、红糖杂粮包、烧麦、双色米糕",
+            "煎炸：油条、荠菜猪肉煎包、炸土豆块",
+            "流食：白粥、胡辣汤、豆浆、牛奶、果汁",
+            "炒制：炒火鸡面",
+            "热菜：清炒茼蒿、黄瓜炒蛋、佛手瓜炒肉",
+            "杂粮：蒸玉米、蒸红薯",
+            "蛋类：咸鸭蛋、白煮蛋"
+          ],
+          "raw_result": {
+            "ocr_provider": "mac_vision_ocr",
+            "ocr_status": "validated"
+          },
+          "error_message": "",
+          "credential_hint": "",
+          "degrade_strategy": "use OCR text / manual review"
+        }
+      }
+    },
+    {
+      "image_id": "20260508-123109",
+      "image_path": "pic/20260508-123109.jpg",
+      "image_type": "dish",
+      "status": "passed",
+      "expected_dishes": [],
+      "matched_expected": [],
+      "recommendation": "need_confirm",
+      "need_confirm": [
+        "主要食材",
+        "菜名或图片"
+      ],
+      "latency_ms": 1978,
+      "raw_image_result": {
+        "ocr": {
+          "provider_name": "mac_vision_ocr",
+          "status": "validated",
+          "latency_ms": 546,
+          "raw_result": {
+            "engine": "Vision"
+          },
+          "text": "",
+          "lines": [],
+          "error_message": "",
+          "credential_hint": "",
+          "degrade_strategy": ""
+        },
+        "vision": {
+          "provider_name": "baidu_dish_recognition",
+          "status": "degraded",
+          "latency_ms": 872,
+          "candidates": [],
+          "raw_result": {
+            "result": [
+              {
+                "probability": "0.87874",
+                "has_calorie": false,
+                "name": "非菜"
+              }
+            ],
+            "result_num": 1,
+            "log_id": 2053043682819835901
+          },
+          "error_message": "",
+          "credential_hint": "",
+          "degrade_strategy": "fallback to OCR-assisted vision"
+        }
+      }
+    },
+    {
+      "image_id": "20260508-123119",
+      "image_path": "pic/20260508-123119.jpg",
+      "image_type": "menu",
+      "status": "needs_review",
+      "expected_dishes": [],
+      "matched_expected": [],
+      "recommendation": "recommend",
+      "need_confirm": [],
+      "latency_ms": 5086,
+      "raw_image_result": {
+        "ocr": {
+          "provider_name": "mac_vision_ocr",
+          "status": "validated",
+          "latency_ms": 885,
+          "raw_result": {
+            "engine": "Vision"
+          },
+          "text": "Administration\n行政\n5F大刀铡面\n麻辣双椒鸡拌面\n香辣爆肚面\n双拼套餐\n5F水煮江湖\n跷脚牛肉\n秘制鸡公煲\n秘制香辣烤鱼\n6F好想见面\n牛肉粿条\n牛肉丸拼牛肉粿条\n全家福粿条\n6F粤式烧味\n烧鸭猪脚双拼套餐\n烤鸡猪脚双拼套餐\n三拼套餐\n6F贵州小厨\n水煮牛肉拼猪里脊套餐\n苗家柠檬酸菜鱼套餐\n辣子鸡丁套餐\n6F烙馍村\n卷饼套餐\n配菜：葱香牛肉\n孜然尖椒肉丝\n香辣海带丝）\n家常土豆丝\n6F淮南牛肉汤\n白切牛肉粉丝汤/粿条\n红烧牛肉粉丝汤/粿条\n拆骨肉粉丝汤/粿条\n7F金元宝\n巴沙鱼韭菜水饺\n鲜肉荠菜水饺\n素三鲜水饺\n鲜肉沙葱小笼包\n7F铁板滋味\n铁板沙葱牛肉丝套餐\n巴西焦香烤肉套餐\n双拼套餐\nTAB特色档回菜单\n8F锅锅飘香\n酸菜炖排骨\n老鸡炖野山菌\n农家豆腐炖丸子\n8F沸腾砂锅\n海鲜砂锅粥\n排骨山药砂锅粥\n砂锅滑鸡粥\n8F米线之滇\n山野菌菇鸡丝米线\n藤椒花甲虾米线/\n牛肉拌粉》\n8F T4麻辣烫\n冬阴功麻辣烫\n经典骨汤麻辣烫\n番茄麻辣烫\n9F川湘现炒\n炊烟小炒牛肉\n农家一碗香\n双拼套餐\n9F韩食纪\n日式肥牛寿喜锅》\n辣咖喱排骨饭丿\n黑金卤肉石锅拌饭\n9F老北京烤鸭\n北京烤鸭套餐\n爆炒烤鸭\n烤鸭双吃）\n5F轻能补给站\n主荤：白灼大虾、黑椒猪\n排、蒜香鸡扒\n冷轻食：混合生菜、黄瓜\n杭白菜、空心菜、冬瓜、\n土豆泥、西兰花\n热轻食：油菜炒香菇、山\n药炒木耳、甜糯玉米段、\n烤贝贝南瓜、水煮蛋\n水果：哈密瓜、圣女果\n主食：荞麦面、杂粮饭\n汤品：无糖绿豆汤",
+          "lines": [
+            "Administration",
+            "行政",
+            "5F大刀铡面",
+            "麻辣双椒鸡拌面",
+            "香辣爆肚面",
+            "双拼套餐",
+            "5F水煮江湖",
+            "跷脚牛肉",
+            "秘制鸡公煲",
+            "秘制香辣烤鱼",
+            "6F好想见面",
+            "牛肉粿条",
+            "牛肉丸拼牛肉粿条",
+            "全家福粿条",
+            "6F粤式烧味",
+            "烧鸭猪脚双拼套餐",
+            "烤鸡猪脚双拼套餐",
+            "三拼套餐",
+            "6F贵州小厨",
+            "水煮牛肉拼猪里脊套餐",
+            "苗家柠檬酸菜鱼套餐",
+            "辣子鸡丁套餐",
+            "6F烙馍村",
+            "卷饼套餐",
+            "配菜：葱香牛肉",
+            "孜然尖椒肉丝",
+            "香辣海带丝）",
+            "家常土豆丝",
+            "6F淮南牛肉汤",
+            "白切牛肉粉丝汤/粿条",
+            "红烧牛肉粉丝汤/粿条",
+            "拆骨肉粉丝汤/粿条",
+            "7F金元宝",
+            "巴沙鱼韭菜水饺",
+            "鲜肉荠菜水饺",
+            "素三鲜水饺",
+            "鲜肉沙葱小笼包",
+            "7F铁板滋味",
+            "铁板沙葱牛肉丝套餐",
+            "巴西焦香烤肉套餐",
+            "双拼套餐",
+            "TAB特色档回菜单",
+            "8F锅锅飘香",
+            "酸菜炖排骨",
+            "老鸡炖野山菌",
+            "农家豆腐炖丸子",
+            "8F沸腾砂锅",
+            "海鲜砂锅粥",
+            "排骨山药砂锅粥",
+            "砂锅滑鸡粥",
+            "8F米线之滇",
+            "山野菌菇鸡丝米线",
+            "藤椒花甲虾米线/",
+            "牛肉拌粉》",
+            "8F T4麻辣烫",
+            "冬阴功麻辣烫",
+            "经典骨汤麻辣烫",
+            "番茄麻辣烫",
+            "9F川湘现炒",
+            "炊烟小炒牛肉",
+            "农家一碗香",
+            "双拼套餐",
+            "9F韩食纪",
+            "日式肥牛寿喜锅》",
+            "辣咖喱排骨饭丿",
+            "黑金卤肉石锅拌饭",
+            "9F老北京烤鸭",
+            "北京烤鸭套餐",
+            "爆炒烤鸭",
+            "烤鸭双吃）",
+            "5F轻能补给站",
+            "主荤：白灼大虾、黑椒猪",
+            "排、蒜香鸡扒",
+            "冷轻食：混合生菜、黄瓜",
+            "杭白菜、空心菜、冬瓜、",
+            "土豆泥、西兰花",
+            "热轻食：油菜炒香菇、山",
+            "药炒木耳、甜糯玉米段、",
+            "烤贝贝南瓜、水煮蛋",
+            "水果：哈密瓜、圣女果",
+            "主食：荞麦面、杂粮饭",
+            "汤品：无糖绿豆汤"
+          ],
+          "error_message": "",
+          "credential_hint": "",
+          "degrade_strategy": ""
+        },
+        "vision": {
+          "provider_name": "ocr_assisted_vision",
+          "status": "validated",
+          "latency_ms": 993,
+          "candidates": [
+            "5F大刀铡面",
+            "麻辣双椒鸡拌面",
+            "香辣爆肚面",
+            "5F水煮江湖",
+            "跷脚牛肉",
+            "秘制鸡公煲",
+            "秘制香辣烤鱼",
+            "6F好想见面"
+          ],
+          "raw_result": {
+            "ocr_provider": "mac_vision_ocr",
+            "ocr_status": "validated"
+          },
+          "error_message": "",
+          "credential_hint": "",
+          "degrade_strategy": "use OCR text / manual review"
+        }
+      }
+    },
+    {
+      "image_id": "20260508-123122",
+      "image_path": "pic/20260508-123122.jpg",
+      "image_type": "menu",
+      "status": "needs_review",
+      "expected_dishes": [],
+      "matched_expected": [],
+      "recommendation": "recommend",
+      "need_confirm": [],
+      "latency_ms": 8763,
+      "raw_image_result": {
+        "ocr": {
+          "provider_name": "mac_vision_ocr",
+          "status": "validated",
+          "latency_ms": 728,
+          "raw_result": {
+            "engine": "Vision"
+          },
+          "text": "Administration\n行政\n主荤\n香辣基围虾\n春笋烧老鸭\n酱香扇子骨\n杂粮\n蒸玉米\n蒸山药\n粥类\n紫米粥\n午餐自选菜单\n半荤\n西北过油肉\n佛手瓜炒蛋\n蒜苔炒肉丝\n素菜\n主食\n金蒜油麦菜\n马拉糕\n手撕包菜\n胡萝卜馒头\n白米饭\n杂粮饭\n小吃\n咸汤\n金沙鳕鱼排\n老鸭萝卜汤\n饮料\n豆本豆植物奶\n有糖可乐",
+          "lines": [
+            "Administration",
+            "行政",
+            "主荤",
+            "香辣基围虾",
+            "春笋烧老鸭",
+            "酱香扇子骨",
+            "杂粮",
+            "蒸玉米",
+            "蒸山药",
+            "粥类",
+            "紫米粥",
+            "午餐自选菜单",
+            "半荤",
+            "西北过油肉",
+            "佛手瓜炒蛋",
+            "蒜苔炒肉丝",
+            "素菜",
+            "主食",
+            "金蒜油麦菜",
+            "马拉糕",
+            "手撕包菜",
+            "胡萝卜馒头",
+            "白米饭",
+            "杂粮饭",
+            "小吃",
+            "咸汤",
+            "金沙鳕鱼排",
+            "老鸭萝卜汤",
+            "饮料",
+            "豆本豆植物奶",
+            "有糖可乐"
+          ],
+          "error_message": "",
+          "credential_hint": "",
+          "degrade_strategy": ""
+        },
+        "vision": {
+          "provider_name": "ocr_assisted_vision",
+          "status": "validated",
+          "latency_ms": 772,
+          "candidates": [
+            "香辣基围虾",
+            "西北过油肉",
+            "蒜苔炒肉丝",
+            "金蒜油麦菜",
+            "手撕包菜",
+            "白米饭",
+            "杂粮饭",
+            "金沙鳕鱼排"
+          ],
+          "raw_result": {
+            "ocr_provider": "mac_vision_ocr",
+            "ocr_status": "validated"
+          },
+          "error_message": "",
+          "credential_hint": "",
+          "degrade_strategy": "use OCR text / manual review"
+        }
+      }
+    },
+    {
+      "image_id": "20260508-123129",
+      "image_path": "pic/20260508-123129.jpg",
+      "image_type": "menu",
+      "status": "needs_review",
+      "expected_dishes": [],
+      "matched_expected": [],
+      "recommendation": "recommend",
+      "need_confirm": [],
+      "latency_ms": 7308,
+      "raw_image_result": {
+        "ocr": {
+          "provider_name": "mac_vision_ocr",
+          "status": "validated",
+          "latency_ms": 1016,
+          "raw_result": {
+            "engine": "Vision"
+          },
+          "text": "Administration\n行政\n3F-云之南米线坊\n生烫牛肉米线\n生烫黑鱼片米线\n生烫鸡腿肉米线\n3F-面面俱到\n经典白切牛肉面\n鲜鱼籽肥肠拌面\n口蘑辣椒小炒肉拌川\n鸡丁爆虾仁拌川\n4F-金华砂锅\n麻辣小龙虾」\n虎皮凤爪\n清炖蹄花\n4F-U滋板烧\n牛肉培根菠萝芝士汉堡\n奶浀培根蘑菇意面\n4F-港仔\n烧鸭拼金牌叉烧\n烧鸭拼手撕鸡\n烧鸭拼隆江猪脚饭\n4F-金陵料理\n招牌鸭血粉丝\n荷香排骨豆角焖面\n黑松露牛肉炒饭\nT1餐厅菜单\n3F-手工云饺\n4F-鲜蘸小馆\n4F-轻卡生活\n午餐自觉\n玉米鲜肉饺\n生烫牛肉蘸水菜\n热轻食：炙烤鸡胸肉\n（3F-U滋母菜）\n韭菜三鲜鲜肉饺\n原切肘子蘸水菜\n酱烧烤猪肉\n白菜鲜肉饺\n鲜虾蘸水菜\n白卤牛肉\n白切牛腩\n莲藕鲜肉饺\n无米炒饭\n奥尔良烤鸡腿\n鲜虾鱼籽鲜肉云吞\n杭白菜\n千张结烧肉\n娃娃菜\n（小吃）炸麻球\n炙烤土豆\n4F-北味香灶\n铁锅蒜香排骨\n铁锅大虾炒肉丿\n三杯鸡\n4F-95°C麻辣烫\n牛肉麻辣烫\n鸡块麻辣烫』\n梅花肉麻辣烫\n蒸红薯\n毛豆炸酱\n酱香鸡蛋\n外婆菜炒鸡蛋\n八宝米饭\n青椒腐竹炒肉丝\n冷轻食：荞麦面\n生菜\n醋泡海带丝）\n苦菊\n清炒上海青\n黄瓜\n玉米馒头\n红萝卜\n4F-渝是渔\n豆花烤鱼夕\n青花椒黑鱼片\n水煮肉片\n4F-湘遇\n黄焖牛肉\n香辣小炒鸡』\n肝腰合炒\n玫瑰鲜花饼\n玉米粒\n紫甘蓝\n白米饭\n西瓜\n藜麦黑米饭\n哈密瓜\n蒸毛芋\n圣女果\n4F-饼语\n牛肉烧饼\n梅干菜烧饼\n海参撒汤\n麒竞漓腿海苔饭卷/配烘蛋紅枣桂圆莲子粥\n海带排骨蛋花汤\n元气森林\n夏黑葡萄气泡水280ml",
+          "lines": [
+            "Administration",
+            "行政",
+            "3F-云之南米线坊",
+            "生烫牛肉米线",
+            "生烫黑鱼片米线",
+            "生烫鸡腿肉米线",
+            "3F-面面俱到",
+            "经典白切牛肉面",
+            "鲜鱼籽肥肠拌面",
+            "口蘑辣椒小炒肉拌川",
+            "鸡丁爆虾仁拌川",
+            "4F-金华砂锅",
+            "麻辣小龙虾」",
+            "虎皮凤爪",
+            "清炖蹄花",
+            "4F-U滋板烧",
+            "牛肉培根菠萝芝士汉堡",
+            "奶浀培根蘑菇意面",
+            "4F-港仔",
+            "烧鸭拼金牌叉烧",
+            "烧鸭拼手撕鸡",
+            "烧鸭拼隆江猪脚饭",
+            "4F-金陵料理",
+            "招牌鸭血粉丝",
+            "荷香排骨豆角焖面",
+            "黑松露牛肉炒饭",
+            "T1餐厅菜单",
+            "3F-手工云饺",
+            "4F-鲜蘸小馆",
+            "4F-轻卡生活",
+            "午餐自觉",
+            "玉米鲜肉饺",
+            "生烫牛肉蘸水菜",
+            "热轻食：炙烤鸡胸肉",
+            "（3F-U滋母菜）",
+            "韭菜三鲜鲜肉饺",
+            "原切肘子蘸水菜",
+            "酱烧烤猪肉",
+            "白菜鲜肉饺",
+            "鲜虾蘸水菜",
+            "白卤牛肉",
+            "白切牛腩",
+            "莲藕鲜肉饺",
+            "无米炒饭",
+            "奥尔良烤鸡腿",
+            "鲜虾鱼籽鲜肉云吞",
+            "杭白菜",
+            "千张结烧肉",
+            "娃娃菜",
+            "（小吃）炸麻球",
+            "炙烤土豆",
+            "4F-北味香灶",
+            "铁锅蒜香排骨",
+            "铁锅大虾炒肉丿",
+            "三杯鸡",
+            "4F-95°C麻辣烫",
+            "牛肉麻辣烫",
+            "鸡块麻辣烫』",
+            "梅花肉麻辣烫",
+            "蒸红薯",
+            "毛豆炸酱",
+            "酱香鸡蛋",
+            "外婆菜炒鸡蛋",
+            "八宝米饭",
+            "青椒腐竹炒肉丝",
+            "冷轻食：荞麦面",
+            "生菜",
+            "醋泡海带丝）",
+            "苦菊",
+            "清炒上海青",
+            "黄瓜",
+            "玉米馒头",
+            "红萝卜",
+            "4F-渝是渔",
+            "豆花烤鱼夕",
+            "青花椒黑鱼片",
+            "水煮肉片",
+            "4F-湘遇",
+            "黄焖牛肉",
+            "香辣小炒鸡』",
+            "肝腰合炒",
+            "玫瑰鲜花饼",
+            "玉米粒",
+            "紫甘蓝",
+            "白米饭",
+            "西瓜",
+            "藜麦黑米饭",
+            "哈密瓜",
+            "蒸毛芋",
+            "圣女果",
+            "4F-饼语",
+            "牛肉烧饼",
+            "梅干菜烧饼",
+            "海参撒汤",
+            "麒竞漓腿海苔饭卷/配烘蛋紅枣桂圆莲子粥",
+            "海带排骨蛋花汤",
+            "元气森林",
+            "夏黑葡萄气泡水280ml"
+          ],
+          "error_message": "",
+          "credential_hint": "",
+          "degrade_strategy": ""
+        },
+        "vision": {
+          "provider_name": "ocr_assisted_vision",
+          "status": "validated",
+          "latency_ms": 927,
+          "candidates": [
+            "3F-云之南米线坊",
+            "生烫牛肉米线",
+            "生烫黑鱼片米线",
+            "生烫鸡腿肉米线",
+            "3F-面面俱到",
+            "经典白切牛肉面",
+            "鲜鱼籽肥肠拌面",
+            "口蘑辣椒小炒肉拌川"
+          ],
+          "raw_result": {
+            "ocr_provider": "mac_vision_ocr",
+            "ocr_status": "validated"
+          },
+          "error_message": "",
+          "credential_hint": "",
+          "degrade_strategy": "use OCR text / manual review"
+        }
+      }
+    },
+    {
+      "image_id": "20260508-123132",
+      "image_path": "pic/20260508-123132.jpg",
+      "image_type": "menu",
+      "status": "needs_review",
+      "expected_dishes": [],
+      "matched_expected": [],
+      "recommendation": "recommend",
+      "need_confirm": [],
+      "latency_ms": 4048,
+      "raw_image_result": {
+        "ocr": {
+          "provider_name": "mac_vision_ocr",
+          "status": "validated",
+          "latency_ms": 641,
+          "raw_result": {
+            "engine": "Vision"
+          },
+          "text": "Administration\n行政\n主荤\n葱烤大排\n香辣虾.\n半荤\n水炖蛋\n小炒娃娃菜\n素菜\n肉汁红烧萝卜\n蒜蓉油麦菜\n午餐自选菜单\n面食\n麦青红豆糕\n香菇菜包\n五彩窝窝头\n杂粮\n蒸芋艿\n主食\n白米饭\n外婆菜蛋炒饭\nMENU\n汤羹类\n青菜瘦肉粥\n黄瓜蛋汤\n五彩酒酿圆子\n小吃\n骨肉相连",
+          "lines": [
+            "Administration",
+            "行政",
+            "主荤",
+            "葱烤大排",
+            "香辣虾.",
+            "半荤",
+            "水炖蛋",
+            "小炒娃娃菜",
+            "素菜",
+            "肉汁红烧萝卜",
+            "蒜蓉油麦菜",
+            "午餐自选菜单",
+            "面食",
+            "麦青红豆糕",
+            "香菇菜包",
+            "五彩窝窝头",
+            "杂粮",
+            "蒸芋艿",
+            "主食",
+            "白米饭",
+            "外婆菜蛋炒饭",
+            "MENU",
+            "汤羹类",
+            "青菜瘦肉粥",
+            "黄瓜蛋汤",
+            "五彩酒酿圆子",
+            "小吃",
+            "骨肉相连"
+          ],
+          "error_message": "",
+          "credential_hint": "",
+          "degrade_strategy": ""
+        },
+        "vision": {
+          "provider_name": "ocr_assisted_vision",
+          "status": "validated",
+          "latency_ms": 655,
+          "candidates": [
+            "香辣虾.",
+            "小炒娃娃菜",
+            "肉汁红烧萝卜",
+            "蒜蓉油麦菜",
+            "香菇菜包",
+            "白米饭",
+            "外婆菜蛋炒饭",
+            "汤羹类"
+          ],
+          "raw_result": {
+            "ocr_provider": "mac_vision_ocr",
+            "ocr_status": "validated"
+          },
+          "error_message": "",
+          "credential_hint": "",
+          "degrade_strategy": "use OCR text / manual review"
+        }
+      }
+    },
+    {
+      "image_id": "20260508-123135",
+      "image_path": "pic/20260508-123135.jpg",
+      "image_type": "menu",
+      "status": "needs_review",
+      "expected_dishes": [],
+      "matched_expected": [],
+      "recommendation": "recommend",
+      "need_confirm": [],
+      "latency_ms": 5418,
+      "raw_image_result": {
+        "ocr": {
+          "provider_name": "mac_vision_ocr",
+          "status": "validated",
+          "latency_ms": 691,
+          "raw_result": {
+            "engine": "Vision"
+          },
+          "text": "Administration\n行政\n特色档口菜单\n轻食代煲天下\n轻食自选\n湘渝汇\n鱼汤海鲜锅\n小鸡炖蘑菇\n滋滋有味\n广式炒粉配奥尔良鸡排腿\n爆炒牛肉卷饼\n粤巷食光\n粤式烧鸭拼叉烧\n粤式烧鸭拼玫瑰豉油鸡\nMENU\n千面小筑\n红烧牛肉拉面\n东北酱大骨面\n红烧牛肉拌粉\n热辣滚烫\n经典清油冒菜味麻辣烫\n菌菇味麻辣烫\n醇香干汁麻辣拌",
+          "lines": [
+            "Administration",
+            "行政",
+            "特色档口菜单",
+            "轻食代煲天下",
+            "轻食自选",
+            "湘渝汇",
+            "鱼汤海鲜锅",
+            "小鸡炖蘑菇",
+            "滋滋有味",
+            "广式炒粉配奥尔良鸡排腿",
+            "爆炒牛肉卷饼",
+            "粤巷食光",
+            "粤式烧鸭拼叉烧",
+            "粤式烧鸭拼玫瑰豉油鸡",
+            "MENU",
+            "千面小筑",
+            "红烧牛肉拉面",
+            "东北酱大骨面",
+            "红烧牛肉拌粉",
+            "热辣滚烫",
+            "经典清油冒菜味麻辣烫",
+            "菌菇味麻辣烫",
+            "醇香干汁麻辣拌"
+          ],
+          "error_message": "",
+          "credential_hint": "",
+          "degrade_strategy": ""
+        },
+        "vision": {
+          "provider_name": "ocr_assisted_vision",
+          "status": "validated",
+          "latency_ms": 722,
+          "candidates": [
+            "轻食代煲天下",
+            "鱼汤海鲜锅",
+            "小鸡炖蘑菇",
+            "广式炒粉配奥尔良鸡排腿",
+            "爆炒牛肉卷饼",
+            "粤式烧鸭拼叉烧",
+            "粤式烧鸭拼玫瑰豉油鸡",
+            "千面小筑"
+          ],
+          "raw_result": {
+            "ocr_provider": "mac_vision_ocr",
+            "ocr_status": "validated"
+          },
+          "error_message": "",
+          "credential_hint": "",
+          "degrade_strategy": "use OCR text / manual review"
+        }
+      }
+    }
+  ]
+}

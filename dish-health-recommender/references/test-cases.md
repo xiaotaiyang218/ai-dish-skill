@@ -69,6 +69,16 @@ Expected: if network is available, uses USDA FoodData Central fallback, caches `
 - Naming convention: use the same stem in both directories, for example `us1_egg_allergy_tomato_egg.json`.
 - Regression cases should be offline-first; if a case depends on online fallback it must be marked separately and must not block local validation.
 
+## Metrics Evidence Entry
+
+- 图片样本底表：`dish-health-recommender/data/image_test_cases.json`
+- 多模态字段校验：`dish-health-recommender/tests/test_multimodal.py`
+- 指标产物生成：`python3 dish-health-recommender/scripts/validate_images.py`
+- 指标 JSON：`dish-health-recommender/validation/image-validation-report.json`
+- 当前样本统计：OCR hit rate `1.0`，Top-1 `0.3636`，Top-3 `0.3636`，health rule accuracy `0.8636`，p50/p95 latency `5083/9828ms`
+- 报告对齐产物：`dish-health-recommender/validation/report-alignment-report.json`
+- 建议验证顺序：先 `test_multimodal.py`，再 `validate_images.py`，再 `test_alignment.py`，最后 `report_alignment.py`
+
 ## Fixture Mapping
 
 | 用例 | fixture | expected |

@@ -10,6 +10,7 @@ stdout, and return non-zero only for invalid input or file errors.
 
 from __future__ import annotations
 
+import html
 import json
 import os
 import re
@@ -22,6 +23,8 @@ from typing import Any
 SKILL_DIR = Path(__file__).resolve().parents[1]
 if str(SKILL_DIR) not in sys.path:
     sys.path.insert(0, str(SKILL_DIR))
+
+from local_config import get_secret, local_secret_hint
 
 try:
     from providers.ocr_provider import recognize_image_text
@@ -42,8 +45,28 @@ COOKBOOK_KG_URL = (
     "https://raw.githubusercontent.com/ngl567/CookBook-KG/master/"
     "visualization/vizdata.json"
 )
+XIA_CHU_FANG_SEARCH_URL = "https://www.xiachufang.com/search/"
+DOU_GUO_SEARCH_URL = "https://www.douguo.com/caipu/"
+XIANG_HA_SEARCH_URL = "https://www.xiangha.com/so/"
+SPOONACULAR_COMPLEX_SEARCH_URL = "https://api.spoonacular.com/recipes/complexSearch"
 USDA_SEARCH_URL = "https://api.nal.usda.gov/fdc/v1/foods/search"
 RECOMMENDATION_ORDER = {"recommend": 0, "caution": 1, "need_confirm": 2, "avoid": 3}
+IMAGE_TEXT_STOPWORDS = {
+    "Administration", "行政", "特色档口菜单", "清真菜单", "档口位置", "主荤", "半荤", "素菜", "例汤", "主食", "粗粮", "小吃",
+    "双拼套餐", "三拼套餐", "配菜", "水果", "汤品", "热轻食", "冷轻食", "单品", "经典", "招牌", "特色", # 增加通用低价值词
+}
+IMAGE_TEXT_SUBSTRINGS = [
+    "菜单", "档口", "位置", "四选一", "三选一", "件套", "配餐", "饮料", "小食", "永远好滋味",
+    "hot wings", "french fries", "pepsi", "cola", "lemon tea", "egg tart", "potato", "gravy",
+]
+IMAGE_DISH_HINTS = [
+    "饭", "面", "汤", "粉", "鱼", "虾", "鸡", "肉", "菜", "饺", "馄饨", "堡", "豆腐", "肠粉", "手抓饭", "烤翅", "鸡翅", "鸡腿", "牛肚", "牛肉",
+    "锅", "粥", "米线", "麻辣烫", "烤鸭", "炒", "拌饭", "烧味", "水煮",
+]
+MENU_LINE_STOPWORDS = {
+    "Administration", "行政", "双拼套餐", "三拼套餐", "档口菜单", "轻能补给站", "主荤", "冷轻食", "热轻食", "水果", "主食", "汤品",
+    "配菜", "档口位置", "清真菜单",
+}
 DEFAULT_PROFILE = {
     "allergies": [],
     "conditions": [],
@@ -147,6 +170,16 @@ def build_aliases(dishes: dict[str, dict[str, Any]]) -> dict[str, str]:
 
 
 ALIASES = build_aliases(DISHES)
+QUANTIFIED_ALIASES: dict[str, str] = {}
+for recipe in QUANTIFIED_PROVIDER.load().get('recipes', []):
+    canonical = str(recipe.get('dish_name') or '').strip()
+    if not canonical:
+        continue
+    QUANTIFIED_ALIASES[canonical] = canonical
+    for alias in recipe.get('aliases', []):
+        alias_name = str(alias).strip()
+        if alias_name:
+            QUANTIFIED_ALIASES[alias_name] = canonical
 
 RISK_KEYWORDS = {
     "鸡蛋": ["鸡蛋", "蛋", "蛋制品", "含蛋"],
@@ -189,6 +222,9 @@ def parse_request(payload: dict[str, Any]) -> dict[str, Any]:
     ingredients = payload.get("ingredients") or []
     if not isinstance(ingredients, list):
         ingredients = [str(ingredients)]
+    context_tags = payload.get("context_tags") or []
+    if not isinstance(context_tags, list):
+        context_tags = [str(context_tags)]
     return {
         "dish_name": str(payload.get("dish_name") or "").strip(),
         "menu_text": str(payload.get("menu_text") or "").strip(),
@@ -199,6 +235,8 @@ def parse_request(payload: dict[str, Any]) -> dict[str, Any]:
         "cooking_method": payload.get("cooking_method"),
         "user_profile": profile,
         "output_mode": output_mode,
+        "user_id": str(payload.get("user_id") or "").strip(),
+        "context_tags": [str(item).strip() for item in context_tags if str(item).strip()],
     }
 
 
@@ -392,6 +430,344 @@ def fetch_cookbook_kg_candidate(query: str) -> tuple[str, dict[str, Any]] | None
     }
 
 
+def normalize_online_query(text: str) -> str:
+    return re.sub(r"[^0-9A-Za-z一-鿿]+", "", str(text or "").strip()).lower()
+
+
+def overlap_score(query: str, title: str) -> int:
+    normalized_query = normalize_online_query(query)
+    normalized_title = normalize_online_query(title)
+    if not normalized_query or not normalized_title:
+        return 0
+    if normalized_query == normalized_title:
+        return 10
+    if normalized_query in normalized_title or normalized_title in normalized_query:
+        return 7
+    common = {char for char in normalized_query if char in normalized_title}
+    return len(common)
+
+
+def online_recipe_request(url: str, headers: dict[str, str] | None = None, timeout: int = 8) -> str | None:
+    request_headers = {
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+        "Accept": "text/html,application/json;q=0.9,*/*;q=0.8",
+        "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+    }
+    if headers:
+        request_headers.update(headers)
+    request = urllib.request.Request(url, headers=request_headers)
+    try:
+        with urllib.request.urlopen(request, timeout=timeout) as response:
+            return response.read().decode("utf-8", "ignore")
+    except Exception:
+        return None
+
+
+def clean_recipe_title(title: str) -> str:
+    text = html.unescape(str(title or "")).strip()
+    text = re.sub(r"\s+", " ", text)
+    return text.strip("-_|｜· ")
+
+
+def contains_chinese(text: str) -> bool:
+    return bool(re.search(r"[一-鿿]", str(text or "")))
+
+
+def stripped_online_match_text(text: str) -> str:
+    normalized = normalize_online_query(clean_recipe_title(text))
+    for token in [
+        "家常", "招牌", "特色", "私房", "秘制", "经典", "独家", "家庭版", "简单版", "超简单", "超下饭", "下饭",
+        "老爸的", "老妈的", "妈妈的", "爸爸的", "这样做", "做法", "教程", "合集", "精选集",
+    ]:
+        normalized = normalized.replace(normalize_online_query(token), "")
+    return normalized
+
+
+def longest_common_substring_length(left: str, right: str) -> int:
+    if not left or not right:
+        return 0
+    table = [0] * (len(right) + 1)
+    best = 0
+    for left_char in left:
+        previous = 0
+        for idx, right_char in enumerate(right, 1):
+            current = table[idx]
+            if left_char == right_char:
+                table[idx] = previous + 1
+                best = max(best, table[idx])
+            else:
+                table[idx] = 0
+            previous = current
+    return best
+
+
+def is_reliable_online_title_match(query: str, title: str) -> bool:
+    normalized_query = normalize_online_query(query)
+    normalized_title = normalize_online_query(title)
+    if not normalized_query or not normalized_title:
+        return False
+    if normalized_query == normalized_title:
+        return True
+    if normalized_query in normalized_title or normalized_title in normalized_query:
+        return True
+    if not contains_chinese(query):
+        return overlap_score(query, title) >= 2
+    stripped_query = stripped_online_match_text(query)
+    stripped_title = stripped_online_match_text(title)
+    if not stripped_query or not stripped_title:
+        return False
+    shorter = min(len(stripped_query), len(stripped_title))
+    longer = max(len(stripped_query), len(stripped_title))
+    if shorter < 3:
+        return False
+    if stripped_query in stripped_title or stripped_title in stripped_query:
+        return (shorter / longer) >= 0.75
+    common_chars = len(set(stripped_query) & set(stripped_title))
+    lcs = longest_common_substring_length(stripped_query, stripped_title)
+    title_char_budget = max(len(set(stripped_title)), 1)
+    return lcs >= max(2, len(stripped_query) - 1) and (common_chars / title_char_budget) >= 0.6
+
+
+def normalize_ingredient_text(text: str) -> str:
+    ingredient = clean_recipe_title(text)
+    ingredient = re.sub(r"\([^)]*\)|（[^）]*）", "", ingredient)
+    ingredient = re.sub(r"\b\d+(?:\.\d+)?\s*(?:g|kg|ml|l|克|千克|毫升|升|勺|汤匙|茶匙|个|只|片|段|把|适量)\b", "", ingredient, flags=re.IGNORECASE)
+    ingredient = ingredient.strip(" ,，、/；;:+")
+    return ingredient
+
+
+def extract_anchor_texts(block: str) -> list[str]:
+    return [
+        clean_recipe_title(html.unescape(text))
+        for text in re.findall(r">\s*([^<>]+?)\s*</a>", block, flags=re.IGNORECASE)
+        if clean_recipe_title(html.unescape(text))
+    ]
+
+
+def build_online_recipe_candidate(
+    *,
+    query: str,
+    title: str,
+    ingredients: list[str],
+    source: str,
+    notes: str,
+) -> tuple[str, dict[str, Any]] | None:
+    title = clean_recipe_title(title)
+    if not title or not is_reliable_online_title_match(query, title):
+        return None
+    cleaned_ingredients = stable_list([
+        ingredient for ingredient in (normalize_ingredient_text(item) for item in ingredients)
+        if ingredient and len(normalize_online_query(ingredient)) >= 1 and ingredient != title
+    ])
+    if not cleaned_ingredients:
+        return None
+    return title, {
+        "aliases": [],
+        "ingredients": cleaned_ingredients,
+        "cooking_method": infer_method(title),
+        "risk_tags": infer_risk_tags(title, cleaned_ingredients),
+        "notes": notes,
+        "source": source,
+        "ambiguity_level": "medium",
+    }
+
+
+def rank_online_recipe_candidates(query: str, candidates: list[tuple[str, dict[str, Any]]]) -> tuple[str, dict[str, Any]] | None:
+    if not candidates:
+        return None
+    source_priority = {
+        "CookBook-KG online": 0,
+        "xiachufang search": 1,
+        "xiangha search": 2,
+        "douguo search": 3,
+        "Spoonacular search": 4,
+    }
+    ranked = sorted(
+        candidates,
+        key=lambda item: (
+            -overlap_score(query, item[0]),
+            source_priority.get(str(item[1].get("source") or ""), 99),
+            len(item[0]),
+        ),
+    )
+    return ranked[0]
+
+
+def fetch_xiachufang_candidate(query: str) -> tuple[str, dict[str, Any]] | None:
+    query = str(query or "").strip()
+    if not query:
+        return None
+    params = urllib.parse.urlencode({"keyword": query, "cat": 1001, "via": "home"})
+    url = f"{XIA_CHU_FANG_SEARCH_URL}?{params}"
+    raw = online_recipe_request(url, headers={"Referer": "https://www.xiachufang.com/"})
+    if not raw:
+        return None
+    blocks = re.findall(
+        r'<div class="recipe recipe-215-horizontal pure-g image-link display-block">(.*?)</div>\s*</div>',
+        raw,
+        flags=re.IGNORECASE | re.DOTALL,
+    )
+    candidates: list[tuple[str, dict[str, Any]]] = []
+    for block in blocks[:8]:
+        title_match = re.search(r'<p class="name">.*?<a [^>]*>\s*([^<>]+?)\s*</a>', block, flags=re.IGNORECASE | re.DOTALL)
+        ingredients_match = re.search(r'<p class="ing ellipsis">(.*?)</p>', block, flags=re.IGNORECASE | re.DOTALL)
+        candidate = build_online_recipe_candidate(
+            query=query,
+            title=title_match.group(1) if title_match else "",
+            ingredients=extract_anchor_texts(ingredients_match.group(1)) if ingredients_match else [],
+            source="xiachufang search",
+            notes=f"联网从下厨房搜索页查询到的候选菜谱，仅作为参考。搜索入口：{url}",
+        )
+        if candidate:
+            candidates.append(candidate)
+    return rank_online_recipe_candidates(query, candidates)
+
+
+def fetch_douguo_candidate(query: str) -> tuple[str, dict[str, Any]] | None:
+    query = str(query or "").strip()
+    if not query:
+        return None
+    url = f"{DOU_GUO_SEARCH_URL}{urllib.parse.quote(query)}"
+    raw = online_recipe_request(url, headers={
+        "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.4 Mobile/15E148 Safari/604.1",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Referer": "https://m.douguo.com/",
+    })
+    if not raw:
+        return None
+    blocks = re.findall(
+        r'<li class="menu-content">\s*<a href="([^"]*?/cookbook/\d+\.html[^\"]*)"[^>]*>.*?<h2 class="recipe-name text-clamp">(.*?)</h2>.*?<div class="recipe-cai text-lips">(.*?)</div>',
+        raw,
+        flags=re.IGNORECASE | re.DOTALL,
+    )
+    if not blocks:
+        blocks = re.findall(
+            r'<a class="cookname text-lips[^>]*?href="([^"]*?/cookbook/\d+\.html)"[^>]*>(.*?)</a>\s*<p class="major">(.*?)</p>',
+            raw,
+            flags=re.IGNORECASE | re.DOTALL,
+        )
+    candidates: list[tuple[str, dict[str, Any]]] = []
+    for _, title, ingredients_text in blocks[:10]:
+        candidate = build_online_recipe_candidate(
+            query=query,
+            title=title,
+            ingredients=re.split(r"[\s,，、]+", clean_recipe_title(ingredients_text)),
+            source="douguo search",
+            notes=f"联网从豆果搜索页查询到的候选菜谱，仅作为参考。搜索入口：{url}",
+        )
+        if candidate:
+            candidates.append(candidate)
+    return rank_online_recipe_candidates(query, candidates)
+
+
+def fetch_xiangha_candidate(query: str) -> tuple[str, dict[str, Any]] | None:
+    query = str(query or "").strip()
+    if not query:
+        return None
+    params = urllib.parse.urlencode({"s": query})
+    url = f"{XIANG_HA_SEARCH_URL}?{params}"
+    raw = online_recipe_request(url, headers={"Referer": "https://www.xiangha.com/"})
+    if not raw:
+        return None
+    blocks = re.findall(r"<li><a class=\"pic .*?</li>", raw, flags=re.IGNORECASE | re.DOTALL)
+    candidates: list[tuple[str, dict[str, Any]]] = []
+    for block in blocks[:10]:
+        title_match = re.search(r'<p class="name kw"><a [^>]*title="([^"]+)"', block, flags=re.IGNORECASE)
+        ingredients_match = re.search(r"<p class=\"info\">\s*用料：([^<]+)</p>", block, flags=re.IGNORECASE)
+        candidate = build_online_recipe_candidate(
+            query=query,
+            title=title_match.group(1) if title_match else "",
+            ingredients=re.split(r"\s*,\s*", clean_recipe_title(ingredients_match.group(1)) if ingredients_match else ""),
+            source="xiangha search",
+            notes=f"联网从香哈搜索页查询到的候选菜谱，仅作为参考。搜索入口：{url}",
+        )
+        if candidate:
+            candidates.append(candidate)
+    return rank_online_recipe_candidates(query, candidates)
+
+
+def spoonacular_api_key() -> str:
+    return get_secret("SPOONACULAR_API_KEY")
+
+
+def spoonacular_credential_hint() -> str:
+    return local_secret_hint("SPOONACULAR_API_KEY")
+
+
+def fetch_spoonacular_candidate(query: str) -> tuple[str, dict[str, Any]] | None:
+    api_key = spoonacular_api_key()
+    query = str(query or "").strip()
+    if not api_key or not query:
+        return None
+
+    params = {
+        "query": query,
+        "number": 3,
+        "addRecipeInformation": "true",
+        "fillIngredients": "true",
+        "instructionsRequired": "false",
+        "apiKey": api_key,
+    }
+    url = f"{SPOONACULAR_COMPLEX_SEARCH_URL}?{urllib.parse.urlencode(params)}"
+    request = urllib.request.Request(url, headers={"Accept": "application/json", "User-Agent": "Mozilla/5.0"})
+    try:
+        with urllib.request.urlopen(request, timeout=8) as response:
+            raw = json.loads(response.read().decode("utf-8"))
+    except Exception:
+        return None
+
+    ranked: list[tuple[int, dict[str, Any]]] = []
+    for item in raw.get("results", []):
+        title = str(item.get("title") or "").strip()
+        if not title:
+            continue
+        score = overlap_score(query, title)
+        if score < 2:
+            continue
+        ranked.append((score, item))
+    if not ranked:
+        return None
+
+    ranked.sort(key=lambda pair: (-pair[0], len(str(pair[1].get("title") or ""))))
+    best = ranked[0][1]
+    title = str(best.get("title") or query).strip()
+    ingredients = stable_list([
+        str(ingredient.get("nameClean") or ingredient.get("name") or "").strip()
+        for ingredient in best.get("extendedIngredients", [])
+        if str(ingredient.get("nameClean") or ingredient.get("name") or "").strip()
+    ])
+    if not ingredients:
+        return None
+    risk_tags = infer_risk_tags(title, ingredients)
+    notes = "联网从 Spoonacular complexSearch 查询到的候选菜谱，仅作为参考。"
+    source_url = best.get("sourceUrl")
+    if source_url:
+        notes = f"{notes} 来源：{source_url}"
+    return title, {
+        "aliases": [],
+        "ingredients": ingredients,
+        "cooking_method": infer_method(title),
+        "risk_tags": risk_tags,
+        "notes": notes,
+        "source": "Spoonacular search",
+        "ambiguity_level": "medium",
+    }
+
+
+def fetch_online_recipe_candidate(query: str) -> tuple[str, dict[str, Any]] | None:
+    for loader in (
+        fetch_cookbook_kg_candidate,
+        fetch_xiachufang_candidate,
+        fetch_xiangha_candidate,
+        fetch_douguo_candidate,
+        fetch_spoonacular_candidate,
+    ):
+        candidate = loader(query)
+        if candidate:
+            return candidate
+    return None
+
+
 def enrich_from_nutrition(ingredients: list[str], base_risk_tags: list[str]) -> dict[str, Any]:
     ingredient_db = NUTRITION.get("ingredients", {})
     nutrition_tags: list[str] = []
@@ -499,6 +875,7 @@ def build_result(
         "nutrition_evidence": nutrition_evidence,
         "explanation": explanation,
         "need_confirm": stable_list(need_confirm),
+        "feedback_bias": {},
     }
     if candidates:
         result["candidates"] = candidates
@@ -534,10 +911,42 @@ def render_human_readable_cn(result: dict[str, Any]) -> str:
     return "\n".join(lines)
 
 
-
-
 def load_feedback_store() -> dict[str, Any]:
-    return load_json_file(SKILL_DIR / "data" / "feedback.json", {"events": [], "bias": {}, "corrections": {}})
+    return load_json_file(
+        SKILL_DIR / "data" / "feedback.json",
+        {"events": [], "profiles": {"dish": {}, "user_dish": {}}, "corrections": {}, "meta": {"last_feedback_at": ""}},
+    )
+
+
+def is_low_value_image_term(term: str) -> bool:
+    normalized = term.strip().strip("•·").strip()
+    lowered = normalized.lower()
+    if not normalized:
+        return True
+    if normalized in IMAGE_TEXT_STOPWORDS:
+        return True
+    if any(token in lowered for token in IMAGE_TEXT_SUBSTRINGS):
+        return True
+    if any(token in normalized for token in {"@", "◎"}):
+        return True
+    if re.fullmatch(r"[0-9A-Za-z@◎+\-_/(). ]+", normalized):
+        return True
+    if not re.search(r"[一-鿿]{2,}", normalized) and not re.search(r"[A-Za-z]{3,}", normalized):
+        return True
+    if len(normalized) <= 2 and normalized not in {"豆浆", "豆花", "小吃", "主食"}:
+        return True
+    if not any(hint in normalized for hint in IMAGE_DISH_HINTS) and len(normalized) <= 5 and not re.search(r"面|粉|汤|饭|粥|堡|饺|馄饨|饼|菜", normalized):
+        return True
+    return False
+
+
+def attach_raw_image_result(result: dict[str, Any], provider_context: dict[str, Any]) -> dict[str, Any]:
+    if provider_context.get("ocr_result") or provider_context.get("vision_result"):
+        result["raw_image_result"] = {
+            "ocr": provider_context["ocr_result"].to_dict() if provider_context.get("ocr_result") else {},
+            "vision": provider_context["vision_result"].to_dict() if provider_context.get("vision_result") else {},
+        }
+    return result
 
 
 def build_provider_context(request: dict[str, Any]) -> dict[str, Any]:
@@ -547,7 +956,7 @@ def build_provider_context(request: dict[str, Any]) -> dict[str, Any]:
     image_path = image_path if image_path and Path(image_path).exists() else ""
     summary = validate_all_cases()
     image_case = get_image_case_by_path(image_path) if image_path else None
-    allow_ocr = bool(image_path) and (bool(image_case) or 'pic/' in image_path or '/pic/' in image_path)
+    allow_ocr = bool(image_path)
     return {
         "image_path": image_path,
         "image_case": image_case,
@@ -559,7 +968,11 @@ def build_provider_context(request: dict[str, Any]) -> dict[str, Any]:
 
 
 def quantized_profile_for_dish(dish_name: str) -> dict[str, Any] | None:
-    return QUANTIFIED_PROVIDER.find(dish_name)
+    query = str(dish_name or '').strip()
+    if not query:
+        return None
+    canonical = QUANTIFIED_ALIASES.get(query, query)
+    return QUANTIFIED_PROVIDER.find(canonical)
 
 
 def corrected_raw_name(raw_name: str) -> str:
@@ -568,7 +981,6 @@ def corrected_raw_name(raw_name: str) -> str:
 
 
 def image_candidate_terms(request: dict[str, Any], provider_context: dict[str, Any]) -> list[str]:
-    stopwords = {"Administration", "行政", "特色档口菜单", "主荤", "半荤", "素菜", "例汤", "主食", "粗粮", "小吃"}
     terms: list[str] = []
     if request.get("ocr_text"):
         terms.extend(part.strip() for part in re.split(r"[\s,，、/]+", request["ocr_text"]) if part.strip())
@@ -580,12 +992,11 @@ def image_candidate_terms(request: dict[str, Any], provider_context: dict[str, A
         terms.extend(item.strip() for item in (vision_result.candidates or []) if item.strip())
     filtered: list[str] = []
     for term in terms:
-        if term in stopwords:
+        normalized = term.strip().strip("•·").strip()
+        if is_low_value_image_term(normalized):
             continue
-        if len(term) < 2:
-            continue
-        if term not in filtered:
-            filtered.append(term)
+        if normalized not in filtered:
+            filtered.append(normalized)
     return filtered
 
 
@@ -617,18 +1028,36 @@ def choose_image_seed_candidate(request: dict[str, Any], provider_context: dict[
     return None, ordered[:5]
 
 
-def apply_feedback_bias(result: dict[str, Any], normalized_dish: str | None) -> dict[str, Any]:
+def sync_explanation_conclusion(explanation: str, recommendation: str) -> str:
+    label = {
+        "recommend": "推荐",
+        "caution": "谨慎",
+        "avoid": "不推荐",
+        "need_confirm": "需要确认",
+    }.get(recommendation, "需要确认")
+    if explanation.startswith("结论："):
+        return re.sub(r"^结论：[^。]+。依据：", f"结论：{label}。依据：", explanation, count=1)
+    return explanation
+
+
+def apply_feedback_bias(result: dict[str, Any], normalized_dish: str | None, user_id: str = "", context_tags: list[str] | None = None) -> dict[str, Any]:
     if not normalized_dish:
         return result
     store = load_feedback_store()
-    bias = (store.get("bias") or {}).get(normalized_dish, {})
-    if not bias:
+    context_tags = context_tags or []
+    dish_profile = ((store.get("profiles") or {}).get("dish") or {}).get(normalized_dish, {})
+    user_key = f"{user_id}::{normalized_dish}" if user_id else ""
+    user_profile = ((store.get("profiles") or {}).get("user_dish") or {}).get(user_key, {}) if user_key else {}
+    active_profile = user_profile or dish_profile
+    if not active_profile:
         return result
-    result["feedback_bias"] = {normalized_dish: bias}
-    accepts = int(bias.get("accepts", 0) or 0)
-    rejects = int(bias.get("rejects", 0) or 0)
-    favorites = int(bias.get("favorites", 0) or 0)
+    result["feedback_bias"] = {normalized_dish: active_profile}
+    accepts = int(active_profile.get("accepts", 0) or 0)
+    rejects = int(active_profile.get("rejects", 0) or 0)
+    favorites = int(active_profile.get("favorites", 0) or 0)
     confidence_delta = 0.03 * accepts + 0.05 * favorites - 0.04 * rejects
+    if user_profile:
+        confidence_delta += 0.02
     result["confidence"] = round(min(1.0, max(0.0, float(result.get("confidence", 0)) + confidence_delta)), 2)
     explanation = result.get("explanation", "")
     notes: list[str] = []
@@ -638,6 +1067,13 @@ def apply_feedback_bias(result: dict[str, Any], normalized_dish: str | None) -> 
         notes.append(f"历史收藏 {favorites} 次")
     if rejects > 0:
         notes.append(f"历史拒绝 {rejects} 次")
+    profile_label = "个人反馈" if user_profile else "近期反馈"
+    merged_tags = []
+    for tag in list(active_profile.get("context_tags") or []) + list(context_tags or []):
+        if tag and tag not in merged_tags:
+            merged_tags.append(tag)
+    if merged_tags:
+        notes.append(f"相关场景：{'、'.join(merged_tags[:3])}")
     if rejects > 0:
         if result.get("recommendation") == "recommend":
             result["recommendation"] = "caution"
@@ -647,30 +1083,128 @@ def apply_feedback_bias(result: dict[str, Any], normalized_dish: str | None) -> 
             result["need_confirm"] = []
         if "近期反馈偏好" not in result["need_confirm"]:
             result["need_confirm"].append("近期反馈偏好")
+    explanation = sync_explanation_conclusion(explanation, result.get("recommendation", "need_confirm"))
     if notes:
-        addition = f"；用户反馈信号：{'，'.join(notes)}。"
+        addition = f"；{profile_label}：{'，'.join(notes)}。"
         if explanation and not explanation.endswith('。'):
             explanation += '。'
-        result["explanation"] = (explanation or "结论：需要确认。依据：") + addition if explanation else f"结论：需要确认。依据：用户反馈信号：{'，'.join(notes)}。"
+        result["explanation"] = (explanation or "结论：需要确认。依据：") + addition if explanation else f"结论：需要确认。依据：{profile_label}：{'，'.join(notes)}。"
     return result
+
+
+def is_menu_candidate_term(term: str) -> bool:
+    normalized = term.strip().strip("•·：:，,。").strip()
+    if not normalized:
+        return False
+    if normalized in MENU_LINE_STOPWORDS:
+        return False
+    if any(token in normalized for token in MENU_LINE_STOPWORDS):
+        return False
+    if re.fullmatch(r"[0-9A-Za-z•·()~＋+/ ]+", normalized):
+        return False
+    if len(normalized) < 2:
+        return False
+    return any(hint in normalized for hint in IMAGE_DISH_HINTS)
+
+
+def infer_menu_text(provider_context: dict[str, Any]) -> str:
+    ocr_result = provider_context.get("ocr_result")
+    if not ocr_result:
+        return ""
+    menu_terms: list[str] = []
+    for line in ocr_result.lines or []:
+        normalized = line.strip()
+        if normalized.startswith("•"):
+            continue
+        if not is_menu_candidate_term(normalized):
+            continue
+        if normalized not in menu_terms:
+            menu_terms.append(normalized)
+    return "\n".join(menu_terms)
+
+
+def expand_menu_candidate_terms(menu_terms: list[str]) -> list[str]:
+    expanded: list[str] = []
+    for term in menu_terms:
+        parts = [segment.strip().lstrip("•").strip() for segment in re.split(r"[、，,/＋+]", term) if segment.strip()]
+        for part in parts or [term]:
+            if not is_menu_candidate_term(part):
+                continue
+            if part not in expanded:
+                expanded.append(part)
+    return expanded
+
+
+def score_menu_candidate(name: str, profile: dict[str, Any]) -> int:
+    score = 0
+    normalized, confidence, _ = normalize_dish(name)
+    if normalized in DISHES and confidence >= 0.8:
+        score += 4
+    if any(token in name for token in ["清炒", "白灼", "水煮", "清蒸", "西兰花", "青菜", "白菜", "冬瓜", "山药", "木耳", "南瓜", "菌菇", "虾"]):
+        score += 3
+    if any(token in name for token in ["包菜", "油菜", "莴笋"]):
+        score += 2
+    if any(token in name for token in ["麻辣", "红烧", "烤鸭", "猪脚", "肥牛", "鸡公煲", "烤鱼", "双拼", "寿喜锅", "卤肉", "排骨", "炸"]):
+        score -= 3
+    if any(token in name for token in ["饭", "面", "粿条", "米线", "粉", "饺", "包"]):
+        score -= 1
+    if "减脂" in profile.get("goals", []) and any(token in name for token in ["大虾", "鸡扒", "鸡腿", "鸡丝", "青菜", "西兰花", "南瓜", "冬瓜", "木耳"]):
+        score += 2
+    if "减脂" in profile.get("goals", []) and any(token in name for token in ["猪", "肥牛", "卤肉", "烤鸭", "排骨", "烤肉"]):
+        score -= 2
+    return score
+
+
+def choose_menu_candidate(menu_terms: list[str], profile: dict[str, Any]) -> str | None:
+    ranked = []
+    for term in expand_menu_candidate_terms(menu_terms):
+        ranked.append((score_menu_candidate(term, profile), term))
+    ranked.sort(key=lambda item: (-item[0], len(item[1]), item[1]))
+    if not ranked or ranked[0][0] <= 0:
+        return None
+    fallback_term = ranked[0][1]
+    for _, term in ranked[:5]:
+        normalized, confidence, _ = normalize_dish(term)
+        if normalized in DISHES and confidence >= 0.8:
+            return term
+        online_candidate = fetch_online_recipe_candidate(term)
+        if online_candidate:
+            return online_candidate[0]
+    return fallback_term
+
+
+def infer_ingredients_from_name(name: str) -> list[str]:
+    matched: list[str] = []
+    ingredient_db = NUTRITION.get("ingredients", {})
+    for ingredient in sorted(ingredient_db.keys(), key=len, reverse=True):
+        token = str(ingredient).strip()
+        if token and token in name and token not in matched:
+            matched.append(token)
+    return matched
 
 
 def recommend(payload: dict[str, Any]) -> dict[str, Any]:
     request = parse_request(payload)
+    explicit_dish_name = bool(request.get("dish_name"))
     provider_context = build_provider_context(request)
     if not request.get("ocr_text") and provider_context.get("ocr_result") and provider_context["ocr_result"].text:
         useful_lines = [
-            line for line in (provider_context["ocr_result"].lines or [])
-            if re.search(r'[\u4e00-\u9fff]{2,}', line)
-            and 'Administration' not in line
-            and '行政' not in line
-            and '特色档口菜单' not in line
-            and len(line) >= 3
+            line.strip() for line in (provider_context["ocr_result"].lines or [])
+            if line.strip() and not is_low_value_image_term(line.strip())
         ]
-        joined = ' '.join(useful_lines)
-        if useful_lines and len(joined) <= 120:
-            request["ocr_text"] = joined
-    raw_name = corrected_raw_name(pick_raw_name(request))
+        if len(useful_lines) == 1 and len(useful_lines[0]) <= 20:
+            request["ocr_text"] = useful_lines[0]
+    inferred_menu_terms: list[str] = []
+    if request.get("image_path") and not explicit_dish_name:
+        inferred_menu_text = infer_menu_text(provider_context)
+        if inferred_menu_text:
+            inferred_menu_terms = inferred_menu_text.splitlines()
+            menu_choice = choose_menu_candidate(inferred_menu_terms, request["user_profile"])
+            if menu_choice:
+                request["dish_name"] = menu_choice
+            elif not request.get("menu_text"):
+                request["menu_text"] = inferred_menu_text
+    raw_name = corrected_raw_name(request.get("dish_name") if explicit_dish_name else pick_raw_name(request))
     profile = request["user_profile"]
     terms = profile_terms(profile)
     degraded_input: list[str] = []
@@ -689,20 +1223,15 @@ def recommend(payload: dict[str, Any]) -> dict[str, Any]:
             ingredients=request["ingredients"],
             cooking_method=request["cooking_method"],
             nutrition_tags=[],
-            risk_tags=["缺少可用图片识别结果"],
+            risk_tags=["缺少文本识别结果"],
             nutrition_evidence={},
-            explanation="结论：需要确认。依据：当前输入只有图片引用，但 OCR 与视觉候选都不足以稳定识别菜品，请补充菜名、OCR 文本或主要食材。",
+            explanation="结论：需要确认。依据：当前输入只有图片引用，未直接接入视觉/OCR识别或未获得足够稳定的文本结果，请补充菜名、OCR 文本或主要食材。",
             need_confirm=["菜名", "OCR文本", "主要食材"],
             candidates=image_seed_candidates,
             degraded_input=degraded_input,
             output_mode=request["output_mode"],
         )
-        if provider_context.get("ocr_result") or provider_context.get("vision_result"):
-            result["raw_image_result"] = {
-                "ocr": provider_context["ocr_result"].to_dict() if provider_context.get("ocr_result") else {},
-                "vision": provider_context["vision_result"].to_dict() if provider_context.get("vision_result") else {},
-            }
-        return result
+        return attach_raw_image_result(result, provider_context)
 
     normalized, confidence, candidates = normalize_dish(raw_name)
     if request.get("image_reference") and not request.get("dish_name") and normalized and "image_inferred_dish_name" not in degraded_input:
@@ -741,16 +1270,11 @@ def recommend(payload: dict[str, Any]) -> dict[str, Any]:
             candidates=provider_context.get("vision_result").to_dict().get("candidates", []) if provider_context.get("vision_result") else [],
             output_mode=request["output_mode"],
         )
-        if provider_context.get("ocr_result") or provider_context.get("vision_result"):
-            result["raw_image_result"] = {
-                "ocr": provider_context["ocr_result"].to_dict() if provider_context.get("ocr_result") else {},
-                "vision": provider_context["vision_result"].to_dict() if provider_context.get("vision_result") else {},
-            }
-        return result
+        return attach_raw_image_result(result, provider_context)
 
     info = DISHES.get(normalized) if normalized else None
-    if not info and normalized:
-        online_candidate = fetch_cookbook_kg_candidate(normalized)
+    if not info and normalized and not request["ingredients"]:
+        online_candidate = fetch_online_recipe_candidate(normalized)
         if online_candidate:
             normalized, info = online_candidate
             confidence = max(confidence, 0.6)
@@ -766,11 +1290,25 @@ def recommend(payload: dict[str, Any]) -> dict[str, Any]:
         }
         confidence = max(confidence, 0.5)
 
+    if not info and normalized and request.get("image_path"):
+        inferred_ingredients = infer_ingredients_from_name(normalized)
+        if inferred_ingredients:
+            info = {
+                "aliases": [],
+                "ingredients": inferred_ingredients,
+                "cooking_method": infer_method(normalized or ""),
+                "risk_tags": infer_risk_tags(normalized or "自定义菜品", inferred_ingredients),
+                "notes": "图片菜单项命中后，系统基于菜名关键词推断食材做参考判断。",
+                "source": "image_menu_inferred",
+                "ambiguity_level": "medium",
+            }
+            confidence = max(confidence, 0.52)
+
     if not info:
-        return build_result(
-            normalized_dish=normalized,
+        result = build_result(
+            normalized_dish=None if request.get("image_path") else normalized,
             recommendation="need_confirm",
-            confidence=confidence,
+            confidence=confidence if not request.get("image_path") else 0.0,
             ingredients=[],
             cooking_method=None,
             nutrition_tags=[],
@@ -782,6 +1320,7 @@ def recommend(payload: dict[str, Any]) -> dict[str, Any]:
             degraded_input=degraded_input,
             output_mode=request["output_mode"],
         )
+        return attach_raw_image_result(result, provider_context)
 
     ingredients = list(info.get("ingredients", []))
     nutrition = enrich_from_nutrition(ingredients, list(info.get("risk_tags", [])))
@@ -888,17 +1427,18 @@ def recommend(payload: dict[str, Any]) -> dict[str, Any]:
         degraded_input=degraded_input,
         output_mode=request["output_mode"],
     )
-    if provider_context.get("ocr_result") or provider_context.get("vision_result"):
-        result["raw_image_result"] = {
-            "ocr": provider_context["ocr_result"].to_dict() if provider_context.get("ocr_result") else {},
-            "vision": provider_context["vision_result"].to_dict() if provider_context.get("vision_result") else {},
-        }
+    result = attach_raw_image_result(result, provider_context)
     quantified = quantized_profile_for_dish(result.get("normalized_dish") or "")
     if quantified:
         result["nutrition_quantitative"] = {k: quantified.get(k) for k in ["energy_kcal", "protein_g", "fat_g", "carbohydrate_g", "sugars_g", "sodium_mg"] if quantified.get(k) is not None}
         result["nutrition_basis"] = quantified.get("nutrition_basis")
         result["portion_basis"] = quantified.get("portion_basis")
-    result = apply_feedback_bias(result, result.get("normalized_dish"))
+    result = apply_feedback_bias(
+        result,
+        result.get("normalized_dish"),
+        user_id=request.get("user_id", ""),
+        context_tags=request.get("context_tags", []),
+    )
     return result
 
 

@@ -444,6 +444,258 @@
       "cautions": [
         "控糖人群需关注总量"
       ]
+    },
+    "料酒": {
+      "nutrition_tags": [
+        "调味品"
+      ],
+      "risk_tags": [],
+      "cautions": [
+        "严格限制酒精摄入场景需关注用量和烹调残留"
+      ]
+    },
+    "姜": {
+      "nutrition_tags": [
+        "调味辅料"
+      ],
+      "risk_tags": [],
+      "cautions": [
+        "辛辣或胃肠敏感人群需注意刺激性"
+      ]
+    },
+    "生姜": {
+      "nutrition_tags": [
+        "调味辅料"
+      ],
+      "risk_tags": [],
+      "cautions": [
+        "辛辣或胃肠敏感人群需注意刺激性"
+      ]
+    },
+    "姜片": {
+      "nutrition_tags": [
+        "调味辅料"
+      ],
+      "risk_tags": [],
+      "cautions": [
+        "辛辣或胃肠敏感人群需注意刺激性"
+      ]
+    },
+    "仔姜": {
+      "nutrition_tags": [
+        "调味辅料"
+      ],
+      "risk_tags": [],
+      "cautions": [
+        "辛辣或胃肠敏感人群需注意刺激性"
+      ]
+    },
+    "葱": {
+      "nutrition_tags": [
+        "蔬菜",
+        "调味辅料"
+      ],
+      "risk_tags": [],
+      "cautions": []
+    },
+    "葱段": {
+      "nutrition_tags": [
+        "蔬菜",
+        "调味辅料"
+      ],
+      "risk_tags": [],
+      "cautions": []
+    },
+    "葱花": {
+      "nutrition_tags": [
+        "蔬菜",
+        "调味辅料"
+      ],
+      "risk_tags": [],
+      "cautions": []
+    },
+    "蒜": {
+      "nutrition_tags": [
+        "调味辅料"
+      ],
+      "risk_tags": [],
+      "cautions": [
+        "胃肠敏感人群需注意刺激性"
+      ]
+    },
+    "大蒜": {
+      "nutrition_tags": [
+        "调味辅料"
+      ],
+      "risk_tags": [],
+      "cautions": [
+        "胃肠敏感人群需注意刺激性"
+      ]
+    },
+    "蒜蓉": {
+      "nutrition_tags": [
+        "调味辅料"
+      ],
+      "risk_tags": [],
+      "cautions": [
+        "胃肠敏感人群需注意刺激性"
+      ]
+    },
+    "蒜米": {
+      "nutrition_tags": [
+        "调味辅料"
+      ],
+      "risk_tags": [],
+      "cautions": [
+        "胃肠敏感人群需注意刺激性"
+      ]
+    },
+    "洋葱": {
+      "nutrition_tags": [
+        "蔬菜",
+        "膳食纤维"
+      ],
+      "risk_tags": [],
+      "cautions": []
+    },
+    "鸡精": {
+      "nutrition_tags": [
+        "钠来源",
+        "调味品"
+      ],
+      "risk_tags": [
+        "可能高盐"
+      ],
+      "cautions": [
+        "低盐或血压管理人群应控制"
+      ]
+    },
+    "花椒": {
+      "nutrition_tags": [
+        "调味品"
+      ],
+      "risk_tags": [],
+      "cautions": [
+        "辛辣敏感人群需注意"
+      ]
+    },
+    "八角": {
+      "nutrition_tags": [
+        "调味品"
+      ],
+      "risk_tags": [],
+      "cautions": []
+    },
+    "大料": {
+      "nutrition_tags": [
+        "调味品"
+      ],
+      "risk_tags": [],
+      "cautions": []
+    },
+    "醋": {
+      "nutrition_tags": [
+        "调味品"
+      ],
+      "risk_tags": [],
+      "cautions": []
+    },
+    "香醋": {
+      "nutrition_tags": [
+        "调味品"
+      ],
+      "risk_tags": [],
+      "cautions": []
+    },
+    "陈醋": {
+      "nutrition_tags": [
+        "调味品"
+      ],
+      "risk_tags": [],
+      "cautions": []
+    },
+    "白醋": {
+      "nutrition_tags": [
+        "调味品"
+      ],
+      "risk_tags": [],
+      "cautions": []
+    },
+    "香叶": {
+      "nutrition_tags": [
+        "调味品"
+      ],
+      "risk_tags": [],
+      "cautions": []
+    },
+    "桂皮": {
+      "nutrition_tags": [
+        "调味品"
+      ],
+      "risk_tags": [],
+      "cautions": []
+    },
+    "草鱼": {
+      "nutrition_tags": [
+        "鱼类",
+        "蛋白质来源"
+      ],
+      "risk_tags": [
+        "含海鲜/鱼类"
+      ],
+      "cautions": [
+        "鱼类或海鲜过敏者避免"
+      ]
+    },
+    "土豆": {
+      "nutrition_tags": [
+        "主食类",
+        "碳水来源"
+      ],
+      "risk_tags": [
+        "碳水来源"
+      ],
+      "cautions": [
+        "控糖人群需关注总量和烹调方式"
+      ]
+    },
+    "排骨": {
+      "nutrition_tags": [
+        "畜肉",
+        "蛋白质来源"
+      ],
+      "risk_tags": [
+        "红肉",
+        "可能高脂"
+      ],
+      "cautions": [
+        "减脂、低脂或血脂管理人群应控制份量并减少肥肉部分"
+      ]
+    },
+    "猪排骨": {
+      "nutrition_tags": [
+        "畜肉",
+        "蛋白质来源"
+      ],
+      "risk_tags": [
+        "红肉",
+        "可能高脂"
+      ],
+      "cautions": [
+        "减脂、低脂或血脂管理人群应控制份量并减少肥肉部分"
+      ]
+    },
+    "带皮五花肉": {
+      "nutrition_tags": [
+        "畜肉",
+        "脂肪较高"
+      ],
+      "risk_tags": [
+        "可能高脂"
+      ],
+      "cautions": [
+        "减脂、低脂或血脂管理人群应控制份量"
+      ]
     }
   },
   "diet_rules": {

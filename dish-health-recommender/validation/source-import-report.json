@@ -1,0 +1,11 @@
+{
+  "sourceName": "CookBook-KG",
+  "sourceType": "recipe",
+  "importMode": "offline_snapshot",
+  "sourceLocation": "https://raw.githubusercontent.com/ngl567/CookBook-KG/master/visualization/vizdata.json",
+  "recordsImported": 130,
+  "updatedFiles": [
+    "dish-health-recommender/data/dishes.json"
+  ],
+  "manifestPath": "/Users/bytedance/code/ai-dish-skill/dish-health-recommender/data/source_manifest.json"
+}

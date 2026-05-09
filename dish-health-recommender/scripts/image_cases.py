@@ -11,7 +11,7 @@ IMAGE_TEST_CASES_PATH = SKILL_DIR / 'data' / 'image_test_cases.json'
 REQUIRED_FIELDS = {
     'image_id', 'image_path', 'image_type', 'source_hint', 'expected_task', 'expected_focus',
     'expected_dishes', 'expected_candidates', 'need_confirm_allowed', 'health_profile_examples',
-    'expected_recommendation_examples', 'label_status', 'notes'
+    'expected_recommendation_examples', 'label_status', 'notes', 'ocr_expectation'
 }
 ALLOWED_IMAGE_TYPES = {'menu', 'dish', 'mixed', 'unknown'}
 

@@ -21,5 +21,37 @@
       "sugars_g": 53.3,
       "sodium_mg": 67.0
     }
+  },
+  "tomato": {
+    "source": "USDA FoodData Central",
+    "matched_food": "TOMATO",
+    "fdc_id": 2293024,
+    "nutrition_tags": [],
+    "risk_tags": [],
+    "cautions": [],
+    "nutrients_per_100g": {
+      "energy_kcal": null,
+      "protein_g": null,
+      "fat_g": 0.0,
+      "sugars_g": null,
+      "sodium_mg": null
+    }
+  },
+  "onion": {
+    "source": "USDA FoodData Central",
+    "matched_food": "ONION",
+    "fdc_id": 2438059,
+    "nutrition_tags": [
+      "蛋白质来源"
+    ],
+    "risk_tags": [],
+    "cautions": [],
+    "nutrients_per_100g": {
+      "energy_kcal": 289.0,
+      "protein_g": 10.9,
+      "fat_g": 0.78,
+      "sugars_g": 7.03,
+      "sodium_mg": 430.0
+    }
   }
 }

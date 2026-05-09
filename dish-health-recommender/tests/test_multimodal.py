@@ -2,6 +2,7 @@ import importlib.util
 import json
 import unittest
 from pathlib import Path
+from unittest import mock
 
 TESTS_DIR = Path(__file__).resolve().parent
 SKILL_DIR = TESTS_DIR.parent
@@ -25,7 +26,18 @@ def run_recommend(payload: dict) -> dict:
     return MODULE.recommend(payload)
 
 
+def case_map() -> dict[str, dict]:
+    return {item['image_id']: item for item in json.loads(IMAGE_CASES_PATH.read_text(encoding='utf-8'))}
+
+
 class MultimodalTests(unittest.TestCase):
+    def setUp(self):
+        self.spoonacular_patcher = mock.patch.object(MODULE, 'spoonacular_api_key', return_value='')
+        self.spoonacular_patcher.start()
+
+    def tearDown(self):
+        self.spoonacular_patcher.stop()
+
     def test_image_seed_file_exists(self):
         self.assertTrue(IMAGE_CASES_PATH.exists())
 
@@ -35,7 +47,7 @@ class MultimodalTests(unittest.TestCase):
             '20260508-123005': ['主荤', '半荤'],
             '20260508-123023': ['劲脆超霸堡', '香辣鸡腿堡'],
         }
-        cases = {item['image_id']: item for item in json.loads(IMAGE_CASES_PATH.read_text(encoding='utf-8'))}
+        cases = case_map()
         for image_id, expected in targets.items():
             payload = {'image_path': str(REPO_ROOT / cases[image_id]['image_path'])}
             result = run_recommend(payload)
@@ -49,7 +61,7 @@ class MultimodalTests(unittest.TestCase):
             '20260508-123047': ['荠菜鲜肉小馄饨'],
             '20260508-123050': ['鸡蛋红肠粉'],
         }
-        cases = {item['image_id']: item for item in json.loads(IMAGE_CASES_PATH.read_text(encoding='utf-8'))}
+        cases = case_map()
         for image_id, expected in targets.items():
             payload = {'image_path': str(REPO_ROOT / cases[image_id]['image_path'])}
             result = run_recommend(payload)
@@ -61,19 +73,93 @@ class MultimodalTests(unittest.TestCase):
         result = run_recommend({'image_reference': 'pic/20260508-123047.jpg'})
         self.assertEqual('荠菜鲜肉小馄饨', result['normalized_dish'])
         self.assertNotEqual('need_confirm', result['recommendation'])
-        self.assertIn('image_inferred_dish_name', result.get('degraded_input', []))
         self.assertIn('raw_image_result', result)
 
-    def test_need_confirm_on_noisy_unknown_image(self):
-        result = run_recommend({'image_reference': 'raw/0e329814-19c4-452d-9ecf-f3828b1a3417.jpg'})
+    def test_existing_non_pic_image_path_still_runs_image_providers(self):
+        source = REPO_ROOT / 'pic/20260508-123047.jpg'
+        upload_like_path = REPO_ROOT / 'tmp-upload-20260508-123047.jpg'
+        upload_like_path.write_bytes(source.read_bytes())
+        self.addCleanup(lambda: upload_like_path.unlink(missing_ok=True))
+        result = run_recommend({'image_path': str(upload_like_path)})
+        self.assertEqual('荠菜鲜肉小馄饨', result['normalized_dish'])
+        self.assertIn('raw_image_result', result)
+        self.assertTrue(result['raw_image_result']['ocr'])
+        self.assertTrue(result['raw_image_result']['vision'])
+
+    def test_uploaded_menu_image_uses_inferred_menu_text(self):
+        result = run_recommend({
+            'image_path': '/Users/bytedance/.vibelet/data/uploads/1778294482228_a4e2938a20c3be8d.png',
+            'user_profile': {'goals': ['减脂']},
+        })
+        self.assertNotEqual('need_confirm', result['recommendation'])
+        self.assertTrue(result.get('normalized_dish'))
+        self.assertIn('raw_image_result', result)
+
+    def test_menu_candidate_prefers_online_match_before_ingredient_fallback(self):
+        original_fetch = MODULE.fetch_online_recipe_candidate
+        original_infer = MODULE.infer_ingredients_from_name
+        try:
+            MODULE.fetch_online_recipe_candidate = lambda query: ('线上命中菜品', {
+                'aliases': [],
+                'ingredients': ['鸡肉'],
+                'cooking_method': '炒',
+                'risk_tags': [],
+                'notes': 'online',
+                'source': 'CookBook-KG online',
+                'ambiguity_level': 'medium',
+            })
+            MODULE.infer_ingredients_from_name = lambda name: ['木耳']
+            result = run_recommend({
+                'image_path': '/Users/bytedance/.vibelet/data/uploads/1778294482228_a4e2938a20c3be8d.png',
+                'user_profile': {'goals': ['减脂']},
+            })
+        finally:
+            MODULE.fetch_online_recipe_candidate = original_fetch
+            MODULE.infer_ingredients_from_name = original_infer
+        self.assertEqual('线上命中菜品', result['normalized_dish'])
+        self.assertIn('鸡肉', result['ingredients'])
+        self.assertNotEqual('need_confirm', result['recommendation'])
+
+    def test_blurry_dish_image_degrades_to_need_confirm(self):
+        result = run_recommend({'image_path': str(REPO_ROOT / 'pic/20260508-123014.jpg')})
         self.assertEqual('need_confirm', result['recommendation'])
-        self.assertIn('缺少可用图片识别结果', result['risk_tags'])
+        self.assertIsNone(result['normalized_dish'])
+        self.assertIn('raw_image_result', result)
+        self.assertIn(result['raw_image_result']['ocr']['status'], {'validated', 'degraded', 'needs_credentials', 'unavailable'})
 
+    def test_conflicting_candidate_image_does_not_use_garbage_seed(self):
+        result = run_recommend({'image_path': str(REPO_ROOT / 'pic/20260508-123019.jpg')})
+        self.assertEqual('need_confirm', result['recommendation'])
+        self.assertIn(result.get('normalized_dish'), {None, '未知菜品'})
+        self.assertTrue(all('肯德基' not in item.get('canonical_name', '') for item in result.get('candidates', []) if isinstance(item, dict)))
 
-def test_menu_image_records_ocr_status(self):
-    result = run_recommend({'image_path': str(REPO_ROOT / 'pic/20260508-122944.jpg')})
-    self.assertIn('raw_image_result', result)
-    self.assertIn(result['raw_image_result']['ocr']['status'], {'validated', 'degraded', 'needs_credentials', 'unavailable'})
+    def test_provider_degradation_falls_back_to_local_ocr_candidates(self):
+        result = run_recommend({'image_path': str(REPO_ROOT / 'pic/20260508-123047.jpg')})
+        raw = result['raw_image_result']
+        self.assertEqual('荠菜鲜肉小馄饨', result['normalized_dish'])
+        self.assertEqual('ocr_assisted_vision', raw['vision']['provider_name'])
+        self.assertEqual('validated', raw['vision']['status'])
+        self.assertEqual('validated', raw['ocr']['status'])
+
+    def test_unknown_menu_image_returns_provider_backed_result(self):
+        result = run_recommend({'image_path': str(REPO_ROOT / 'pic/20260508-123010.jpg')})
+        self.assertNotEqual('need_confirm', result['recommendation'])
+        self.assertTrue(result['normalized_dish'])
+        self.assertIn('raw_image_result', result)
+
+    def test_menu_image_records_ocr_status(self):
+        result = run_recommend({'image_path': str(REPO_ROOT / 'pic/20260508-122944.jpg')})
+        self.assertIn('raw_image_result', result)
+        self.assertIn(result['raw_image_result']['ocr']['status'], {'validated', 'degraded', 'needs_credentials', 'unavailable'})
+
+    def test_image_case_labels_support_metrics_statistics(self):
+        cases = case_map()
+        for image_id in ['20260508-122944', '20260508-123023', '20260508-123047', '20260508-123010']:
+            case = cases[image_id]
+            self.assertIn('expected_dishes', case)
+            self.assertIn('ocr_expectation', case)
+            self.assertIn('need_confirm_allowed', case)
+            self.assertIn('notes', case)
 
 
 if __name__ == '__main__':

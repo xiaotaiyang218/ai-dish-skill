@@ -43,9 +43,37 @@ class QuantizationTests(unittest.TestCase):
             self.assertIn('nutrition_basis', result)
             self.assertIn('portion_basis', result)
 
+    def test_aliases_can_hit_standard_quantified_recipe(self):
+        alias_map = {
+            '老家豆腐': '家常豆腐',
+            '鲜肉小馄饨': '荠菜鲜肉小馄饨',
+            '轻食鸡胸西兰花': '西兰花炒鸡胸肉',
+        }
+        for alias, canonical in alias_map.items():
+            result = RECOMMEND.recommend({'dish_name': alias})
+            self.assertEqual(canonical, result['normalized_dish'])
+            self.assertIn('nutrition_quantitative', result)
+
+    def test_fastfood_standard_recipes_expose_quantitative_basis(self):
+        for dish_name in ['香辣鸡腿堡', '劲脆超霸堡']:
+            result = RECOMMEND.recommend({'dish_name': dish_name})
+            self.assertIn('标准快餐', result.get('nutrition_basis', ''))
+            self.assertGreater(result['nutrition_quantitative']['energy_kcal'], 400)
+
     def test_missing_standard_recipe_has_no_quant(self):
         result = RECOMMEND.recommend({'dish_name': '老板推荐'})
         self.assertNotIn('nutrition_quantitative', result)
+
+    def test_ingredient_only_fallback_keeps_qualitative_boundary(self):
+        result = RECOMMEND.recommend({'dish_name': '地方招牌', 'ingredients': ['豆腐', '辣椒', '生抽']})
+        self.assertNotIn('nutrition_quantitative', result)
+        self.assertIn(result['recommendation'], {'caution', 'need_confirm', 'recommend'})
+
+    def test_new_local_ingredient_knowledge_still_does_not_create_quant(self):
+        result = RECOMMEND.recommend({'dish_name': '地方招牌', 'ingredients': ['带皮五花肉', '料酒', '八角', '香叶']})
+        self.assertNotIn('nutrition_quantitative', result)
+        self.assertIn('带皮五花肉', result.get('nutrition_evidence', {}))
+        self.assertIn('料酒', result.get('nutrition_evidence', {}))
 
 
 if __name__ == '__main__':

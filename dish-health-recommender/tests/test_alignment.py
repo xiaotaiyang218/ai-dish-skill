@@ -1,4 +1,5 @@
 import importlib.util
+import json
 import unittest
 from pathlib import Path
 
@@ -32,6 +33,25 @@ class ReportAlignmentTests(unittest.TestCase):
                 self.assertTrue(item.get('implementation_refs'))
                 self.assertTrue(item.get('test_refs'))
                 self.assertTrue(item.get('validation_refs'))
+
+    def test_metrics_artifact_is_referenced_by_alignment_items(self):
+        metric_refs = []
+        for item in MODULE.default_items():
+            metric_refs.extend(item.get('validation_refs', []))
+            if item.get('metric_summary'):
+                self.assertTrue(item['metric_summary'])
+        self.assertIn('dish-health-recommender/validation/image-validation-report.json', metric_refs)
+
+    def test_degradable_or_pending_items_keep_boundary_language(self):
+        for item in MODULE.default_items():
+            if item['status'] in {'degradable', 'pending_validation'}:
+                self.assertTrue(any(token in item['boundary_note'] for token in ['待验证', '降级', '未承诺', '仍需', '边界']))
+
+    def test_optional_sources_are_documented_as_offline_import_only(self):
+        payload = MODULE.default_items()
+        evidence_text = json.dumps(payload, ensure_ascii=False)
+        self.assertNotIn('运行时强依赖', evidence_text)
+        self.assertNotIn('在线必需', evidence_text)
 
 
 if __name__ == '__main__':

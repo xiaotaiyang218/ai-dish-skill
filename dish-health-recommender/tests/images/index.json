@@ -10,19 +10,27 @@
     },
     {
       "image_id": "20260508-123010",
-      "image_path": "pic/20260508-123010.jpg"
+      "image_path": "pic/20260508-123010.jpg",
+      "scenario": "unknown_menu_boundary",
+      "expected_behavior": "need_confirm"
     },
     {
       "image_id": "20260508-123014",
-      "image_path": "pic/20260508-123014.jpg"
+      "image_path": "pic/20260508-123014.jpg",
+      "scenario": "blurry_dish",
+      "expected_behavior": "need_confirm"
     },
     {
       "image_id": "20260508-123019",
-      "image_path": "pic/20260508-123019.jpg"
+      "image_path": "pic/20260508-123019.jpg",
+      "scenario": "conflicting_candidate_noise",
+      "expected_behavior": "reject_low_value_text"
     },
     {
       "image_id": "20260508-123023",
-      "image_path": "pic/20260508-123023.jpg"
+      "image_path": "pic/20260508-123023.jpg",
+      "scenario": "provider_degradation_menu",
+      "expected_behavior": "ocr_assisted_fallback"
     },
     {
       "image_id": "20260508-123029",
@@ -42,7 +50,9 @@
     },
     {
       "image_id": "20260508-123047",
-      "image_path": "pic/20260508-123047.jpg"
+      "image_path": "pic/20260508-123047.jpg",
+      "scenario": "provider_degradation_dish",
+      "expected_behavior": "ocr_assisted_fallback"
     },
     {
       "image_id": "20260508-123050",

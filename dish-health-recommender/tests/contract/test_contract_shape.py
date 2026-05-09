@@ -5,10 +5,10 @@ import sys
 import unittest
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[5]
-FEATURE_DIR = ROOT / 'specs' / '20260508-dish-skill-report'
+CODE_ROOT = Path(__file__).resolve().parents[4]
+FEATURE_DIR = CODE_ROOT / 'chuang' / 'specs' / '20260508-dish-skill-report'
 CONTRACT_PATH = FEATURE_DIR / 'contracts' / 'openapi.yaml'
-SCRIPT_PATH = ROOT / '.agents' / 'skills' / 'dish-health-recommender' / 'scripts' / 'recommend.py'
+SCRIPT_PATH = CODE_ROOT / 'ai-dish-skill' / 'dish-health-recommender' / 'scripts' / 'recommend.py'
 
 
 def load_recommend_module():

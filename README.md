@@ -1,25 +1,28 @@
 # ai-dish-skill
 
-`ai-dish-skill` 是一个可安装到 Codex 的中文饮食健康推荐 skill。核心目录是 `dish-health-recommender/`，它可以根据菜名、菜单文字、OCR 文本、菜肴图片线索和用户健康约束，输出可解释的推荐结论。
+`ai-dish-skill` 是一个可安装到常见 Agent 的中文饮食健康推荐 skill。核心目录是 `dish-health-recommender/`，它可以根据菜名、菜单文字、OCR 文本、菜肴图片线索和用户健康约束，输出可解释的推荐结论。
 
 这个仓库既包含 skill 本体，也包含本地脚本、测试资产、验证报告和项目报告。默认情况下，它不依赖任何外部 API key；配置可选凭证后，可以启用百度菜品识别和 Spoonacular 菜谱参考增强。
 
-## 快速安装
+## 快速安装：安装为通用 Agent Skill
 
-### 方式一：安装为 Codex Skill
-
-推荐把 `dish-health-recommender/` 作为一个独立 skill 目录放到 Codex skills 目录下：
+推荐把 `dish-health-recommender/` 作为一个独立 skill 目录，放到宿主 Agent 的 skills 目录下。OpenClaw、Codex 或其他支持本地 skill 目录的 Agent 都可以采用同一种方式：先确定该 Agent 的 skills 目录，再复制或软链接本 skill。
 
 ```bash
 git clone https://github.com/xiaotaiyang218/ai-dish-skill.git
-mkdir -p ~/.codex/skills
-cp -R ai-dish-skill/dish-health-recommender ~/.codex/skills/dish-health-recommender
+
+# 替换为你的 Agent 实际读取的 skills 目录。
+# 例如 OpenClaw 或其他 Agent 的本地 skills 目录。
+export AGENT_SKILLS_DIR="$HOME/.openclaw/skills"
+
+mkdir -p "$AGENT_SKILLS_DIR"
+cp -R ai-dish-skill/dish-health-recommender "$AGENT_SKILLS_DIR/dish-health-recommender"
 ```
 
 安装后目录应类似：
 
 ```text
-~/.codex/skills/dish-health-recommender/
+$AGENT_SKILLS_DIR/dish-health-recommender/
   SKILL.md
   scripts/
   providers/
@@ -28,11 +31,9 @@ cp -R ai-dish-skill/dish-health-recommender ~/.codex/skills/dish-health-recommen
   tests/
 ```
 
-只要 `dish-health-recommender/SKILL.md` 位于 skill 根目录，Codex 就可以识别这个 skill。
+只要 `dish-health-recommender/SKILL.md` 位于 skill 根目录，支持本地 skill 的 Agent 就可以按自己的加载规则识别这个 skill。如果宿主 Agent 支持软链接，也可以用 `ln -s` 代替 `cp -R`，方便后续更新仓库代码。
 
-### 方式二：在仓库内开发和验证
-
-如果只是本地调试，不需要复制目录，直接在仓库根目录运行脚本即可：
+安装后也可以直接用本地脚本验证核心推荐能力：
 
 ```bash
 python3 dish-health-recommender/scripts/recommend.py <<'JSON'
@@ -71,7 +72,7 @@ JSON
 `.local-secrets.json` 必须放在 `dish-health-recommender/` 的父目录：
 
 - 在本仓库内开发时：`ai-dish-skill/.local-secrets.json`
-- 安装到 Codex 后：`~/.codex/skills/.local-secrets.json`
+- 安装到 Agent 后：`$AGENT_SKILLS_DIR/.local-secrets.json`
 
 相关 key 说明：
 
@@ -247,11 +248,11 @@ python3 -m unittest discover -s dish-health-recommender/tests -p 'test_*.py'
 - 第三方能力通过环境变量或 `.local-secrets.json` 接入，不在仓库中提交真实凭证。
 - 未验证的 OCR、vision、nutrition API 不应被视为已稳定可用。
 - 输出仅作为饮食参考，不构成医疗诊断或治疗建议。
-- 报告中提到的比赛提交合规项，仍应在正式对外交付前再次人工核查。
+- 对外发布或上线前，应再次人工核查报告、截图、视频和配置文件，避免暴露账号、路径、定位和真实凭证。
 
 ## 当前发布内容概览
 
-- Codex skill 目录 1 个：`dish-health-recommender/`
+- Agent skill 目录 1 个：`dish-health-recommender/`
 - 图片样本 22 张
 - 已包含项目报告 1 份
 - 已包含推荐、验证、反馈和导入脚本

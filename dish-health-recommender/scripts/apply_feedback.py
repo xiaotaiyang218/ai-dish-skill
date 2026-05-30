@@ -14,6 +14,7 @@ REPLAY_OUTPUT_PATH = VALIDATION_DIR / 'feedback-replay-report.json'
 
 def empty_store() -> dict:
     return {
+        'input_events': [],
         'events': [],
         'profiles': {'dish': {}, 'user_dish': {}},
         'corrections': {},
@@ -37,6 +38,7 @@ def normalize_store(data: dict | None) -> dict:
     store = empty_store()
     if isinstance(data, dict):
         store.update({k: v for k, v in data.items() if k in store or k == 'bias'})
+    store['input_events'] = list(store.get('input_events') or [])
     store['events'] = list(store.get('events') or [])
     store['corrections'] = dict(store.get('corrections') or {})
     store['meta'] = dict(store.get('meta') or {})
@@ -63,7 +65,10 @@ def load_store(path: Path | None = None) -> dict:
     target_path = path or FEEDBACK_PATH
     if not target_path.exists():
         return empty_store()
-    data = json.loads(target_path.read_text(encoding='utf-8'))
+    try:
+        data = json.loads(target_path.read_text(encoding='utf-8'))
+    except (OSError, json.JSONDecodeError):
+        return empty_store()
     return normalize_store(data)
 
 

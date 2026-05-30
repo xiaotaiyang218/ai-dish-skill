@@ -30,11 +30,617 @@
       "carbohydrate_g": 18,
       "sugars_g": 14,
       "sodium_mg": 980,
+      "standard_ingredients": [
+        {
+          "name": "带皮五花肉",
+          "amount_g": 120
+        },
+        {
+          "name": "冰糖/白糖",
+          "amount_g": 10
+        },
+        {
+          "name": "酱油",
+          "amount_g": 15
+        },
+        {
+          "name": "烹调油",
+          "amount_g": 5
+        }
+      ],
+      "energy_calculation": {
+        "formula": "食材克数 × 每100克热量 / 100；烹调油按实际吸收量估算",
+        "items": [
+          {
+            "name": "带皮五花肉",
+            "amount_g": 120,
+            "kcal_per_100g": 395,
+            "energy_kcal": 474
+          },
+          {
+            "name": "冰糖/白糖",
+            "amount_g": 10,
+            "kcal_per_100g": 400,
+            "energy_kcal": 40
+          },
+          {
+            "name": "酱油",
+            "amount_g": 15,
+            "kcal_per_100g": 53,
+            "energy_kcal": 8
+          },
+          {
+            "name": "烹调油吸收量",
+            "amount_g": 2,
+            "kcal_per_100g": 900,
+            "energy_kcal": 18
+          }
+        ],
+        "total_energy_kcal": 540,
+        "rounding_note": "分项四舍五入后求和"
+      },
       "source_refs": [
         "中国食物成分表",
-        "标准红烧配方"
+        "上海本帮菜常见做法",
+        "公开菜谱主料份量交叉参考"
       ],
       "confidence_note": "估算值，油糖波动较大"
+    },
+    {
+      "dish_name": "腌笃鲜",
+      "aliases": [
+        "上海腌笃鲜"
+      ],
+      "portion_basis": "1碗/1小砂锅",
+      "nutrition_basis": "上海腌笃鲜标准份量估算",
+      "energy_kcal": 360,
+      "protein_g": 22,
+      "fat_g": 24,
+      "carbohydrate_g": 12,
+      "sugars_g": 3,
+      "sodium_mg": 1450,
+      "standard_ingredients": [
+        {
+          "name": "春笋/竹笋",
+          "amount_g": 120
+        },
+        {
+          "name": "咸肉",
+          "amount_g": 40
+        },
+        {
+          "name": "排骨/鲜肉",
+          "amount_g": 80
+        },
+        {
+          "name": "汤汁",
+          "amount_ml": 150
+        }
+      ],
+      "energy_calculation": {
+        "formula": "食材克数 × 每100克热量 / 100；汤汁按可食部分估算",
+        "items": [
+          {
+            "name": "春笋/竹笋",
+            "amount_g": 120,
+            "kcal_per_100g": 23,
+            "energy_kcal": 28
+          },
+          {
+            "name": "咸肉",
+            "amount_g": 40,
+            "kcal_per_100g": 390,
+            "energy_kcal": 156
+          },
+          {
+            "name": "排骨/鲜肉",
+            "amount_g": 80,
+            "kcal_per_100g": 200,
+            "energy_kcal": 160
+          },
+          {
+            "name": "汤汁可食能量",
+            "amount_ml": 150,
+            "kcal_per_100ml": 11,
+            "energy_kcal": 16
+          }
+        ],
+        "total_energy_kcal": 360,
+        "rounding_note": "分项四舍五入后求和"
+      },
+      "source_refs": [
+        "中国食物成分表",
+        "上海本帮菜常见做法",
+        "公开菜谱主料份量交叉参考"
+      ],
+      "confidence_note": "按常见主料份量估算；咸肉用量和是否喝汤会显著影响钠含量"
+    },
+    {
+      "dish_name": "八宝鸭",
+      "aliases": [
+        "上海八宝鸭"
+      ],
+      "portion_basis": "1份宴席分餐",
+      "nutrition_basis": "上海八宝鸭标准份量估算",
+      "energy_kcal": 620,
+      "protein_g": 28,
+      "fat_g": 38,
+      "carbohydrate_g": 42,
+      "sugars_g": 9,
+      "sodium_mg": 1250,
+      "standard_ingredients": [
+        {
+          "name": "鸭肉带皮",
+          "amount_g": 120
+        },
+        {
+          "name": "糯米",
+          "amount_g": 60
+        },
+        {
+          "name": "香菇",
+          "amount_g": 20
+        },
+        {
+          "name": "莲子",
+          "amount_g": 20
+        },
+        {
+          "name": "栗子",
+          "amount_g": 30
+        },
+        {
+          "name": "酱油",
+          "amount_g": 15
+        },
+        {
+          "name": "糖",
+          "amount_g": 8
+        },
+        {
+          "name": "烹调油",
+          "amount_g": 5
+        }
+      ],
+      "energy_calculation": {
+        "formula": "食材克数 × 每100克热量 / 100；糯米按熟制可食量估算",
+        "items": [
+          {
+            "name": "鸭肉带皮",
+            "amount_g": 120,
+            "kcal_per_100g": 337,
+            "energy_kcal": 404
+          },
+          {
+            "name": "熟糯米",
+            "amount_g": 60,
+            "kcal_per_100g": 117,
+            "energy_kcal": 70
+          },
+          {
+            "name": "香菇",
+            "amount_g": 20,
+            "kcal_per_100g": 30,
+            "energy_kcal": 6
+          },
+          {
+            "name": "莲子",
+            "amount_g": 20,
+            "kcal_per_100g": 90,
+            "energy_kcal": 18
+          },
+          {
+            "name": "栗子",
+            "amount_g": 30,
+            "kcal_per_100g": 187,
+            "energy_kcal": 56
+          },
+          {
+            "name": "酱油",
+            "amount_g": 15,
+            "kcal_per_100g": 27,
+            "energy_kcal": 4
+          },
+          {
+            "name": "糖",
+            "amount_g": 8,
+            "kcal_per_100g": 400,
+            "energy_kcal": 32
+          },
+          {
+            "name": "烹调油吸收量",
+            "amount_g": 3,
+            "kcal_per_100g": 900,
+            "energy_kcal": 30
+          }
+        ],
+        "total_energy_kcal": 620,
+        "rounding_note": "分项四舍五入后求和"
+      },
+      "source_refs": [
+        "中国食物成分表",
+        "上海本帮菜常见做法",
+        "公开菜谱主料份量交叉参考"
+      ],
+      "confidence_note": "按宴席分餐份量估算；整鸭分食、馅料比例和酱汁会影响热量"
+    },
+    {
+      "dish_name": "油爆虾",
+      "aliases": [
+        "上海油爆虾"
+      ],
+      "portion_basis": "1份约8-10只",
+      "nutrition_basis": "上海油爆虾标准份量估算",
+      "energy_kcal": 330,
+      "protein_g": 32,
+      "fat_g": 17,
+      "carbohydrate_g": 11,
+      "sugars_g": 8,
+      "sodium_mg": 980,
+      "standard_ingredients": [
+        {
+          "name": "河虾/基围虾",
+          "amount_g": 180
+        },
+        {
+          "name": "烹调油",
+          "amount_g": 15
+        },
+        {
+          "name": "糖",
+          "amount_g": 8
+        },
+        {
+          "name": "酱油/盐",
+          "amount_g": 15
+        }
+      ],
+      "energy_calculation": {
+        "formula": "食材克数 × 每100克热量 / 100；油爆菜按吸油量估算",
+        "items": [
+          {
+            "name": "河虾/基围虾可食部分",
+            "amount_g": 180,
+            "kcal_per_100g": 94,
+            "energy_kcal": 170
+          },
+          {
+            "name": "烹调油吸收量",
+            "amount_g": 13,
+            "kcal_per_100g": 900,
+            "energy_kcal": 120
+          },
+          {
+            "name": "糖",
+            "amount_g": 8,
+            "kcal_per_100g": 400,
+            "energy_kcal": 32
+          },
+          {
+            "name": "酱汁",
+            "amount_g": 15,
+            "kcal_per_100g": 53,
+            "energy_kcal": 8
+          }
+        ],
+        "total_energy_kcal": 330,
+        "rounding_note": "分项四舍五入后求和"
+      },
+      "source_refs": [
+        "中国食物成分表",
+        "上海本帮菜常见做法",
+        "公开菜谱主料份量交叉参考"
+      ],
+      "confidence_note": "按热油快炒并裹甜咸汁估算；吸油量和酱汁保留量会影响结果"
+    },
+    {
+      "dish_name": "水晶虾仁",
+      "aliases": [
+        "清炒虾仁",
+        "上海水晶虾仁"
+      ],
+      "portion_basis": "1份标准菜",
+      "nutrition_basis": "上海水晶虾仁标准份量估算",
+      "energy_kcal": 260,
+      "protein_g": 34,
+      "fat_g": 11,
+      "carbohydrate_g": 8,
+      "sugars_g": 1,
+      "sodium_mg": 650,
+      "standard_ingredients": [
+        {
+          "name": "虾仁",
+          "amount_g": 180
+        },
+        {
+          "name": "烹调油",
+          "amount_g": 10
+        },
+        {
+          "name": "淀粉",
+          "amount_g": 8
+        },
+        {
+          "name": "盐/调味",
+          "amount_g": 4
+        }
+      ],
+      "energy_calculation": {
+        "formula": "食材克数 × 每100克热量 / 100；上浆和用油按保守吸收量估算",
+        "items": [
+          {
+            "name": "虾仁",
+            "amount_g": 180,
+            "kcal_per_100g": 99,
+            "energy_kcal": 178
+          },
+          {
+            "name": "烹调油吸收量",
+            "amount_g": 6,
+            "kcal_per_100g": 900,
+            "energy_kcal": 54
+          },
+          {
+            "name": "淀粉",
+            "amount_g": 7,
+            "kcal_per_100g": 400,
+            "energy_kcal": 28
+          }
+        ],
+        "total_energy_kcal": 260,
+        "rounding_note": "分项四舍五入后求和"
+      },
+      "source_refs": [
+        "中国食物成分表",
+        "上海本帮菜常见做法",
+        "公开菜谱主料份量交叉参考"
+      ],
+      "confidence_note": "按清淡滑炒虾仁估算；勾芡、上浆和用油量会影响结果"
+    },
+    {
+      "dish_name": "草头圈子",
+      "aliases": [
+        "上海草头圈子"
+      ],
+      "portion_basis": "1份标准菜",
+      "nutrition_basis": "上海草头圈子标准份量估算",
+      "energy_kcal": 430,
+      "protein_g": 18,
+      "fat_g": 33,
+      "carbohydrate_g": 13,
+      "sugars_g": 6,
+      "sodium_mg": 1100,
+      "standard_ingredients": [
+        {
+          "name": "猪大肠",
+          "amount_g": 120
+        },
+        {
+          "name": "草头/苜蓿",
+          "amount_g": 120
+        },
+        {
+          "name": "烹调油",
+          "amount_g": 15
+        },
+        {
+          "name": "酱油",
+          "amount_g": 15
+        },
+        {
+          "name": "糖",
+          "amount_g": 6
+        }
+      ],
+      "energy_calculation": {
+        "formula": "食材克数 × 每100克热量 / 100；红烧汁和吸油量按标准份量估算",
+        "items": [
+          {
+            "name": "猪大肠",
+            "amount_g": 120,
+            "kcal_per_100g": 196,
+            "energy_kcal": 235
+          },
+          {
+            "name": "草头/苜蓿",
+            "amount_g": 120,
+            "kcal_per_100g": 25,
+            "energy_kcal": 30
+          },
+          {
+            "name": "烹调油吸收量",
+            "amount_g": 12,
+            "kcal_per_100g": 900,
+            "energy_kcal": 108
+          },
+          {
+            "name": "酱油",
+            "amount_g": 15,
+            "kcal_per_100g": 47,
+            "energy_kcal": 7
+          },
+          {
+            "name": "糖",
+            "amount_g": 6,
+            "kcal_per_100g": 400,
+            "energy_kcal": 24
+          },
+          {
+            "name": "红烧汁可食能量",
+            "amount_g": 30,
+            "kcal_per_100g": 87,
+            "energy_kcal": 26
+          }
+        ],
+        "total_energy_kcal": 430,
+        "rounding_note": "分项四舍五入后求和"
+      },
+      "source_refs": [
+        "中国食物成分表",
+        "上海本帮菜常见做法",
+        "公开菜谱主料份量交叉参考"
+      ],
+      "confidence_note": "按猪大肠配草头的常见份量估算；大肠肥脂、红烧汁和用油量波动较大"
+    },
+    {
+      "dish_name": "响油鳝丝",
+      "aliases": [
+        "响油鳝糊",
+        "上海响油鳝丝"
+      ],
+      "portion_basis": "1份标准菜",
+      "nutrition_basis": "上海响油鳝丝标准份量估算",
+      "energy_kcal": 410,
+      "protein_g": 34,
+      "fat_g": 24,
+      "carbohydrate_g": 10,
+      "sugars_g": 6,
+      "sodium_mg": 1150,
+      "standard_ingredients": [
+        {
+          "name": "鳝鱼/鳝丝",
+          "amount_g": 180
+        },
+        {
+          "name": "烹调油",
+          "amount_g": 20
+        },
+        {
+          "name": "酱油",
+          "amount_g": 15
+        },
+        {
+          "name": "糖",
+          "amount_g": 6
+        },
+        {
+          "name": "葱姜蒜",
+          "amount_g": 15
+        }
+      ],
+      "energy_calculation": {
+        "formula": "食材克数 × 每100克热量 / 100；响油浇油按实际入口吸收量估算",
+        "items": [
+          {
+            "name": "鳝鱼/鳝丝",
+            "amount_g": 180,
+            "kcal_per_100g": 89,
+            "energy_kcal": 160
+          },
+          {
+            "name": "烹调油吸收量",
+            "amount_g": 20,
+            "kcal_per_100g": 900,
+            "energy_kcal": 180
+          },
+          {
+            "name": "酱油",
+            "amount_g": 15,
+            "kcal_per_100g": 53,
+            "energy_kcal": 8
+          },
+          {
+            "name": "糖",
+            "amount_g": 6,
+            "kcal_per_100g": 400,
+            "energy_kcal": 24
+          },
+          {
+            "name": "葱姜蒜",
+            "amount_g": 15,
+            "kcal_per_100g": 33,
+            "energy_kcal": 5
+          },
+          {
+            "name": "芡汁/调味汁",
+            "amount_g": 25,
+            "kcal_per_100g": 132,
+            "energy_kcal": 33
+          }
+        ],
+        "total_energy_kcal": 410,
+        "rounding_note": "分项四舍五入后求和"
+      },
+      "source_refs": [
+        "中国食物成分表",
+        "上海本帮菜常见做法",
+        "公开菜谱主料份量交叉参考"
+      ],
+      "confidence_note": "按鳝丝爆炒后热油激香估算；浇油量和芡汁会明显影响脂肪与钠"
+    },
+    {
+      "dish_name": "蟹粉豆腐",
+      "aliases": [
+        "蟹黄豆腐",
+        "上海蟹粉豆腐"
+      ],
+      "portion_basis": "1份标准菜",
+      "nutrition_basis": "上海蟹粉豆腐标准份量估算",
+      "energy_kcal": 360,
+      "protein_g": 24,
+      "fat_g": 24,
+      "carbohydrate_g": 12,
+      "sugars_g": 2,
+      "sodium_mg": 900,
+      "standard_ingredients": [
+        {
+          "name": "嫩豆腐",
+          "amount_g": 250
+        },
+        {
+          "name": "蟹粉/蟹黄",
+          "amount_g": 50
+        },
+        {
+          "name": "烹调油",
+          "amount_g": 12
+        },
+        {
+          "name": "淀粉",
+          "amount_g": 8
+        },
+        {
+          "name": "盐/调味",
+          "amount_g": 5
+        }
+      ],
+      "energy_calculation": {
+        "formula": "食材克数 × 每100克热量 / 100；蟹黄、用油和勾芡按常见份量估算",
+        "items": [
+          {
+            "name": "嫩豆腐",
+            "amount_g": 250,
+            "kcal_per_100g": 61,
+            "energy_kcal": 153
+          },
+          {
+            "name": "蟹粉/蟹黄",
+            "amount_g": 50,
+            "kcal_per_100g": 160,
+            "energy_kcal": 80
+          },
+          {
+            "name": "烹调油吸收量",
+            "amount_g": 12,
+            "kcal_per_100g": 900,
+            "energy_kcal": 108
+          },
+          {
+            "name": "淀粉",
+            "amount_g": 5,
+            "kcal_per_100g": 380,
+            "energy_kcal": 19
+          }
+        ],
+        "total_energy_kcal": 360,
+        "rounding_note": "分项四舍五入后求和"
+      },
+      "source_refs": [
+        "中国食物成分表",
+        "上海本帮菜常见做法",
+        "公开菜谱主料份量交叉参考"
+      ],
+      "confidence_note": "按蟹粉配嫩豆腐的常见份量估算；蟹黄比例和勾芡用油会影响脂肪"
     },
     {
       "dish_name": "清蒸鲈鱼",

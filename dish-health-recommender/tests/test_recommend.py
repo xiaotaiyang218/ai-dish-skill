@@ -90,6 +90,20 @@ class RecommendFixtureTests(unittest.TestCase):
         self.assertEqual('番茄炒蛋', result['normalized_dish'])
         self.assertEqual('avoid', result['recommendation'])
 
+    def test_shanghai_classic_dishes_have_descriptive_notes(self):
+        expected_note_snippets = {
+            '红烧肉': '浓油赤酱',
+            '腌笃鲜': '春笋',
+            '八宝鸭': '宴席',
+            '油爆虾': '火候',
+            '水晶虾仁': '晶莹',
+            '草头圈子': '猪大肠',
+            '响油鳝丝': '热油',
+            '蟹粉豆腐': '蟹粉',
+        }
+        for dish_name, snippet in expected_note_snippets.items():
+            self.assertIn(snippet, MODULE.DISHES[dish_name]['notes'], dish_name)
+
     def test_xiachufang_candidate_parses_search_result(self):
         html = '''
         <div class="recipe recipe-215-horizontal pure-g image-link display-block">

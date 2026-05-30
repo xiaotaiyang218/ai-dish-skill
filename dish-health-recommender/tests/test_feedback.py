@@ -15,6 +15,7 @@ import scripts.recommend as RECOMMEND  # noqa: E402
 
 def empty_store() -> dict:
     return {
+        'input_events': [],
         'events': [],
         'profiles': {'dish': {}, 'user_dish': {}},
         'corrections': {},
@@ -28,6 +29,11 @@ class FeedbackTests(unittest.TestCase):
 
     def test_feedback_file_exists(self):
         self.assertTrue(STORE_PATH.exists())
+
+    def test_load_store_recovers_from_invalid_json(self):
+        STORE_PATH.write_text('', encoding='utf-8')
+        store = FEEDBACK.load_store()
+        self.assertEqual(empty_store(), store)
 
     def test_accept_reject_favorite_and_correction_recording(self):
         FEEDBACK.record_feedback({'input_payload': {'dish_name': '番茄炒蛋'}, 'normalized_dish': '番茄炒蛋', 'feedback_type': 'accept'})
@@ -137,6 +143,23 @@ class FeedbackTests(unittest.TestCase):
         FEEDBACK.record_feedback({'input_payload': {'dish_name': '番茄鸡蛋'}, 'normalized_dish': '番茄炒蛋', 'feedback_type': 'correct_dish_name', 'corrected_dish_name': '番茄炒蛋'})
         result = RECOMMEND.recommend({'dish_name': '番茄鸡蛋'})
         self.assertEqual('番茄炒蛋', result['normalized_dish'])
+
+    def test_recommendation_input_is_recorded_locally(self):
+        result = RECOMMEND.recommend({
+            'dish_name': '西兰花炒鸡胸肉',
+            'user_id': 'alice',
+            'user_profile': {'goals': ['减脂']},
+            'context_tags': ['午餐'],
+        })
+        store = FEEDBACK.load_store()
+        event = store['input_events'][-1]
+
+        self.assertEqual('recommendation_input', event['event_type'])
+        self.assertEqual('alice', event['user_id'])
+        self.assertEqual('西兰花炒鸡胸肉', event['input_payload']['dish_name'])
+        self.assertEqual('西兰花炒鸡胸肉', event['normalized_dish'])
+        self.assertEqual(result['recommendation'], event['recommendation'])
+        self.assertIn('午餐', event['context_tags'])
 
 
 if __name__ == '__main__':

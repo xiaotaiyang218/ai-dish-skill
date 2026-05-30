@@ -22,7 +22,8 @@ LOW_VALUE_SUBSTRINGS = [
     '配餐', '饮料', '小食', '永远好滋味', 'hot wings', 'french fries',
     'pepsi', 'cola', 'lemon tea', 'egg tart', 'potato', 'gravy',
 ]
-DISH_NAME_HINTS = ['饭', '面', '汤', '粉', '鱼', '虾', '鸡', '肉', '菜', '饺', '馄饨', '堡', '豆腐', '肠粉', '手抓饭', '烤翅', '鸡翅', '鸡腿', '牛肚', '牛肉']
+DISH_NAME_HINTS = ['饭', '面', '汤', '粉', '鱼', '虾', '鸡', '鸭', '鳝', '蟹', '肉', '菜', '饺', '馄饨', '堡', '豆腐', '肠粉', '手抓饭', '烤翅', '鸡翅', '鸡腿', '牛肚', '牛肉', '草头', '圈子', '肥肠', '大肠', '猪蹄', '猪尾', '煲']
+KNOWN_SHORT_DISH_NAMES = {'腌笃鲜', '酱鸭', '猪蹄', '草头圈子', '响油鳝丝', '蟹粉豆腐'}
 BAIDU_TOKEN_URL = 'https://aip.baidubce.com/oauth/2.0/token'
 BAIDU_DISH_URL = 'https://aip.baidubce.com/rest/2.0/image-classify/v2/dish'
 
@@ -52,6 +53,8 @@ def _is_low_value_candidate(candidate: str) -> bool:
     normalized = _clean_candidate(candidate)
     if not normalized:
         return True
+    if normalized in KNOWN_SHORT_DISH_NAMES:
+        return False
     lowered = normalized.lower()
     if normalized in LOW_VALUE_EXACT_CANDIDATES:
         return True
@@ -63,7 +66,7 @@ def _is_low_value_candidate(candidate: str) -> bool:
         return True
     if not re.search(r'[一-鿿]{2,}', normalized):
         return True
-    if len(normalized) <= 2 and normalized not in {'豆浆', '豆花'}:
+    if len(normalized) <= 2 and normalized not in {'豆浆', '豆花', '馄饨', '水饺', '饺子', '包子', '汤圆'}:
         return True
     if not any(hint in normalized for hint in DISH_NAME_HINTS) and len(normalized) <= 5:
         return True

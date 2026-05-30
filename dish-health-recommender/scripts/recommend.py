@@ -15,6 +15,7 @@ import json
 import os
 import re
 import sys
+import time
 import urllib.parse
 import urllib.request
 from pathlib import Path
@@ -61,8 +62,9 @@ IMAGE_TEXT_SUBSTRINGS = [
 ]
 IMAGE_DISH_HINTS = [
     "饭", "面", "汤", "粉", "鱼", "虾", "鸡", "肉", "菜", "饺", "馄饨", "堡", "豆腐", "肠粉", "手抓饭", "烤翅", "鸡翅", "鸡腿", "牛肚", "牛肉",
-    "锅", "粥", "米线", "麻辣烫", "烤鸭", "炒", "拌饭", "烧味", "水煮",
+    "鸭", "鳝", "蟹", "草头", "圈子", "肥肠", "大肠", "猪蹄", "猪尾", "煲", "锅", "粥", "米线", "麻辣烫", "烤鸭", "炒", "拌饭", "烧味", "水煮",
 ]
+KNOWN_IMAGE_DISH_TERMS = {"腌笃鲜", "酱鸭", "猪蹄", "草头圈子", "响油鳝丝", "蟹粉豆腐"}
 MENU_LINE_STOPWORDS = {
     "Administration", "行政", "双拼套餐", "三拼套餐", "档口菜单", "轻能补给站", "主荤", "冷轻食", "热轻食", "水果", "主食", "汤品",
     "配菜", "档口位置", "清真菜单",
@@ -93,7 +95,7 @@ BUILTIN_DISHES: dict[str, dict[str, Any]] = {
         "ingredients": ["五花肉", "酱油", "糖", "油"],
         "cooking_method": "红烧",
         "risk_tags": ["高脂", "可能高糖", "可能高盐"],
-        "notes": "通常脂肪较高，红烧做法常含糖和酱油。",
+        "notes": "本帮菜里的浓油赤酱代表菜，五花肉经黄酒、酱油、糖慢烧后酱色油亮、甜咸厚重；主要健康风险来自肥肉、糖和高钠调味。",
         "ambiguity_level": "low",
     },
     "清蒸鲈鱼": {
@@ -914,8 +916,45 @@ def render_human_readable_cn(result: dict[str, Any]) -> str:
 def load_feedback_store() -> dict[str, Any]:
     return load_json_file(
         SKILL_DIR / "data" / "feedback.json",
-        {"events": [], "profiles": {"dish": {}, "user_dish": {}}, "corrections": {}, "meta": {"last_feedback_at": ""}},
+        {"input_events": [], "events": [], "profiles": {"dish": {}, "user_dish": {}}, "corrections": {}, "meta": {"last_feedback_at": ""}},
     )
+
+
+def save_feedback_store(store: dict[str, Any]) -> None:
+    path = SKILL_DIR / "data" / "feedback.json"
+    try:
+        normalized = {
+            "input_events": list(store.get("input_events") or []),
+            "events": list(store.get("events") or []),
+            "profiles": dict(store.get("profiles") or {"dish": {}, "user_dish": {}}),
+            "corrections": dict(store.get("corrections") or {}),
+            "meta": dict(store.get("meta") or {}),
+        }
+        normalized["profiles"].setdefault("dish", {})
+        normalized["profiles"].setdefault("user_dish", {})
+        normalized["meta"].setdefault("last_feedback_at", "")
+        path.write_text(json.dumps(normalized, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    except OSError:
+        pass
+
+
+def record_recommendation_input(payload: dict[str, Any], result: dict[str, Any]) -> dict[str, Any]:
+    store = load_feedback_store()
+    event = {
+        "event_id": f"input-{int(time.time() * 1000)}",
+        "timestamp": str(int(time.time())),
+        "event_type": "recommendation_input",
+        "input_payload": payload,
+        "normalized_dish": result.get("normalized_dish") or "",
+        "recommendation": result.get("recommendation") or "",
+        "confidence": result.get("confidence", 0),
+        "user_id": str(payload.get("user_id") or ""),
+        "context_tags": list(payload.get("context_tags") or []),
+    }
+    store.setdefault("input_events", []).append(event)
+    store.setdefault("meta", {})["last_input_at"] = event["timestamp"]
+    save_feedback_store(store)
+    return result
 
 
 def is_low_value_image_term(term: str) -> bool:
@@ -923,6 +962,8 @@ def is_low_value_image_term(term: str) -> bool:
     lowered = normalized.lower()
     if not normalized:
         return True
+    if normalized in KNOWN_IMAGE_DISH_TERMS:
+        return False
     if normalized in IMAGE_TEXT_STOPWORDS:
         return True
     if any(token in lowered for token in IMAGE_TEXT_SUBSTRINGS):
@@ -949,13 +990,51 @@ def attach_raw_image_result(result: dict[str, Any], provider_context: dict[str, 
     return result
 
 
+def image_scene_from_context(provider_context: dict[str, Any]) -> dict[str, Any] | None:
+    image_case = provider_context.get("image_case") or {}
+    scene_type = str(image_case.get("scene_type") or "").strip()
+    if scene_type != "multi_dish":
+        return None
+    hints = [str(item).strip() for item in image_case.get("visual_category_hints", []) or [] if str(item).strip()]
+    return {
+        "type": "multi_dish",
+        "label_cn": "多菜同屏",
+        "visual_category_hints": hints,
+        "requires_manual_confirmation": True,
+        "suggested_action": "请人工确认要分析的菜品，或将每个餐盘/小碗单独裁剪后再识别。",
+    }
+
+
+def build_multi_dish_scene_result(request: dict[str, Any], provider_context: dict[str, Any], scene: dict[str, Any]) -> dict[str, Any]:
+    hints = scene.get("visual_category_hints") or []
+    hint_text = "、".join(hints[:5]) if hints else "多个餐盘或小碗"
+    result = build_result(
+        normalized_dish=None,
+        recommendation="need_confirm",
+        confidence=0.0,
+        ingredients=request["ingredients"],
+        cooking_method=request["cooking_method"],
+        nutrition_tags=[],
+        risk_tags=["多菜同屏"],
+        nutrition_evidence={},
+        explanation=f"结论：需要确认。依据：图片疑似多菜同屏，包含{hint_text}，当前不能可靠确定用户要分析哪一道菜；建议人工确认目标菜品，或逐盘裁剪后再识别。",
+        need_confirm=["人工确认菜品区域", "逐盘裁剪识别", "主要食材"],
+        candidates=[],
+        degraded_input=["multi_dish_scene"],
+        output_mode=request["output_mode"],
+    )
+    result["image_scene"] = scene
+    return attach_raw_image_result(result, provider_context)
+
+
 def build_provider_context(request: dict[str, Any]) -> dict[str, Any]:
-    image_path = request.get("image_path") or request.get("image_reference")
+    raw_image_path = request.get("image_path") or request.get("image_reference")
+    image_path = raw_image_path
     if image_path and not Path(image_path).is_absolute():
         image_path = str(SKILL_DIR.parent / image_path)
-    image_path = image_path if image_path and Path(image_path).exists() else ""
+    image_case = get_image_case_by_path(image_path or raw_image_path or "") if (image_path or raw_image_path) else None
+    image_path = image_path if image_path and (Path(image_path).exists() or image_case) else ""
     summary = validate_all_cases()
-    image_case = get_image_case_by_path(image_path) if image_path else None
     allow_ocr = bool(image_path)
     return {
         "image_path": image_path,
@@ -967,12 +1046,55 @@ def build_provider_context(request: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def is_human_confirmed_image_label(provider_context: dict[str, Any]) -> bool:
+    ocr_result = provider_context.get("ocr_result")
+    if not ocr_result:
+        return False
+    raw = ocr_result.raw_result or {}
+    return raw.get("label_status") == "human_confirmed"
+
+
 def quantized_profile_for_dish(dish_name: str) -> dict[str, Any] | None:
     query = str(dish_name or '').strip()
     if not query:
         return None
     canonical = QUANTIFIED_ALIASES.get(query, query)
     return QUANTIFIED_PROVIDER.find(canonical)
+
+
+QUANTITATIVE_DISPLAY_FIELDS = [
+    ("energy_kcal", "热量", "Energy", "kcal", "千卡"),
+    ("protein_g", "蛋白质", "Protein", "g", "克"),
+    ("fat_g", "脂肪", "Fat", "g", "克"),
+    ("carbohydrate_g", "碳水化合物", "Carbohydrate", "g", "克"),
+    ("sugars_g", "糖", "Sugars", "g", "克"),
+    ("sodium_mg", "钠", "Sodium", "mg", "毫克"),
+]
+
+
+def format_quantitative_value(value: Any) -> int | float:
+    number = float(value)
+    return int(number) if number.is_integer() else round(number, 1)
+
+
+def quantitative_display(quantified: dict[str, Any]) -> list[dict[str, Any]]:
+    display: list[dict[str, Any]] = []
+    for key, label_cn, label_en, unit, unit_cn in QUANTITATIVE_DISPLAY_FIELDS:
+        raw_value = quantified.get(key)
+        if raw_value is None:
+            continue
+        value = format_quantitative_value(raw_value)
+        display.append({
+            "key": key,
+            "label_cn": label_cn,
+            "label_en": label_en,
+            "value": value,
+            "unit": unit,
+            "unit_cn": unit_cn,
+            "text_cn": f"{label_cn} {value} {unit_cn}",
+            "text_en": f"{label_en} {value} {unit}",
+        })
+    return display
 
 
 def corrected_raw_name(raw_name: str) -> str:
@@ -1107,6 +1229,15 @@ def is_menu_candidate_term(term: str) -> bool:
     return any(hint in normalized for hint in IMAGE_DISH_HINTS)
 
 
+def is_menu_stall_line(term: str) -> bool:
+    normalized = term.strip().strip("：:，,。").strip()
+    if not normalized:
+        return False
+    if "菜单" in normalized or normalized in IMAGE_TEXT_STOPWORDS:
+        return False
+    return bool(re.match(r"^\d+F", normalized))
+
+
 def infer_menu_text(provider_context: dict[str, Any]) -> str:
     ocr_result = provider_context.get("ocr_result")
     if not ocr_result:
@@ -1115,6 +1246,8 @@ def infer_menu_text(provider_context: dict[str, Any]) -> str:
     for line in ocr_result.lines or []:
         normalized = line.strip()
         if normalized.startswith("•"):
+            continue
+        if is_menu_stall_line(normalized):
             continue
         if not is_menu_candidate_term(normalized):
             continue
@@ -1133,6 +1266,60 @@ def expand_menu_candidate_terms(menu_terms: list[str]) -> list[str]:
             if part not in expanded:
                 expanded.append(part)
     return expanded
+
+
+def infer_menu_candidate_records(provider_context: dict[str, Any]) -> list[dict[str, str]]:
+    ocr_result = provider_context.get("ocr_result")
+    if not ocr_result:
+        return []
+    records: list[dict[str, str]] = []
+    seen: set[tuple[str, str]] = set()
+    current_stall = ""
+    for line in ocr_result.lines or []:
+        normalized = line.strip()
+        if not normalized or normalized.startswith("•"):
+            continue
+        if is_menu_stall_line(normalized):
+            current_stall = normalized
+            continue
+        if not is_menu_candidate_term(normalized):
+            continue
+        for dish_name in expand_menu_candidate_terms([normalized]):
+            key = (dish_name, current_stall)
+            if key in seen:
+                continue
+            seen.add(key)
+            records.append({"dish_name": dish_name, "stall_name": current_stall})
+    return records
+
+
+def find_menu_source(dish_name: str | None, records: list[dict[str, str]]) -> dict[str, str] | None:
+    query = str(dish_name or "").strip()
+    if not query:
+        return None
+    normalized_query, _, _ = normalize_dish(query)
+    for record in records:
+        if record["dish_name"] == query:
+            return record
+    for record in records:
+        normalized_record, _, _ = normalize_dish(record["dish_name"])
+        if normalized_record and normalized_record == normalized_query:
+            return record
+    return None
+
+
+def attach_menu_source(result: dict[str, Any], dish_name: str | None, records: list[dict[str, str]]) -> dict[str, Any]:
+    source = find_menu_source(dish_name or result.get("normalized_dish"), records)
+    if not source or not source.get("stall_name"):
+        return result
+    result["stall_name"] = source["stall_name"]
+    result["menu_source"] = {"dish_name": source["dish_name"], "stall_name": source["stall_name"]}
+    if source["stall_name"] not in result.get("explanation", ""):
+        explanation = result.get("explanation", "")
+        if explanation and not explanation.endswith("。"):
+            explanation += "。"
+        result["explanation"] = f"{explanation}；档口：{source['stall_name']}。" if explanation else f"档口：{source['stall_name']}。"
+    return result
 
 
 def score_menu_candidate(name: str, profile: dict[str, Any]) -> int:
@@ -1187,6 +1374,10 @@ def recommend(payload: dict[str, Any]) -> dict[str, Any]:
     request = parse_request(payload)
     explicit_dish_name = bool(request.get("dish_name"))
     provider_context = build_provider_context(request)
+    image_scene = image_scene_from_context(provider_context)
+    if image_scene and request.get("image_path") and not explicit_dish_name:
+        result = build_multi_dish_scene_result(request, provider_context, image_scene)
+        return record_recommendation_input(payload, result)
     if not request.get("ocr_text") and provider_context.get("ocr_result") and provider_context["ocr_result"].text:
         useful_lines = [
             line.strip() for line in (provider_context["ocr_result"].lines or [])
@@ -1195,10 +1386,14 @@ def recommend(payload: dict[str, Any]) -> dict[str, Any]:
         if len(useful_lines) == 1 and len(useful_lines[0]) <= 20:
             request["ocr_text"] = useful_lines[0]
     inferred_menu_terms: list[str] = []
+    menu_candidate_records: list[dict[str, str]] = []
     if request.get("image_path") and not explicit_dish_name:
-        inferred_menu_text = infer_menu_text(provider_context)
+        menu_candidate_records = infer_menu_candidate_records(provider_context)
+        inferred_menu_terms = [record["dish_name"] for record in menu_candidate_records]
+        inferred_menu_text = "\n".join(inferred_menu_terms) if inferred_menu_terms else infer_menu_text(provider_context)
         if inferred_menu_text:
-            inferred_menu_terms = inferred_menu_text.splitlines()
+            if not inferred_menu_terms:
+                inferred_menu_terms = inferred_menu_text.splitlines()
             menu_choice = choose_menu_candidate(inferred_menu_terms, request["user_profile"])
             if menu_choice:
                 request["dish_name"] = menu_choice
@@ -1231,7 +1426,8 @@ def recommend(payload: dict[str, Any]) -> dict[str, Any]:
             degraded_input=degraded_input,
             output_mode=request["output_mode"],
         )
-        return attach_raw_image_result(result, provider_context)
+        result = attach_raw_image_result(result, provider_context)
+        return record_recommendation_input(payload, result)
 
     normalized, confidence, candidates = normalize_dish(raw_name)
     if request.get("image_reference") and not request.get("dish_name") and normalized and "image_inferred_dish_name" not in degraded_input:
@@ -1270,7 +1466,8 @@ def recommend(payload: dict[str, Any]) -> dict[str, Any]:
             candidates=provider_context.get("vision_result").to_dict().get("candidates", []) if provider_context.get("vision_result") else [],
             output_mode=request["output_mode"],
         )
-        return attach_raw_image_result(result, provider_context)
+        result = attach_raw_image_result(result, provider_context)
+        return record_recommendation_input(payload, result)
 
     info = DISHES.get(normalized) if normalized else None
     if not info and normalized and not request["ingredients"]:
@@ -1320,7 +1517,8 @@ def recommend(payload: dict[str, Any]) -> dict[str, Any]:
             degraded_input=degraded_input,
             output_mode=request["output_mode"],
         )
-        return attach_raw_image_result(result, provider_context)
+        result = attach_raw_image_result(result, provider_context)
+        return record_recommendation_input(payload, result)
 
     ingredients = list(info.get("ingredients", []))
     nutrition = enrich_from_nutrition(ingredients, list(info.get("risk_tags", [])))
@@ -1391,9 +1589,16 @@ def recommend(payload: dict[str, Any]) -> dict[str, Any]:
             need_confirm.append("OCR文本")
             reasons.append("已收到图片引用，但当前流程未获得足够稳定的 OCR/视觉候选，建议补充 OCR 文本。")
 
+    if request.get("image_path") and not explicit_dish_name and is_human_confirmed_image_label(provider_context):
+        degraded_input.append("human_confirmed_image_label")
+        reasons.append("当前菜名来自人工确认图片标签，优先级高于低置信度外部识图候选。")
+
     if request["ocr_text"] and not request["dish_name"]:
-        degraded_input.append("ocr_text_inferred")
-        reasons.append("当前菜名基于 OCR 文本推断，若菜单排版复杂请人工确认标准菜名。")
+        if is_human_confirmed_image_label(provider_context):
+            reasons.append("当前菜名来自人工确认图片标签，优先级高于低置信度外部识图候选。")
+        else:
+            degraded_input.append("ocr_text_inferred")
+            reasons.append("当前菜名基于 OCR 文本推断，若菜单排版复杂请人工确认标准菜名。")
 
     if not reasons:
         reasons.append(str(info.get("notes") or "当前菜品无明显高风险标签，建议结合实际做法判断。"))
@@ -1427,19 +1632,24 @@ def recommend(payload: dict[str, Any]) -> dict[str, Any]:
         degraded_input=degraded_input,
         output_mode=request["output_mode"],
     )
+    result = attach_menu_source(result, raw_name, menu_candidate_records)
     result = attach_raw_image_result(result, provider_context)
     quantified = quantized_profile_for_dish(result.get("normalized_dish") or "")
     if quantified:
         result["nutrition_quantitative"] = {k: quantified.get(k) for k in ["energy_kcal", "protein_g", "fat_g", "carbohydrate_g", "sugars_g", "sodium_mg"] if quantified.get(k) is not None}
+        result["nutrition_quantitative_display"] = quantitative_display(quantified)
         result["nutrition_basis"] = quantified.get("nutrition_basis")
         result["portion_basis"] = quantified.get("portion_basis")
+        for optional_key in ["standard_ingredients", "energy_calculation", "source_refs", "confidence_note"]:
+            if quantified.get(optional_key):
+                result[optional_key] = quantified.get(optional_key)
     result = apply_feedback_bias(
         result,
         result.get("normalized_dish"),
         user_id=request.get("user_id", ""),
         context_tags=request.get("context_tags", []),
     )
-    return result
+    return record_recommendation_input(payload, result)
 
 
 def main() -> None:

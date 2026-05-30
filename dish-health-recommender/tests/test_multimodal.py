@@ -1,5 +1,6 @@
 import importlib.util
 import json
+import sys
 import unittest
 from pathlib import Path
 from unittest import mock
@@ -9,6 +10,8 @@ SKILL_DIR = TESTS_DIR.parent
 REPO_ROOT = SKILL_DIR.parent
 SCRIPT_PATH = SKILL_DIR / 'scripts' / 'recommend.py'
 IMAGE_CASES_PATH = SKILL_DIR / 'data' / 'image_test_cases.json'
+if str(SKILL_DIR) not in sys.path:
+    sys.path.insert(0, str(SKILL_DIR))
 
 
 def load_recommend_module():
@@ -20,6 +23,7 @@ def load_recommend_module():
 
 
 MODULE = load_recommend_module()
+from providers import vision_provider as VISION_MODULE
 
 
 def run_recommend(payload: dict) -> dict:
@@ -127,6 +131,17 @@ class MultimodalTests(unittest.TestCase):
         self.assertIn('raw_image_result', result)
         self.assertIn(result['raw_image_result']['ocr']['status'], {'validated', 'degraded', 'needs_credentials', 'unavailable'})
 
+    def test_multi_dish_scene_degrades_to_manual_confirmation(self):
+        result = run_recommend({'image_path': str(REPO_ROOT / 'pic/20260508-123043.jpg')})
+
+        self.assertEqual('need_confirm', result['recommendation'])
+        self.assertIsNone(result['normalized_dish'])
+        self.assertEqual('multi_dish', result['image_scene']['type'])
+        self.assertIn('多菜同屏', result['risk_tags'])
+        self.assertIn('人工确认菜品区域', result['need_confirm'])
+        self.assertIn('多菜同屏', result['explanation'])
+        self.assertIn('visual_category_hints', result['image_scene'])
+
     def test_conflicting_candidate_image_does_not_use_garbage_seed(self):
         result = run_recommend({'image_path': str(REPO_ROOT / 'pic/20260508-123019.jpg')})
         self.assertEqual('need_confirm', result['recommendation'])
@@ -141,6 +156,90 @@ class MultimodalTests(unittest.TestCase):
         self.assertEqual('validated', raw['vision']['status'])
         self.assertEqual('validated', raw['ocr']['status'])
 
+    def test_annotated_shanghai_dish_image_uses_human_confirmed_label(self):
+        result = run_recommend({
+            'image_path': str(REPO_ROOT / 'pic/shanghai/2.jpeg'),
+            'user_profile': {'goals': ['减脂']},
+        })
+
+        self.assertEqual('腌笃鲜', result['normalized_dish'])
+        self.assertEqual('caution', result['recommendation'])
+        self.assertIn('人工确认', json.dumps(result.get('raw_image_result', {}), ensure_ascii=False))
+        self.assertIn('人工确认图片标签', result['explanation'])
+        self.assertIn('可能高盐', result['risk_tags'])
+
+    def test_annotated_babao_duck_image_uses_human_confirmed_label(self):
+        result = run_recommend({
+            'image_path': str(REPO_ROOT / 'pic/shanghai/3.jpeg'),
+            'user_profile': {'goals': ['减脂']},
+        })
+
+        self.assertEqual('八宝鸭', result['normalized_dish'])
+        self.assertEqual('caution', result['recommendation'])
+        self.assertIn('人工确认图片标签', result['explanation'])
+        self.assertIn('可能高脂', result['risk_tags'])
+        self.assertIn('碳水来源', result['risk_tags'])
+
+    def test_annotated_youbao_shrimp_image_uses_human_confirmed_label(self):
+        result = run_recommend({
+            'image_path': str(REPO_ROOT / 'pic/shanghai/4.jpeg'),
+            'user_profile': {'goals': ['减脂']},
+        })
+
+        self.assertEqual('油爆虾', result['normalized_dish'])
+        self.assertEqual('caution', result['recommendation'])
+        self.assertIn('人工确认图片标签', result['explanation'])
+        self.assertIn('含海鲜/鱼类', result['risk_tags'])
+        self.assertIn('可能高油', result['risk_tags'])
+
+    def test_annotated_crystal_shrimp_image_uses_human_confirmed_label(self):
+        result = run_recommend({
+            'image_path': str(REPO_ROOT / 'pic/shanghai/5.jpeg'),
+            'user_profile': {'goals': ['减脂']},
+        })
+
+        self.assertEqual('水晶虾仁', result['normalized_dish'])
+        self.assertEqual('caution', result['recommendation'])
+        self.assertIn('人工确认图片标签', result['explanation'])
+        self.assertIn('含海鲜/鱼类', result['risk_tags'])
+        self.assertIn('碳水来源', result['risk_tags'])
+
+    def test_annotated_caotou_quanzi_image_overrides_baidu_pig_trotter(self):
+        result = run_recommend({
+            'image_path': str(REPO_ROOT / 'pic/shanghai/6.jpeg'),
+            'user_profile': {'goals': ['减脂']},
+        })
+
+        self.assertEqual('草头圈子', result['normalized_dish'])
+        self.assertEqual('caution', result['recommendation'])
+        self.assertIn('人工确认图片标签', result['explanation'])
+        self.assertIn('动物内脏', result['risk_tags'])
+        self.assertIn('可能高脂', result['risk_tags'])
+
+    def test_annotated_eel_slices_image_uses_human_confirmed_label(self):
+        result = run_recommend({
+            'image_path': str(REPO_ROOT / 'pic/shanghai/7.jpeg'),
+            'user_profile': {'goals': ['减脂']},
+        })
+
+        self.assertEqual('响油鳝丝', result['normalized_dish'])
+        self.assertEqual('caution', result['recommendation'])
+        self.assertIn('人工确认图片标签', result['explanation'])
+        self.assertIn('含海鲜/鱼类', result['risk_tags'])
+        self.assertIn('可能高油', result['risk_tags'])
+
+    def test_annotated_crab_tofu_image_uses_human_confirmed_label(self):
+        result = run_recommend({
+            'image_path': str(REPO_ROOT / 'pic/shanghai/8.jpeg'),
+            'user_profile': {'goals': ['减脂']},
+        })
+
+        self.assertEqual('蟹粉豆腐', result['normalized_dish'])
+        self.assertEqual('caution', result['recommendation'])
+        self.assertIn('人工确认图片标签', result['explanation'])
+        self.assertIn('含海鲜/鱼类', result['risk_tags'])
+        self.assertIn('碳水来源', result['risk_tags'])
+
     def test_unknown_menu_image_returns_provider_backed_result(self):
         result = run_recommend({'image_path': str(REPO_ROOT / 'pic/20260508-123010.jpg')})
         self.assertNotEqual('need_confirm', result['recommendation'])
@@ -151,6 +250,28 @@ class MultimodalTests(unittest.TestCase):
         result = run_recommend({'image_path': str(REPO_ROOT / 'pic/20260508-122944.jpg')})
         self.assertIn('raw_image_result', result)
         self.assertIn(result['raw_image_result']['ocr']['status'], {'validated', 'degraded', 'needs_credentials', 'unavailable'})
+
+    def test_fixture_menu_ocr_preserves_full_historical_text(self):
+        result = run_recommend({'image_path': str(REPO_ROOT / 'pic/20260508-122944.jpg')})
+        ocr = result['raw_image_result']['ocr']
+
+        self.assertGreater(len(ocr.get('lines', [])), 40)
+        self.assertIn('鱼香肉丝', ocr.get('text', ''))
+        self.assertIn('红豆汤', ocr.get('text', ''))
+
+    def test_menu_recommendation_includes_stall_name(self):
+        result = run_recommend({'image_path': str(REPO_ROOT / 'pic/20260508-122944.jpg')})
+
+        self.assertEqual('鱼香肉丝', result['normalized_dish'])
+        self.assertEqual('5F川湘一品•擂饭', result['stall_name'])
+        self.assertEqual({'dish_name': '鱼香肉丝', 'stall_name': '5F川湘一品•擂饭'}, result['menu_source'])
+        self.assertIn('5F川湘一品•擂饭', result['explanation'])
+
+    def test_vision_filter_keeps_short_valid_dish_names(self):
+        self.assertFalse(VISION_MODULE._is_low_value_candidate('馄饨'))
+        self.assertFalse(VISION_MODULE._is_low_value_candidate('猪蹄'))
+        self.assertFalse(VISION_MODULE._is_low_value_candidate('猪蹄煲'))
+        self.assertTrue(VISION_MODULE._is_low_value_candidate('非菜'))
 
     def test_image_case_labels_support_metrics_statistics(self):
         cases = case_map()

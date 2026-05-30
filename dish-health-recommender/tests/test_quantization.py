@@ -35,6 +35,15 @@ class QuantizationTests(unittest.TestCase):
             self.assertIn(key, result['nutrition_quantitative'])
         self.assertIn('nutrition_basis', result)
         self.assertIn('portion_basis', result)
+        self.assertIn('nutrition_quantitative_display', result)
+        display_by_key = {item['key']: item for item in result['nutrition_quantitative_display']}
+        self.assertEqual('热量', display_by_key['energy_kcal']['label_cn'])
+        self.assertEqual('Energy', display_by_key['energy_kcal']['label_en'])
+        self.assertEqual('kcal', display_by_key['energy_kcal']['unit'])
+        self.assertIn('千卡', display_by_key['energy_kcal']['text_cn'])
+        self.assertIn('kcal', display_by_key['energy_kcal']['text_en'])
+        self.assertEqual('g', display_by_key['protein_g']['unit'])
+        self.assertEqual('mg', display_by_key['sodium_mg']['unit'])
 
     def test_added_quantified_dishes(self):
         for dish_name in ['家常豆腐', '胡辣汤', '荠菜鲜肉小馄饨', '香辣鸡腿堡', '劲脆超霸堡']:
@@ -59,6 +68,50 @@ class QuantizationTests(unittest.TestCase):
             result = RECOMMEND.recommend({'dish_name': dish_name})
             self.assertIn('标准快餐', result.get('nutrition_basis', ''))
             self.assertGreater(result['nutrition_quantitative']['energy_kcal'], 400)
+
+    def test_shanghai_classic_dishes_expose_quantitative_recipe_basis(self):
+        expected = {
+            '红烧肉': 540,
+            '腌笃鲜': 360,
+            '八宝鸭': 620,
+            '油爆虾': 330,
+            '水晶虾仁': 260,
+            '草头圈子': 430,
+            '响油鳝丝': 410,
+            '蟹粉豆腐': 360,
+        }
+        for dish_name, expected_energy in expected.items():
+            result = RECOMMEND.recommend({'dish_name': dish_name})
+            self.assertIn('nutrition_quantitative', result)
+            self.assertEqual(expected_energy, result['nutrition_quantitative']['energy_kcal'])
+            self.assertIn('nutrition_quantitative_display', result)
+            self.assertIn('nutrition_basis', result)
+            self.assertIn('portion_basis', result)
+            self.assertIn('standard_ingredients', result)
+            self.assertGreaterEqual(len(result['standard_ingredients']), 3)
+            self.assertIn('energy_calculation', result)
+            calculation = result['energy_calculation']
+            self.assertEqual(expected_energy, calculation['total_energy_kcal'])
+            self.assertIn('formula', calculation)
+            self.assertGreaterEqual(len(calculation['items']), 3)
+            self.assertEqual(
+                expected_energy,
+                sum(item['energy_kcal'] for item in calculation['items']),
+            )
+            self.assertIn('confidence_note', result)
+
+    def test_shanghai_quantified_aliases_hit_canonical_recipe(self):
+        alias_map = {
+            '上海八宝鸭': '八宝鸭',
+            '响油鳝糊': '响油鳝丝',
+            '蟹黄豆腐': '蟹粉豆腐',
+        }
+        for alias, canonical in alias_map.items():
+            result = RECOMMEND.recommend({'dish_name': alias})
+            self.assertEqual(canonical, result['normalized_dish'])
+            self.assertIn('nutrition_quantitative', result)
+            self.assertIn('standard_ingredients', result)
+            self.assertIn('energy_calculation', result)
 
     def test_missing_standard_recipe_has_no_quant(self):
         result = RECOMMEND.recommend({'dish_name': '老板推荐'})

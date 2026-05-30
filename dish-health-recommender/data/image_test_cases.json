@@ -205,6 +205,14 @@
     "image_type": "dish",
     "source_hint": "早餐",
     "expected_task": "dish_or_material_recognition",
+    "scene_type": "multi_dish",
+    "visual_category_hints": [
+      "多盘/多碗同屏",
+      "粥/饮品",
+      "面点/主食",
+      "蔬菜配菜",
+      "蛋类/粗粮"
+    ],
     "expected_focus": [],
     "expected_dishes": [],
     "expected_candidates": [],
@@ -446,5 +454,229 @@
     "label_status": "seeded_from_user_message",
     "notes": "图片分类由用户补充，后续需继续补充更细的人工标注结果。",
     "ocr_expectation": []
+  },
+  {
+    "image_id": "shanghai-2",
+    "image_path": "pic/shanghai/2.jpeg",
+    "image_type": "dish",
+    "source_hint": "上海菜",
+    "expected_task": "dish_or_material_recognition",
+    "expected_focus": [
+      "腌笃鲜"
+    ],
+    "expected_dishes": [
+      "腌笃鲜"
+    ],
+    "expected_candidates": [
+      "腌笃鲜"
+    ],
+    "need_confirm_allowed": false,
+    "health_profile_examples": [
+      {
+        "goals": [
+          "减脂"
+        ]
+      }
+    ],
+    "expected_recommendation_examples": [
+      "caution"
+    ],
+    "label_status": "human_confirmed",
+    "notes": "用户人工确认该图为腌笃鲜；低置信度外部识图候选不得覆盖人工确认标签。",
+    "ocr_expectation": [
+      "腌笃鲜"
+    ]
+  },
+  {
+    "image_id": "shanghai-3",
+    "image_path": "pic/shanghai/3.jpeg",
+    "image_type": "dish",
+    "source_hint": "上海菜",
+    "expected_task": "dish_or_material_recognition",
+    "expected_focus": [
+      "八宝鸭"
+    ],
+    "expected_dishes": [
+      "八宝鸭"
+    ],
+    "expected_candidates": [
+      "八宝鸭"
+    ],
+    "need_confirm_allowed": false,
+    "health_profile_examples": [
+      {
+        "goals": [
+          "减脂"
+        ]
+      }
+    ],
+    "expected_recommendation_examples": [
+      "caution"
+    ],
+    "label_status": "human_confirmed",
+    "notes": "用户人工确认该图为八宝鸭；外部识图的非菜或低置信度候选不得覆盖人工确认标签。",
+    "ocr_expectation": [
+      "八宝鸭"
+    ]
+  },
+  {
+    "image_id": "shanghai-4",
+    "image_path": "pic/shanghai/4.jpeg",
+    "image_type": "dish",
+    "source_hint": "上海菜",
+    "expected_task": "dish_or_material_recognition",
+    "expected_focus": [
+      "油爆虾"
+    ],
+    "expected_dishes": [
+      "油爆虾"
+    ],
+    "expected_candidates": [
+      "油爆虾"
+    ],
+    "need_confirm_allowed": false,
+    "health_profile_examples": [
+      {
+        "goals": [
+          "减脂"
+        ]
+      }
+    ],
+    "expected_recommendation_examples": [
+      "caution"
+    ],
+    "label_status": "human_confirmed",
+    "notes": "用户人工确认该图为油爆虾；外部识图的低置信度候选不得覆盖人工确认标签。",
+    "ocr_expectation": [
+      "油爆虾"
+    ]
+  },
+  {
+    "image_id": "shanghai-5",
+    "image_path": "pic/shanghai/5.jpeg",
+    "image_type": "dish",
+    "source_hint": "上海菜",
+    "expected_task": "dish_or_material_recognition",
+    "expected_focus": [
+      "水晶虾仁"
+    ],
+    "expected_dishes": [
+      "水晶虾仁"
+    ],
+    "expected_candidates": [
+      "水晶虾仁"
+    ],
+    "need_confirm_allowed": false,
+    "health_profile_examples": [
+      {
+        "goals": [
+          "减脂"
+        ]
+      }
+    ],
+    "expected_recommendation_examples": [
+      "caution"
+    ],
+    "label_status": "human_confirmed",
+    "notes": "用户人工确认该图为水晶虾仁；外部识图的低置信度候选不得覆盖人工确认标签。",
+    "ocr_expectation": [
+      "水晶虾仁"
+    ]
+  },
+  {
+    "image_id": "shanghai-6",
+    "image_path": "pic/shanghai/6.jpeg",
+    "image_type": "dish",
+    "source_hint": "上海菜",
+    "expected_task": "dish_or_material_recognition",
+    "expected_focus": [
+      "草头圈子"
+    ],
+    "expected_dishes": [
+      "草头圈子"
+    ],
+    "expected_candidates": [
+      "草头圈子"
+    ],
+    "need_confirm_allowed": false,
+    "health_profile_examples": [
+      {
+        "goals": [
+          "减脂"
+        ]
+      }
+    ],
+    "expected_recommendation_examples": [
+      "caution"
+    ],
+    "label_status": "human_confirmed",
+    "notes": "用户人工确认该图为草头圈子；百度曾将其低层语义误判为猪蹄/红烧肉，人工确认标签应覆盖外部识图候选。",
+    "ocr_expectation": [
+      "草头圈子"
+    ]
+  },
+  {
+    "image_id": "shanghai-7",
+    "image_path": "pic/shanghai/7.jpeg",
+    "image_type": "dish",
+    "source_hint": "上海菜",
+    "expected_task": "dish_or_material_recognition",
+    "expected_focus": [
+      "响油鳝丝"
+    ],
+    "expected_dishes": [
+      "响油鳝丝"
+    ],
+    "expected_candidates": [
+      "响油鳝丝"
+    ],
+    "need_confirm_allowed": false,
+    "health_profile_examples": [
+      {
+        "goals": [
+          "减脂"
+        ]
+      }
+    ],
+    "expected_recommendation_examples": [
+      "caution"
+    ],
+    "label_status": "human_confirmed",
+    "notes": "用户人工确认该图为响油鳝丝；鳝糊/鳝丝名称相近，人工确认标签用于固定标准菜名。",
+    "ocr_expectation": [
+      "响油鳝丝"
+    ]
+  },
+  {
+    "image_id": "shanghai-8",
+    "image_path": "pic/shanghai/8.jpeg",
+    "image_type": "dish",
+    "source_hint": "上海菜",
+    "expected_task": "dish_or_material_recognition",
+    "expected_focus": [
+      "蟹粉豆腐"
+    ],
+    "expected_dishes": [
+      "蟹粉豆腐"
+    ],
+    "expected_candidates": [
+      "蟹粉豆腐"
+    ],
+    "need_confirm_allowed": false,
+    "health_profile_examples": [
+      {
+        "goals": [
+          "减脂"
+        ]
+      }
+    ],
+    "expected_recommendation_examples": [
+      "caution"
+    ],
+    "label_status": "human_confirmed",
+    "notes": "用户人工确认该图为蟹粉豆腐；人工确认标签用于区分蟹黄豆腐等近似菜名。",
+    "ocr_expectation": [
+      "蟹粉豆腐"
+    ]
   }
 ]

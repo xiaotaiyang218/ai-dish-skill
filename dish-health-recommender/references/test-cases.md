@@ -8,9 +8,9 @@ Input: `我鸡蛋过敏，番茄炒蛋能吃吗？`
 
 Expected: `不推荐`; reason mentions egg allergy.
 
-Input: `减脂期能不能吃红烧肉？`
+Input: `减脂控糖时能不能吃提拉米苏？`
 
-Expected: `谨慎`; reason mentions fatty pork, sugar/oil risk, portion control.
+Expected: `谨慎`; reason mentions mascarpone/cream fat, added sugar, biscuit carbohydrate, portion control.
 
 Input: `海鲜过敏的人吃鱼香肉丝有风险吗？`
 
@@ -26,7 +26,7 @@ Expected: `需要确认`; ask for ingredients/photo/menu description.
 
 ```json
 {
-  "dish_name": "红烧肉",
+  "dish_name": "提拉米苏",
   "user_profile": {
     "goals": ["减脂"],
     "conditions": ["控糖"]
@@ -34,7 +34,7 @@ Expected: `需要确认`; ask for ingredients/photo/menu description.
 }
 ```
 
-Expected: `caution`; reason mentions fatty pork, sugar, oil, portion.
+Expected: `caution`; reason mentions added sugar, dairy fat, biscuit carbohydrate, portion.
 
 ## Data Source Checks
 
@@ -84,9 +84,8 @@ Expected: if network is available, uses USDA FoodData Central fallback, caches `
 | 用例 | fixture | expected |
 | --- | --- | --- |
 | 鸡蛋过敏 + 番茄炒蛋 | `tests/fixtures/us1_egg_allergy_tomato_egg.json` | `tests/expected/us1_egg_allergy_tomato_egg.json` |
-| 减脂/控糖 + 红烧肉 | `tests/fixtures/us1_weight_loss_braised_pork.json` | `tests/expected/us1_weight_loss_braised_pork.json` |
+| 减脂/控糖 + 提拉米苏 | `tests/fixtures/us1_weight_loss_tiramisu.json` | `tests/expected/us1_weight_loss_tiramisu.json` |
 | 海鲜过敏/严格模式 + 鱼香肉丝 | `tests/fixtures/us1_seafood_allergy_yuxiang.json` | `tests/expected/us1_seafood_allergy_yuxiang.json` |
 | 低盐 + 招牌小炒 | `tests/fixtures/us1_low_salt_signature_stirfry.json` | `tests/expected/us1_low_salt_signature_stirfry.json` |
 | 自定义食材 + 巧克力甜点 | `tests/fixtures/us1_custom_chocolate.json` | `tests/expected/us1_custom_chocolate.json` |
 | 仅图片引用 | `tests/fixtures/us1_image_only_need_confirm.json` | `tests/expected/us1_image_only_need_confirm.json` |
-

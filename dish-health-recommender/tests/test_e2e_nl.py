@@ -82,7 +82,7 @@ class NaturalLanguageE2ETests(unittest.TestCase):
         self.assertTrue('训练餐' in answer or '高蛋白' in answer)
 
     def test_nutrition_cn_output(self):
-        answer = CHAT.answer_user_query({'user_query': '红烧肉大概营养怎么样？我在控糖。'})
+        answer = CHAT.answer_user_query({'user_query': '提拉米苏大概营养怎么样？我在控糖。'})
         self.assertIn('热量约', answer)
         self.assertIn('蛋白质约', answer)
         self.assertIn('控糖', answer)

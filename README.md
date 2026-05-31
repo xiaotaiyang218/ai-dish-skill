@@ -161,7 +161,7 @@ JSON
 ```bash
 python3 dish-health-recommender/scripts/recommend.py <<'JSON'
 {
-  "dish_name": "红烧肉",
+  "dish_name": "提拉米苏",
   "user_profile": {
     "goals": ["减脂"],
     "conditions": ["控糖"]

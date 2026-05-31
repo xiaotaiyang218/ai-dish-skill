@@ -3009,6 +3009,50 @@
     "source": "local_human_confirmed",
     "ambiguity_level": "low"
   },
+  "番茄炒蛋": {
+    "aliases": [
+      "西红柿炒鸡蛋",
+      "番茄炒鸡蛋"
+    ],
+    "ingredients": [
+      "番茄",
+      "鸡蛋",
+      "油",
+      "盐"
+    ],
+    "cooking_method": "炒",
+    "risk_tags": [
+      "含蛋",
+      "可能高油",
+      "可能高盐"
+    ],
+    "notes": "常见家常菜，主要由番茄和鸡蛋炒制；鸡蛋过敏用户应避免，低盐或减脂用户需关注加盐和用油量。",
+    "source": "local_core_case",
+    "ambiguity_level": "low"
+  },
+  "鱼香肉丝": {
+    "aliases": [
+      "鱼香猪肉丝"
+    ],
+    "ingredients": [
+      "猪肉",
+      "木耳",
+      "胡萝卜",
+      "豆瓣酱",
+      "糖",
+      "醋"
+    ],
+    "cooking_method": "炒",
+    "risk_tags": [
+      "可能高油",
+      "可能高糖",
+      "可能高盐",
+      "歧义菜名"
+    ],
+    "notes": "鱼香通常是复合调味风味名，常见配方不直接含鱼；但餐厅可能使用鱼露、海鲜调味或共用锅具，海鲜过敏场景仍需确认具体配方。",
+    "source": "local_core_case",
+    "ambiguity_level": "high"
+  },
   "鸡蛋红肠粉": {
     "aliases": [
       "鸡蛋红肠肠粉"
@@ -3059,6 +3103,33 @@
     ],
     "notes": "快餐汉堡通常热量和钠较高。",
     "source": "local",
+    "ambiguity_level": "low"
+  },
+  "提拉米苏": {
+    "aliases": [
+      "Tiramisu",
+      "tiramisu",
+      "提拉米酥",
+      "意式提拉米苏"
+    ],
+    "ingredients": [
+      "马斯卡彭奶酪",
+      "手指饼干",
+      "糖",
+      "淡奶油",
+      "鸡蛋",
+      "咖啡",
+      "可可粉"
+    ],
+    "cooking_method": "冷藏甜点",
+    "risk_tags": [
+      "含蛋",
+      "可能高脂",
+      "可能高糖",
+      "碳水来源"
+    ],
+    "notes": "意式甜点，常由马斯卡彭奶酪、手指饼干、咖啡、糖、鸡蛋或奶油、可可粉分层冷藏制成；主要风险来自添加糖、奶酪/奶油脂肪和饼干碳水，减脂或控糖人群应控制份量。",
+    "source": "local_standard_recipe",
     "ambiguity_level": "low"
   }
 }

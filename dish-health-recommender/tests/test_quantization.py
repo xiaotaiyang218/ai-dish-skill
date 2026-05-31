@@ -113,6 +113,26 @@ class QuantizationTests(unittest.TestCase):
             self.assertIn('standard_ingredients', result)
             self.assertIn('energy_calculation', result)
 
+    def test_western_dessert_tiramisu_exposes_quantitative_recipe_basis(self):
+        result = RECOMMEND.recommend({'dish_name': 'tiramisu', 'user_profile': {'goals': ['减脂'], 'conditions': ['控糖']}})
+        self.assertEqual('提拉米苏', result['normalized_dish'])
+        self.assertEqual('caution', result['recommendation'])
+        self.assertIn('可能高糖', result['risk_tags'])
+        self.assertIn('可能高脂', result['risk_tags'])
+        self.assertIn('碳水来源', result['risk_tags'])
+        self.assertEqual(390, result['nutrition_quantitative']['energy_kcal'])
+        self.assertEqual(23, result['nutrition_quantitative']['sugars_g'])
+        self.assertIn('标准份量估算', result['nutrition_basis'])
+        self.assertIn('standard_ingredients', result)
+        self.assertIn('energy_calculation', result)
+        self.assertEqual(390, result['energy_calculation']['total_energy_kcal'])
+        self.assertNotIn('红烧调味', result['explanation'])
+        self.assertNotIn('肥肉', result['explanation'])
+        self.assertEqual(
+            390,
+            sum(item['energy_kcal'] for item in result['energy_calculation']['items']),
+        )
+
     def test_missing_standard_recipe_has_no_quant(self):
         result = RECOMMEND.recommend({'dish_name': '老板推荐'})
         self.assertNotIn('nutrition_quantitative', result)

@@ -787,6 +787,98 @@
         "标准快餐配方"
       ],
       "confidence_note": "估算值，双层肉排和酱料会显著提高热量与脂肪"
+    },
+    {
+      "dish_name": "提拉米苏",
+      "aliases": [
+        "Tiramisu",
+        "tiramisu",
+        "提拉米酥",
+        "意式提拉米苏"
+      ],
+      "portion_basis": "1份甜点约120克",
+      "nutrition_basis": "提拉米苏标准份量估算",
+      "energy_kcal": 390,
+      "protein_g": 7,
+      "fat_g": 25,
+      "carbohydrate_g": 35,
+      "sugars_g": 23,
+      "sodium_mg": 150,
+      "standard_ingredients": [
+        {
+          "name": "马斯卡彭奶酪",
+          "amount_g": 35
+        },
+        {
+          "name": "手指饼干",
+          "amount_g": 30
+        },
+        {
+          "name": "糖",
+          "amount_g": 14
+        },
+        {
+          "name": "淡奶油",
+          "amount_g": 12
+        },
+        {
+          "name": "蛋黄",
+          "amount_g": 8
+        },
+        {
+          "name": "咖啡和可可粉",
+          "amount_g": 5
+        }
+      ],
+      "energy_calculation": {
+        "formula": "食材克数 × 每100克热量 / 100；冷藏甜点按可食部分和常见配方比例估算",
+        "items": [
+          {
+            "name": "马斯卡彭奶酪",
+            "amount_g": 35,
+            "kcal_per_100g": 430,
+            "energy_kcal": 151
+          },
+          {
+            "name": "手指饼干",
+            "amount_g": 30,
+            "kcal_per_100g": 365,
+            "energy_kcal": 110
+          },
+          {
+            "name": "糖",
+            "amount_g": 14,
+            "kcal_per_100g": 400,
+            "energy_kcal": 56
+          },
+          {
+            "name": "淡奶油",
+            "amount_g": 12,
+            "kcal_per_100g": 340,
+            "energy_kcal": 41
+          },
+          {
+            "name": "蛋黄",
+            "amount_g": 8,
+            "kcal_per_100g": 322,
+            "energy_kcal": 26
+          },
+          {
+            "name": "咖啡和可可粉",
+            "amount_g": 5,
+            "kcal_per_100g": 120,
+            "energy_kcal": 6
+          }
+        ],
+        "total_energy_kcal": 390,
+        "rounding_note": "分项四舍五入后求和"
+      },
+      "source_refs": [
+        "USDA FoodData Central 食材能量参考",
+        "公开提拉米苏配方主料比例",
+        "标准甜点份量交叉参考"
+      ],
+      "confidence_note": "按约120克甜点份量估算；奶酪、奶油、糖和饼干比例会显著影响热量、脂肪和糖"
     }
   ]
 }

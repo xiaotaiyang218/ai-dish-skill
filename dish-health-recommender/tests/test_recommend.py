@@ -10,6 +10,7 @@ SCRIPT_PATH = SKILL_DIR / 'scripts' / 'recommend.py'
 FIXTURES_DIR = TESTS_DIR / 'fixtures'
 EXPECTED_DIR = TESTS_DIR / 'expected'
 FEEDBACK_STORE = SKILL_DIR / 'data' / 'feedback.json'
+LOCAL_DISHES_PATH = SKILL_DIR / 'data' / 'dishes.json'
 
 
 def load_json(path: Path):
@@ -45,6 +46,13 @@ class RecommendFixtureTests(unittest.TestCase):
     def test_fixture_directory_exists(self):
         self.assertTrue(FIXTURES_DIR.exists())
         self.assertTrue(EXPECTED_DIR.exists())
+
+    def test_core_use_case_standard_dishes_exist_in_local_database(self):
+        local_dishes = load_json(LOCAL_DISHES_PATH)
+        for dish_name in ['番茄炒蛋', '鱼香肉丝']:
+            self.assertIn(dish_name, local_dishes)
+            self.assertGreaterEqual(len(local_dishes[dish_name].get('ingredients', [])), 3)
+            self.assertIn('risk_tags', local_dishes[dish_name])
 
     def test_fixture_cases_match_expected(self):
         fixture_files = sorted(FIXTURES_DIR.glob('*.json'))

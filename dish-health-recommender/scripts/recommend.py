@@ -946,7 +946,7 @@ def render_human_readable_cn(result: dict[str, Any]) -> str:
     need_confirm = result.get("need_confirm") or ["暂无"]
     advice = {
         "recommend": "可以作为候选，但仍需结合实际做法和份量。",
-        "caution": "建议少量食用，优先要求少油、少盐、少糖，并控制主食和酱汁。",
+        "caution": "建议少量食用，控制份量；高糖、高脂或高钠菜品可小份分享，并减少当天其他甜食、油脂或主食。",
         "avoid": "建议避开这道菜，改选不含相关过敏源或高风险食材的菜品。",
         "need_confirm": "请先确认会影响判断的食材、做法或图片识别结果，再决定是否食用。",
     }[result["recommendation"]]
@@ -1608,11 +1608,11 @@ def recommend(payload: dict[str, Any]) -> dict[str, Any]:
 
     if contains_any(terms, ["控糖", "糖尿病"]) and contains_any(ingredients + risk_tags, RISK_KEYWORDS["控糖"]):
         recommendation = choose_recommendation(recommendation, "caution")
-        reasons.append("菜品可能含糖、勾芡或红烧调味，控糖人群需关注总量和份量。")
+        reasons.append("菜品可能含添加糖、甜味调料、勾芡或精制碳水，控糖人群需关注总量和份量。")
 
     if contains_any(terms, ["减脂", "低脂"]) and contains_any(ingredients + risk_tags, RISK_KEYWORDS["减脂"]):
         recommendation = choose_recommendation(recommendation, "caution")
-        reasons.append("菜品可能脂肪或用油较高，减脂或低脂用户建议少量食用。")
+        reasons.append("菜品可能脂肪、用油或热量较高，减脂或低脂用户建议少量食用。")
 
     if contains_any(terms, ["高蛋白", "增肌"]) and not contains_any(nutrition_tags + ingredients, RISK_KEYWORDS["高蛋白"]):
         recommendation = choose_recommendation(recommendation, "caution")

@@ -1,12 +1,15 @@
 {
   "expected_recommendation": "caution",
   "expected_risk_tags": [
-    "可能高糖"
+    "可能高糖",
+    "可能高脂",
+    "碳水来源"
   ],
   "expected_need_confirm": [],
   "assert_explanation_contains": [
     "控糖",
     "减脂"
   ],
+  "expected_normalized_dish": "提拉米苏",
   "offline_only": true
 }

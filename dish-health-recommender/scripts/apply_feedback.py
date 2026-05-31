@@ -10,6 +10,7 @@ SKILL_DIR = Path(__file__).resolve().parents[1]
 FEEDBACK_PATH = SKILL_DIR / 'data' / 'feedback.json'
 VALIDATION_DIR = SKILL_DIR / 'validation'
 REPLAY_OUTPUT_PATH = VALIDATION_DIR / 'feedback-replay-report.json'
+SUPPORTED_FEEDBACK_TYPES = ['accept', 'reject', 'favorite', 'correct_dish_name', 'set_user_profile']
 
 
 def empty_store() -> dict:
@@ -17,6 +18,7 @@ def empty_store() -> dict:
         'input_events': [],
         'events': [],
         'profiles': {'dish': {}, 'user_dish': {}},
+        'user_profiles': {},
         'corrections': {},
         'meta': {'last_feedback_at': ''},
     }
@@ -34,6 +36,23 @@ def empty_profile() -> dict:
     }
 
 
+def empty_user_profile() -> dict:
+    return {
+        'user_id': '',
+        'persistent_constraints': {
+            'allergies': [],
+            'conditions': [],
+            'avoid': [],
+        },
+        'temporary_goals': {
+            'goals': [],
+            'conditions': [],
+        },
+        'preferences': [],
+        'updated_at': '',
+    }
+
+
 def normalize_store(data: dict | None) -> dict:
     store = empty_store()
     if isinstance(data, dict):
@@ -41,6 +60,27 @@ def normalize_store(data: dict | None) -> dict:
     store['input_events'] = list(store.get('input_events') or [])
     store['events'] = list(store.get('events') or [])
     store['corrections'] = dict(store.get('corrections') or {})
+    user_profiles = {}
+    for user_id, value in dict(store.get('user_profiles') or {}).items():
+        profile = empty_user_profile()
+        if isinstance(value, dict):
+            profile.update(value)
+        profile['user_id'] = str(profile.get('user_id') or user_id)
+        persistent = dict(profile.get('persistent_constraints') or {})
+        temporary = dict(profile.get('temporary_goals') or {})
+        profile['persistent_constraints'] = {
+            'allergies': dedupe_preserve_order(list(persistent.get('allergies') or [])),
+            'conditions': dedupe_preserve_order(list(persistent.get('conditions') or [])),
+            'avoid': dedupe_preserve_order(list(persistent.get('avoid') or [])),
+        }
+        profile['temporary_goals'] = {
+            'goals': dedupe_preserve_order(list(temporary.get('goals') or [])),
+            'conditions': dedupe_preserve_order(list(temporary.get('conditions') or [])),
+        }
+        profile['preferences'] = dedupe_preserve_order(list(profile.get('preferences') or []))
+        profile['updated_at'] = str(profile.get('updated_at') or '')
+        user_profiles[str(user_id)] = profile
+    store['user_profiles'] = user_profiles
     store['meta'] = dict(store.get('meta') or {})
     store['meta'].setdefault('last_feedback_at', '')
     profiles = dict(store.get('profiles') or {})
@@ -165,11 +205,81 @@ def record_feedback(payload: dict) -> dict:
         'user_id': str(payload.get('user_id') or ''),
         'context_tags': dedupe_preserve_order(list(payload.get('context_tags') or [])),
     }
+    event['feedback_status'] = {
+        'analysis_input_recorded': bool(event.get('input_payload')),
+        'preference_feedback_recorded': True,
+        'requires_user_confirmation': False,
+        'recorded_feedback_type': event['feedback_type'],
+        'supported_feedback_types': SUPPORTED_FEEDBACK_TYPES,
+    }
     store['events'].append(event)
     if event['feedback_type'] == 'correct_dish_name' and event['corrected_dish_name']:
         raw = event['input_payload'].get('dish_name', '')
         if raw:
             store['corrections'][raw] = event['corrected_dish_name']
+    store = refresh_profiles(store)
+    save_store(store)
+    return event
+
+
+def merge_list_values(existing: list[str], incoming: list[str]) -> list[str]:
+    return dedupe_preserve_order(list(existing or []) + list(incoming or []))
+
+
+def merge_profile_section(existing: dict, incoming: dict, keys: list[str]) -> dict:
+    merged = dict(existing or {})
+    for key in keys:
+        merged[key] = merge_list_values(list(merged.get(key) or []), list((incoming or {}).get(key) or []))
+    return merged
+
+
+def record_user_profile(payload: dict) -> dict:
+    store = load_store()
+    user_id = str(payload.get('user_id') or '').strip()
+    if not user_id:
+        raise ValueError('user_id is required to record user profile')
+    timestamp = str(payload.get('timestamp') or int(time.time()))
+    profile = empty_user_profile()
+    existing = (store.get('user_profiles') or {}).get(user_id)
+    if isinstance(existing, dict):
+        profile.update(existing)
+    profile['user_id'] = user_id
+    profile['persistent_constraints'] = merge_profile_section(
+        dict(profile.get('persistent_constraints') or {}),
+        dict(payload.get('persistent_constraints') or {}),
+        ['allergies', 'conditions', 'avoid'],
+    )
+    profile['temporary_goals'] = merge_profile_section(
+        dict(profile.get('temporary_goals') or {}),
+        dict(payload.get('temporary_goals') or {}),
+        ['goals', 'conditions'],
+    )
+    profile['preferences'] = merge_list_values(
+        list(profile.get('preferences') or []),
+        list(payload.get('preferences') or []),
+    )
+    profile['updated_at'] = timestamp
+    store.setdefault('user_profiles', {})[user_id] = profile
+
+    event = {
+        'event_id': payload.get('event_id') or f"profile-{int(time.time() * 1000)}",
+        'timestamp': timestamp,
+        'event_type': 'user_profile',
+        'feedback_type': 'set_user_profile',
+        'user_id': user_id,
+        'persistent_constraints': profile['persistent_constraints'],
+        'temporary_goals': profile['temporary_goals'],
+        'preferences': profile['preferences'],
+        'notes': payload.get('notes', ''),
+    }
+    event['feedback_status'] = {
+        'analysis_input_recorded': False,
+        'preference_feedback_recorded': True,
+        'requires_user_confirmation': False,
+        'recorded_feedback_type': 'set_user_profile',
+        'supported_feedback_types': SUPPORTED_FEEDBACK_TYPES,
+    }
+    store['events'].append(event)
     store = refresh_profiles(store)
     save_store(store)
     return event
@@ -181,6 +291,7 @@ def summarize_bias() -> dict:
     return {
         'bias': store.get('bias', {}),
         'profiles': store.get('profiles', {}),
+        'user_profiles': store.get('user_profiles', {}),
         'corrections': store.get('corrections', {}),
         'last_feedback_at': store.get('meta', {}).get('last_feedback_at', ''),
     }
@@ -220,6 +331,8 @@ def main() -> None:
         print(json.dumps(summarize_bias(), ensure_ascii=False, indent=2))
     elif action == 'replay':
         print(json.dumps(replay_feedback_profiles(payload), ensure_ascii=False, indent=2))
+    elif action == 'user_profile':
+        print(json.dumps(record_user_profile(payload), ensure_ascii=False, indent=2))
     else:
         print(json.dumps(record_feedback(payload), ensure_ascii=False, indent=2))
 

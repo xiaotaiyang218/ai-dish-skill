@@ -84,6 +84,8 @@ def extract_menu_candidates(image_result: dict[str, Any]) -> list[str]:
 def score_menu_candidate(name: str, profile: dict[str, Any]) -> tuple[str, list[str]]:
     reasons = []
     score = 0
+    if any(x in name for x in ['招牌', '老板推荐', '秘制小炒', '家常小炒']):
+        return 'need_confirm', ['名称不对应固定标准菜，需确认主要食材和酱汁调味']
     if any(x in name for x in ['清炒', '清蒸', '西兰花', '冬瓜', '青菜', '白菜', '芹菜', '上海青']):
         score += 3
         reasons.append('做法或食材相对清淡')
@@ -168,20 +170,26 @@ def render_menu_answer(user_query: str, candidates: list[str], profile: dict[str
     recommend_items = [item for item in scored if item[0] == 'recommend'][:top_n]
     caution_items = [item for item in scored if item[0] == 'caution'][:top_n]
     avoid_items = [item for item in scored if item[0] == 'avoid'][:top_n]
+    confirm_items = [item for item in scored if item[0] == 'need_confirm'][:top_n]
     lines = ['我先按你的需求，从这张菜单里帮你筛一轮：', '']
     if recommend_items:
-        lines.append('更适合优先考虑：')
+        lines.append('可优先考虑：')
         for idx, (_, name, reasons) in enumerate(recommend_items, 1):
             lines.append(f'{idx}. {name}：{"；".join(reasons[:2])}')
         lines.append('')
     if caution_items:
-        lines.append('可以谨慎考虑：')
+        lines.append('谨慎选择：')
         for idx, (_, name, reasons) in enumerate(caution_items, 1):
             lines.append(f'{idx}. {name}：{"；".join(reasons[:2])}')
         lines.append('')
     if avoid_items:
-        lines.append('不太建议优先选：')
+        lines.append('不建议：')
         for idx, (_, name, reasons) in enumerate(avoid_items, 1):
+            lines.append(f'{idx}. {name}：{"；".join(reasons[:2])}')
+        lines.append('')
+    if confirm_items:
+        lines.append('需要确认：')
+        for idx, (_, name, reasons) in enumerate(confirm_items, 1):
             lines.append(f'{idx}. {name}：{"；".join(reasons[:2])}')
         lines.append('')
     lines.append('如果你愿意，我还可以继续按“控糖 / 低盐 / 减脂 / 高蛋白”中的某一个目标，再给你精细筛一轮。')

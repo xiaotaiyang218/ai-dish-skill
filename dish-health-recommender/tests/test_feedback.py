@@ -18,6 +18,7 @@ def empty_store() -> dict:
         'input_events': [],
         'events': [],
         'profiles': {'dish': {}, 'user_dish': {}},
+        'user_profiles': {},
         'corrections': {},
         'meta': {'last_feedback_at': ''},
     }
@@ -160,6 +161,72 @@ class FeedbackTests(unittest.TestCase):
         self.assertEqual('西兰花炒鸡胸肉', event['normalized_dish'])
         self.assertEqual(result['recommendation'], event['recommendation'])
         self.assertIn('午餐', event['context_tags'])
+
+    def test_recommendation_result_distinguishes_analysis_input_from_feedback(self):
+        result = RECOMMEND.recommend({'dish_name': '番茄炒蛋', 'user_id': 'alice'})
+
+        self.assertTrue(result['execution_status']['skill_executed'])
+        self.assertEqual('scripts/recommend.py', result['execution_status']['engine'])
+        self.assertTrue(result['feedback_status']['analysis_input_recorded'])
+        self.assertFalse(result['feedback_status']['preference_feedback_recorded'])
+        self.assertTrue(result['feedback_status']['requires_user_confirmation'])
+        self.assertIn('accept', result['feedback_status']['supported_feedback_types'])
+        self.assertIn('correct_dish_name', result['feedback_status']['supported_feedback_types'])
+
+    def test_explicit_feedback_event_marks_preference_feedback_recorded(self):
+        event = FEEDBACK.record_feedback({
+            'input_payload': {'dish_name': '番茄鸡蛋'},
+            'normalized_dish': '番茄炒蛋',
+            'feedback_type': 'correct_dish_name',
+            'corrected_dish_name': '番茄炒蛋',
+            'user_id': 'alice',
+        })
+
+        self.assertTrue(event['feedback_status']['preference_feedback_recorded'])
+        self.assertFalse(event['feedback_status']['requires_user_confirmation'])
+        self.assertEqual('correct_dish_name', event['feedback_status']['recorded_feedback_type'])
+
+    def test_user_profile_separates_persistent_constraints_from_temporary_goals(self):
+        event = FEEDBACK.record_user_profile({
+            'user_id': 'alice',
+            'persistent_constraints': {
+                'allergies': ['海鲜', '海鲜'],
+                'conditions': ['高血压'],
+            },
+            'temporary_goals': {
+                'goals': ['减脂'],
+                'conditions': ['低盐'],
+            },
+        })
+
+        store = FEEDBACK.load_store()
+        profile = store['user_profiles']['alice']
+        self.assertEqual(['海鲜'], profile['persistent_constraints']['allergies'])
+        self.assertEqual(['高血压'], profile['persistent_constraints']['conditions'])
+        self.assertEqual(['减脂'], profile['temporary_goals']['goals'])
+        self.assertEqual(['低盐'], profile['temporary_goals']['conditions'])
+        self.assertTrue(event['feedback_status']['preference_feedback_recorded'])
+        self.assertEqual('set_user_profile', event['feedback_status']['recorded_feedback_type'])
+
+    def test_stored_user_profile_is_applied_to_recommendation(self):
+        FEEDBACK.record_user_profile({
+            'user_id': 'alice',
+            'persistent_constraints': {'allergies': ['海鲜']},
+            'temporary_goals': {'goals': ['减脂'], 'conditions': ['低盐']},
+        })
+
+        result = RECOMMEND.recommend({
+            'dish_name': '油爆虾',
+            'user_id': 'alice',
+            'output_mode': 'human_readable_cn',
+        })
+
+        self.assertEqual('avoid', result['recommendation'])
+        self.assertIn('海鲜', result['applied_user_profile']['persistent_constraints']['allergies'])
+        self.assertIn('减脂', result['applied_user_profile']['temporary_goals']['goals'])
+        self.assertIn('用户画像', result['explanation'])
+        self.assertIn('海鲜/鱼类相关限制', result['explanation'])
+        self.assertIn('用户画像', result['human_readable_cn'])
 
 
 if __name__ == '__main__':

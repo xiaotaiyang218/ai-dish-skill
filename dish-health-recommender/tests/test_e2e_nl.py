@@ -41,8 +41,27 @@ class NaturalLanguageE2ETests(unittest.TestCase):
 
     def test_menu_recommendation(self):
         answer = CHAT.answer_user_query({'user_query': '这张菜单里帮我挑3个更适合减脂和低盐的菜', 'image_path': 'pic/20260508-122944.jpg'})
-        self.assertIn('更适合优先考虑', answer)
+        self.assertIn('可优先考虑', answer)
         self.assertTrue(any(x in answer for x in ['清炒小青菜', '清炒西兰花', '清炒冬瓜', '香烤鸡腿']))
+
+    def test_multi_dish_screening_groups_by_health_priority(self):
+        answer = CHAT.render_menu_answer(
+            '我海鲜过敏，还想低盐减脂，帮我筛一下',
+            ['油爆虾', '水晶虾仁', '腌笃鲜', '草头圈子', '清炒小青菜', '招牌小炒'],
+            {'allergies': ['海鲜'], 'conditions': ['低盐'], 'goals': ['减脂']},
+            top_n=5,
+        )
+
+        self.assertIn('可优先考虑', answer)
+        self.assertIn('谨慎选择', answer)
+        self.assertIn('不建议', answer)
+        self.assertIn('需要确认', answer)
+        self.assertIn('油爆虾', answer)
+        self.assertIn('水晶虾仁', answer)
+        self.assertIn('招牌小炒', answer)
+        self.assertIn('命中海鲜过敏风险', answer)
+        self.assertLess(answer.index('可优先考虑'), answer.index('谨慎选择'))
+        self.assertLess(answer.index('谨慎选择'), answer.index('不建议'))
 
     def test_variant_question(self):
         answer = CHAT.answer_user_query({'user_query': '豆腐脑适合控糖吗？'})

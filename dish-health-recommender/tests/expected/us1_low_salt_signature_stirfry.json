@@ -4,10 +4,13 @@
     "未知菜品"
   ],
   "expected_need_confirm": [
-    "主要食材"
+    "主要食材",
+    "酱汁/调味"
   ],
   "assert_explanation_contains": [
-    "本地库和联网兜底均未找到"
+    "不是固定标准菜名",
+    "低盐",
+    "酱油"
   ],
   "offline_only": true
 }

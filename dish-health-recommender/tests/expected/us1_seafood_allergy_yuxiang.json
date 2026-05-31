@@ -7,7 +7,10 @@
     "具体配方"
   ],
   "assert_explanation_contains": [
-    "配方差异"
+    "鱼香通常是风味名",
+    "不等于一定含鱼",
+    "鱼露",
+    "交叉接触"
   ],
   "offline_only": true
 }

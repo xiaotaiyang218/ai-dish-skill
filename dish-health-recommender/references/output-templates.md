@@ -15,16 +15,18 @@ Required fields:
 - `need_confirm`
 - `candidates` (optional but recommended for fuzzy/ambiguous inputs)
 - `degraded_input` (optional; indicates OCR/image downgrade)
+- `applied_user_profile` (optional; included when saved user constraints/goals are merged by `user_id`)
 - `human_readable_cn` (only when `output_mode=human_readable_cn`)
 
 ## WeChat-Style Short Answer
 
-客观信息：
+菜肴信息：
 - 识别菜品：{标准菜名或未确认}
 - 主要食材：{食材列表；未知则写“未确认”}
 - 常见做法：{做法；未知则写“未确认”}
 - 风险标签：{风险标签；没有则写“暂无明显风险标签”}
-- 营养估算：{有标准份量时写热量/蛋白质/脂肪/碳水/糖/钠；没有则说明缺少标准份量或克重}
+- 营养估算：{有标准份量时写精确热量/蛋白质/脂肪/碳水/糖/钠；只有常见菜谱参考时写“热量约 X-Y 千卡”等区间并标注不是实测克重；没有则说明缺少标准份量或克重}
+- 已应用用户画像：{如本次合并了长期约束或阶段目标，简要列出；没有则省略}
 
 结论：{推荐等级}
 
@@ -40,12 +42,12 @@ Required fields:
 
 ## Detailed Agent Answer
 
-**客观信息：**
+**菜肴信息：**
 - 菜品识别：{标准菜名、置信度、是否存在歧义}
 - 可能食材：{食材列表}
 - 烹饪方式：{做法}
 - 风险标签：{过敏、低盐、控糖、减脂、高蛋白、素食等命中情况}
-- 营养估算：{标准份量、热量 kcal、蛋白质 g、脂肪 g、碳水 g、糖 g、钠 mg；如果没有可靠数据，说明原因}
+- 营养估算：{标准份量、热量 kcal、蛋白质 g、脂肪 g、碳水 g、糖 g、钠 mg；若只是常见范围估算，使用“约 X-Y”并写清依据；如果没有可靠数据，说明原因}
 - 命中规则：{过敏、低盐、控糖、减脂、高蛋白、素食等}
 - 降级说明：{是否因无 OCR/视觉能力而依赖文本推断}
 
@@ -71,7 +73,7 @@ Required fields:
 
 按优先级输出：
 
-1. 更适合选择：{菜名 + 理由}
+1. 可优先考虑：{菜名 + 理由}
 2. 谨慎选择：{菜名 + 理由}
-3. 建议避开：{菜名 + 理由}
-4. 需要补充确认：{菜名 + 缺失信息}
+3. 不建议：{菜名 + 理由}
+4. 需要确认：{菜名 + 缺失信息}

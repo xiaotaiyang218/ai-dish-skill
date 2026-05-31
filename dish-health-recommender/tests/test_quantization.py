@@ -133,6 +133,23 @@ class QuantizationTests(unittest.TestCase):
             sum(item['energy_kcal'] for item in result['energy_calculation']['items']),
         )
 
+    def test_common_range_estimate_for_known_dish_without_standard_recipe(self):
+        result = RECOMMEND.recommend({
+            'dish_name': '鱼香肉丝',
+            'user_profile': {'goals': ['减脂'], 'conditions': ['控糖']},
+            'output_mode': 'human_readable_cn',
+        })
+
+        self.assertNotIn('nutrition_quantitative', result)
+        self.assertIn('nutrition_quantitative_range', result)
+        estimate = result['nutrition_quantitative_range']
+        self.assertEqual('常见范围估算，不是实测克重', estimate['basis'])
+        self.assertEqual({'min': 250, 'max': 450, 'unit': 'kcal', 'unit_cn': '千卡'}, estimate['energy_kcal'])
+        self.assertIn('energy_kcal', estimate['priority_metrics'])
+        self.assertIn('sugars_g', estimate['priority_metrics'])
+        self.assertIn('热量约 250-450 千卡', result['human_readable_cn'])
+        self.assertIn('糖约 5-15 克', result['human_readable_cn'])
+
     def test_missing_standard_recipe_has_no_quant(self):
         result = RECOMMEND.recommend({'dish_name': '老板推荐'})
         self.assertNotIn('nutrition_quantitative', result)

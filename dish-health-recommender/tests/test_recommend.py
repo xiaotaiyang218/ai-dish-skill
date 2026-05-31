@@ -330,9 +330,10 @@ class RecommendFixtureTests(unittest.TestCase):
         self.assertIn('human_readable_cn', human_result)
         self.assertIn('结论：不推荐', human_result['human_readable_cn'])
         self.assertLess(
-            human_result['human_readable_cn'].index('客观信息：'),
+            human_result['human_readable_cn'].index('菜肴信息：'),
             human_result['human_readable_cn'].index('结论：不推荐'),
         )
+        self.assertNotIn('客观信息：', human_result['human_readable_cn'])
 
     def test_inherent_high_risk_dish_is_not_recommended_without_user_constraints(self):
         result = run_recommend({'dish_name': '草头圈子'})
@@ -344,7 +345,8 @@ class RecommendFixtureTests(unittest.TestCase):
     def test_human_readable_answer_includes_objective_analysis_before_advice(self):
         result = run_recommend({'dish_name': '草头圈子', 'output_mode': 'human_readable_cn'})
         answer = result['human_readable_cn']
-        self.assertLess(answer.index('客观信息：'), answer.index('结论：谨慎'))
+        self.assertLess(answer.index('菜肴信息：'), answer.index('结论：谨慎'))
+        self.assertNotIn('客观信息：', answer)
         self.assertLess(answer.index('结论：谨慎'), answer.index('建议：'))
         self.assertIn('识别菜品：草头圈子', answer)
         self.assertIn('风险标签：', answer)

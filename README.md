@@ -111,7 +111,7 @@ JSON
 
 结果会包含标准菜名、候选菜品、食材、做法、营养标签、风险标签、解释理由、待确认项，以及命中标准配方时的营养量化字段。
 
-自然语言对话建议使用 `output_mode=human_readable_cn` 的表达顺序：先列客观信息（识别菜品、食材、做法、风险标签、营养估算），再给结论、原因、建议和需要确认项。这样在 OpenClaw 等 Agent App 中不会只给一句结论，用户可以看到判断依据。
+自然语言对话建议使用 `output_mode=human_readable_cn` 的表达顺序：先列菜肴信息（识别菜品、食材、做法、风险标签、营养估算），再给结论、原因、建议和需要确认项。这样在 OpenClaw 等 Agent App 中不会只给一句结论，用户可以看到判断依据。
 
 ### 2. 多模态图片验证
 
@@ -148,9 +148,31 @@ JSON
 - `reject`
 - `favorite`
 - `correct_dish_name`
+- `set_user_profile`：在用户明确确认后记录长期约束和阶段目标
 - 基于 `user_id` 的 user-dish profile
+- 基于 `user_id` 的用户画像：`persistent_constraints` 存过敏、疾病相关限制、长期忌口；`temporary_goals` 存最近减脂、低盐、控糖等阶段目标
 - `context_tags` 记录与 explanation 回显
 - 时间衰减窗口下的 replay/profile 重建
+
+用户画像不会从一次普通推荐里自动写入。需要用户明确确认后，才用 `action=user_profile` 记录：
+
+```bash
+python3 dish-health-recommender/scripts/apply_feedback.py /dev/stdin <<'JSON'
+{
+  "action": "user_profile",
+  "user_id": "alice",
+  "persistent_constraints": {
+    "allergies": ["海鲜"]
+  },
+  "temporary_goals": {
+    "goals": ["减脂"],
+    "conditions": ["低盐"]
+  }
+}
+JSON
+```
+
+后续推荐请求只要带同一个 `user_id`，`recommend.py` 会合并这些已确认信息，并在输出中返回 `applied_user_profile`。
 
 ## 常用命令
 

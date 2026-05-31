@@ -79,6 +79,7 @@ DEFAULT_PROFILE = {
 }
 OUTPUT_MODES = {"json", "human_readable_cn"}
 QUANTIFIED_PROVIDER = QuantifiedRecipeProvider()
+SUPPORTED_FEEDBACK_TYPES = ["accept", "reject", "favorite", "correct_dish_name", "set_user_profile"]
 
 
 BUILTIN_DISHES: dict[str, dict[str, Any]] = {
@@ -197,6 +198,7 @@ RISK_KEYWORDS = {
 
 INHERENT_CAUTION_RISK_TAGS = {"动物内脏", "高嘌呤"}
 INHERENT_CAUTION_CLUSTER_TAGS = {"可能高脂", "可能高油", "可能高盐", "可能高糖", "红肉"}
+VAGUE_DISH_NAME_HINTS = ["招牌", "老板推荐", "秘制", "家常小炒", "农家小炒", "小炒"]
 
 
 def stable_list(values: list[str]) -> list[str]:
@@ -324,6 +326,84 @@ def profile_terms(profile: dict[str, Any]) -> list[str]:
         elif isinstance(value, list):
             terms.extend(str(item) for item in value)
     return [term for term in terms if term]
+
+
+def as_text_list(value: Any) -> list[str]:
+    if isinstance(value, str):
+        return [value] if value.strip() else []
+    if isinstance(value, list):
+        return [str(item).strip() for item in value if str(item).strip()]
+    return []
+
+
+def merge_profile_lists(left: list[str], right: list[str]) -> list[str]:
+    merged: list[str] = []
+    for item in left + right:
+        text = str(item).strip()
+        if text and text not in merged:
+            merged.append(text)
+    return merged
+
+
+def stored_user_profile(user_id: str) -> dict[str, Any]:
+    if not user_id:
+        return {}
+    store = load_feedback_store()
+    profile = (store.get("user_profiles") or {}).get(user_id, {})
+    return profile if isinstance(profile, dict) else {}
+
+
+def merge_stored_user_profile(profile: dict[str, Any], user_id: str) -> tuple[dict[str, Any], dict[str, Any]]:
+    stored = stored_user_profile(user_id)
+    if not stored:
+        return profile, {}
+    persistent = stored.get("persistent_constraints") if isinstance(stored.get("persistent_constraints"), dict) else {}
+    temporary = stored.get("temporary_goals") if isinstance(stored.get("temporary_goals"), dict) else {}
+    merged = dict(profile)
+    merged["allergies"] = merge_profile_lists(as_text_list(profile.get("allergies")), as_text_list(persistent.get("allergies")))
+    merged["conditions"] = merge_profile_lists(
+        as_text_list(profile.get("conditions")),
+        as_text_list(persistent.get("conditions")) + as_text_list(temporary.get("conditions")),
+    )
+    merged["goals"] = merge_profile_lists(as_text_list(profile.get("goals")), as_text_list(temporary.get("goals")))
+    merged["avoid"] = merge_profile_lists(as_text_list(profile.get("avoid")), as_text_list(persistent.get("avoid")))
+    merged["preferences"] = merge_profile_lists(as_text_list(profile.get("preferences")), as_text_list(stored.get("preferences")))
+    applied = {
+        "user_id": user_id,
+        "persistent_constraints": {
+            "allergies": as_text_list(persistent.get("allergies")),
+            "conditions": as_text_list(persistent.get("conditions")),
+            "avoid": as_text_list(persistent.get("avoid")),
+        },
+        "temporary_goals": {
+            "goals": as_text_list(temporary.get("goals")),
+            "conditions": as_text_list(temporary.get("conditions")),
+        },
+        "preferences": as_text_list(stored.get("preferences")),
+        "updated_at": str(stored.get("updated_at") or ""),
+    }
+    return merged, applied
+
+
+def user_profile_reason(applied_profile: dict[str, Any]) -> str:
+    if not applied_profile:
+        return ""
+    persistent = applied_profile.get("persistent_constraints") or {}
+    temporary = applied_profile.get("temporary_goals") or {}
+    parts: list[str] = []
+    constraints = (
+        as_text_list(persistent.get("allergies"))
+        + as_text_list(persistent.get("conditions"))
+        + as_text_list(persistent.get("avoid"))
+    )
+    goals = as_text_list(temporary.get("goals")) + as_text_list(temporary.get("conditions"))
+    if constraints:
+        parts.append(f"长期约束：{'、'.join(constraints)}")
+    if goals:
+        parts.append(f"阶段目标：{'、'.join(goals)}")
+    if applied_profile.get("preferences"):
+        parts.append(f"偏好：{'、'.join(as_text_list(applied_profile.get('preferences')))}")
+    return f"已应用用户画像（{'；'.join(parts)}）。" if parts else "已应用用户画像。"
 
 
 def contains_any(values: list[str], keywords: list[str]) -> bool:
@@ -827,6 +907,19 @@ def inherent_risk_reason(risk_tags: list[str]) -> str | None:
     return None
 
 
+def is_vague_dish_name(name: str | None) -> bool:
+    text = str(name or "")
+    return any(hint in text for hint in VAGUE_DISH_NAME_HINTS)
+
+
+def ambiguity_reason_for_dish(name: str | None) -> str:
+    if name == "鱼香肉丝":
+        return "鱼香通常是风味名，不等于一定含鱼；常规做法多为猪肉、木耳、胡萝卜和豆瓣酱/糖醋调味，但海鲜过敏场景仍需确认是否使用鱼露、海鲜调味或存在后厨交叉接触。"
+    if is_vague_dish_name(name):
+        return "该名称不是固定标准菜名，判断依赖店家具体配方；低盐、控糖或过敏场景下需确认主要食材、酱油/豆瓣酱等酱汁调味和后厨交叉接触。"
+    return "该菜名存在歧义或餐厅配方差异，严格限制场景下需确认实际食材。"
+
+
 def diet_rule_reasons(terms: list[str], risk_tags: list[str], nutrition_tags: list[str]) -> list[str]:
     reasons: list[str] = []
     rules = NUTRITION.get("diet_rules", {})
@@ -922,6 +1015,34 @@ def format_quantitative_display(value: Any) -> str:
     return ""
 
 
+def format_quantitative_range(value: Any) -> str:
+    if not isinstance(value, dict):
+        return ""
+    parts: list[str] = []
+    labels = [
+        ("energy_kcal", "热量"),
+        ("protein_g", "蛋白质"),
+        ("fat_g", "脂肪"),
+        ("carbohydrate_g", "碳水化合物"),
+        ("sugars_g", "糖"),
+        ("sodium_mg", "钠"),
+    ]
+    for key, label in labels:
+        item = value.get(key)
+        if not isinstance(item, dict):
+            continue
+        min_value = item.get("min")
+        max_value = item.get("max")
+        if min_value is None or max_value is None:
+            continue
+        unit = item.get("unit_cn") or item.get("unit") or ""
+        parts.append(f"{label}约 {min_value}-{max_value} {unit}".strip())
+    if not parts:
+        return ""
+    basis = value.get("basis") or "常见范围估算"
+    return f"{'；'.join(parts)}（{basis}）"
+
+
 def render_human_readable_cn(result: dict[str, Any]) -> str:
     label = {
         "recommend": "推荐",
@@ -937,7 +1058,11 @@ def render_human_readable_cn(result: dict[str, Any]) -> str:
     if quantitative_display:
         nutrition_line = quantitative_display
     else:
-        nutrition_line = "缺少标准份量或克重，暂不输出精确数值。"
+        quantitative_range = format_quantitative_range(result.get("nutrition_quantitative_range"))
+        if quantitative_range:
+            nutrition_line = quantitative_range
+        else:
+            nutrition_line = "缺少标准份量或克重，暂不输出精确数值。"
     reasons: list[str] = []
     explanation = result.get("explanation", "")
     if "依据：" in explanation:
@@ -951,7 +1076,7 @@ def render_human_readable_cn(result: dict[str, Any]) -> str:
         "need_confirm": "请先确认会影响判断的食材、做法或图片识别结果，再决定是否食用。",
     }[result["recommendation"]]
     lines = [
-        "客观信息：",
+        "菜肴信息：",
         f"- 识别菜品：{dish}",
         f"- 主要食材：{ingredients}",
         f"- 常见做法：{cooking_method}",
@@ -974,10 +1099,21 @@ def render_human_readable_cn(result: dict[str, Any]) -> str:
 
 
 def load_feedback_store() -> dict[str, Any]:
-    return load_json_file(
+    store = load_json_file(
         SKILL_DIR / "data" / "feedback.json",
-        {"input_events": [], "events": [], "profiles": {"dish": {}, "user_dish": {}}, "corrections": {}, "meta": {"last_feedback_at": ""}},
+        {"input_events": [], "events": [], "profiles": {"dish": {}, "user_dish": {}}, "user_profiles": {}, "corrections": {}, "meta": {"last_feedback_at": ""}},
     )
+    if not isinstance(store, dict):
+        store = {}
+    store.setdefault("input_events", [])
+    store.setdefault("events", [])
+    store.setdefault("profiles", {"dish": {}, "user_dish": {}})
+    store.setdefault("user_profiles", {})
+    store.setdefault("corrections", {})
+    store.setdefault("meta", {"last_feedback_at": ""})
+    store["profiles"].setdefault("dish", {})
+    store["profiles"].setdefault("user_dish", {})
+    return store
 
 
 def save_feedback_store(store: dict[str, Any]) -> None:
@@ -987,6 +1123,7 @@ def save_feedback_store(store: dict[str, Any]) -> None:
             "input_events": list(store.get("input_events") or []),
             "events": list(store.get("events") or []),
             "profiles": dict(store.get("profiles") or {"dish": {}, "user_dish": {}}),
+            "user_profiles": dict(store.get("user_profiles") or {}),
             "corrections": dict(store.get("corrections") or {}),
             "meta": dict(store.get("meta") or {}),
         }
@@ -1014,6 +1151,18 @@ def record_recommendation_input(payload: dict[str, Any], result: dict[str, Any])
     store.setdefault("input_events", []).append(event)
     store.setdefault("meta", {})["last_input_at"] = event["timestamp"]
     save_feedback_store(store)
+    result["execution_status"] = {
+        "skill_executed": True,
+        "engine": "scripts/recommend.py",
+        "mode": "deterministic_local",
+    }
+    result["feedback_status"] = {
+        "analysis_input_recorded": True,
+        "preference_feedback_recorded": False,
+        "requires_user_confirmation": True,
+        "supported_feedback_types": SUPPORTED_FEEDBACK_TYPES,
+        "message": "本次分析输入已记录；尚未写入接受、拒绝、收藏或纠错反馈，需用户明确确认后再调用反馈闭环。",
+    }
     return result
 
 
@@ -1132,6 +1281,18 @@ QUANTITATIVE_DISPLAY_FIELDS = [
 ]
 
 
+COMMON_NUTRITION_RANGE_ESTIMATES: dict[str, dict[str, Any]] = {
+    "鱼香肉丝": {
+        "basis": "常见范围估算，不是实测克重",
+        "portion_basis": "1份常见餐馆份量",
+        "energy_kcal": {"min": 250, "max": 450, "unit": "kcal", "unit_cn": "千卡"},
+        "fat_g": {"min": 10, "max": 25, "unit": "g", "unit_cn": "克"},
+        "sugars_g": {"min": 5, "max": 15, "unit": "g", "unit_cn": "克"},
+        "sodium_mg": {"min": 800, "max": 1600, "unit": "mg", "unit_cn": "毫克"},
+    },
+}
+
+
 def format_quantitative_value(value: Any) -> int | float:
     number = float(value)
     return int(number) if number.is_integer() else round(number, 1)
@@ -1155,6 +1316,30 @@ def quantitative_display(quantified: dict[str, Any]) -> list[dict[str, Any]]:
             "text_en": f"{label_en} {value} {unit}",
         })
     return display
+
+
+def prioritized_range_metrics(terms: list[str], estimate: dict[str, Any]) -> list[str]:
+    metrics: list[str] = []
+    text = " ".join(terms)
+    if any(token in text for token in ["减脂", "低脂", "体重", "胖"]):
+        metrics.extend(["energy_kcal", "fat_g"])
+    if any(token in text for token in ["控糖", "糖尿病", "血糖"]):
+        metrics.append("sugars_g")
+    if any(token in text for token in ["低盐", "高血压", "血压"]):
+        metrics.append("sodium_mg")
+    return [metric for metric in stable_list(metrics) if metric in estimate]
+
+
+def estimate_nutrition_range(dish_name: str | None, terms: list[str]) -> dict[str, Any] | None:
+    query = str(dish_name or "").strip()
+    if not query or query in QUANTIFIED_ALIASES:
+        return None
+    estimate = COMMON_NUTRITION_RANGE_ESTIMATES.get(query)
+    if not estimate:
+        return None
+    result = dict(estimate)
+    result["priority_metrics"] = prioritized_range_metrics(terms, result)
+    return result
 
 
 def corrected_raw_name(raw_name: str) -> str:
@@ -1432,6 +1617,10 @@ def infer_ingredients_from_name(name: str) -> list[str]:
 
 def recommend(payload: dict[str, Any]) -> dict[str, Any]:
     request = parse_request(payload)
+    applied_user_profile: dict[str, Any] = {}
+    if request.get("user_id"):
+        merged_profile, applied_user_profile = merge_stored_user_profile(request["user_profile"], request["user_id"])
+        request["user_profile"] = merged_profile
     explicit_dish_name = bool(request.get("dish_name"))
     provider_context = build_provider_context(request)
     image_scene = image_scene_from_context(provider_context)
@@ -1562,6 +1751,12 @@ def recommend(payload: dict[str, Any]) -> dict[str, Any]:
             confidence = max(confidence, 0.52)
 
     if not info:
+        if is_vague_dish_name(normalized):
+            explanation = f"结论：需要确认。依据：{ambiguity_reason_for_dish(normalized)}"
+            confirm_items = ["主要食材", "酱汁/调味", "烹饪方式", "OCR文本"]
+        else:
+            explanation = f"结论：需要确认。依据：本地库和联网兜底均未找到“{normalized}”，请补充主要食材、做法或 OCR 文本后再判断。"
+            confirm_items = ["主要食材", "烹饪方式", "OCR文本"]
         result = build_result(
             normalized_dish=None if request.get("image_path") else normalized,
             recommendation="need_confirm",
@@ -1571,8 +1766,8 @@ def recommend(payload: dict[str, Any]) -> dict[str, Any]:
             nutrition_tags=[],
             risk_tags=["未知菜品"],
             nutrition_evidence={},
-            explanation=f"结论：需要确认。依据：本地库和联网兜底均未找到“{normalized}”，请补充主要食材、做法或 OCR 文本后再判断。",
-            need_confirm=["主要食材", "烹饪方式", "OCR文本"],
+            explanation=explanation,
+            need_confirm=confirm_items,
             candidates=candidates,
             degraded_input=degraded_input,
             output_mode=request["output_mode"],
@@ -1589,6 +1784,9 @@ def recommend(payload: dict[str, Any]) -> dict[str, Any]:
     need_confirm: list[str] = []
     recommendation = "recommend"
     ambiguity_level = str(info.get("ambiguity_level") or "low")
+    applied_profile_reason = user_profile_reason(applied_user_profile)
+    if applied_profile_reason:
+        reasons.append(applied_profile_reason)
 
     if contains_any(terms, ["鸡蛋", "蛋过敏", "蛋制品"]) and contains_any(ingredients + risk_tags, RISK_KEYWORDS["鸡蛋"]):
         recommendation = choose_recommendation(recommendation, "avoid")
@@ -1637,7 +1835,7 @@ def recommend(payload: dict[str, Any]) -> dict[str, Any]:
         if recommendation != "avoid":
             recommendation = choose_recommendation(recommendation, "need_confirm" if profile.get("strict_mode") else "caution")
         need_confirm.append("具体配方")
-        reasons.append("该菜名存在歧义或餐厅配方差异，严格限制场景下需确认实际食材。")
+        reasons.append(ambiguity_reason_for_dish(normalized))
 
     if request["image_reference"] and not request["ocr_text"]:
         if image_seed:
@@ -1697,6 +1895,8 @@ def recommend(payload: dict[str, Any]) -> dict[str, Any]:
         degraded_input=degraded_input,
         output_mode=request["output_mode"],
     )
+    if applied_user_profile:
+        result["applied_user_profile"] = applied_user_profile
     result = attach_menu_source(result, raw_name, menu_candidate_records)
     result = attach_raw_image_result(result, provider_context)
     quantified = quantized_profile_for_dish(result.get("normalized_dish") or "")
@@ -1708,6 +1908,10 @@ def recommend(payload: dict[str, Any]) -> dict[str, Any]:
         for optional_key in ["standard_ingredients", "energy_calculation", "source_refs", "confidence_note"]:
             if quantified.get(optional_key):
                 result[optional_key] = quantified.get(optional_key)
+    else:
+        nutrition_range = estimate_nutrition_range(result.get("normalized_dish"), terms)
+        if nutrition_range:
+            result["nutrition_quantitative_range"] = nutrition_range
     result = apply_feedback_bias(
         result,
         result.get("normalized_dish"),

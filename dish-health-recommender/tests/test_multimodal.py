@@ -192,6 +192,17 @@ class MultimodalTests(unittest.TestCase):
         self.assertIn('含海鲜/鱼类', result['risk_tags'])
         self.assertIn('可能高油', result['risk_tags'])
 
+    def test_annotated_shrimp_image_with_seafood_allergy_is_avoid(self):
+        result = run_recommend({
+            'image_path': str(REPO_ROOT / 'pic/shanghai/4.jpeg'),
+            'user_profile': {'allergies': ['海鲜']},
+        })
+
+        self.assertEqual('油爆虾', result['normalized_dish'])
+        self.assertEqual('avoid', result['recommendation'])
+        self.assertIn('含海鲜/鱼类', result['risk_tags'])
+        self.assertIn('海鲜/鱼类相关限制', result['explanation'])
+
     def test_annotated_crystal_shrimp_image_uses_human_confirmed_label(self):
         result = run_recommend({
             'image_path': str(REPO_ROOT / 'pic/shanghai/5.jpeg'),

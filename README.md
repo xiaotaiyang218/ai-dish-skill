@@ -46,6 +46,10 @@ python3 dish-health-recommender/scripts/recommend.py <<'JSON'
 JSON
 ```
 
+如果要在 OpenClaw 里按自然语言对话实测 6 个核心用例，可以直接参考：
+
+- `dish-health-recommender/references/openclaw-core-use-cases.md`
+
 ## 安装条件
 
 - 必需：Python 3。
@@ -106,6 +110,8 @@ JSON
 - `need_confirm`
 
 结果会包含标准菜名、候选菜品、食材、做法、营养标签、风险标签、解释理由、待确认项，以及命中标准配方时的营养量化字段。
+
+自然语言对话建议使用 `output_mode=human_readable_cn` 的表达顺序：先列客观信息（识别菜品、食材、做法、风险标签、营养估算），再给结论、原因、建议和需要确认项。这样在 OpenClaw 等 Agent App 中不会只给一句结论，用户可以看到判断依据。
 
 ### 2. 多模态图片验证
 

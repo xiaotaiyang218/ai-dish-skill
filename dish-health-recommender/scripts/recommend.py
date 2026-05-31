@@ -195,6 +195,9 @@ RISK_KEYWORDS = {
     "素食": ["猪肉", "牛肉", "羊肉", "鸡肉", "鱼", "虾", "鸡蛋"],
 }
 
+INHERENT_CAUTION_RISK_TAGS = {"动物内脏", "高嘌呤"}
+INHERENT_CAUTION_CLUSTER_TAGS = {"可能高脂", "可能高油", "可能高盐", "可能高糖", "红肉"}
+
 
 def stable_list(values: list[str]) -> list[str]:
     seen: dict[str, None] = {}
@@ -814,6 +817,16 @@ def choose_recommendation(current: str, new: str) -> str:
     return new if RECOMMENDATION_ORDER[new] > RECOMMENDATION_ORDER[current] else current
 
 
+def inherent_risk_reason(risk_tags: list[str]) -> str | None:
+    strong_hits = sorted(set(risk_tags) & INHERENT_CAUTION_RISK_TAGS)
+    cluster_hits = sorted(set(risk_tags) & INHERENT_CAUTION_CLUSTER_TAGS)
+    if strong_hits or len(cluster_hits) >= 3:
+        hits = stable_list(strong_hits + cluster_hits)
+        hit_text = "、".join(hits)
+        return f"菜品本身命中{hit_text}等风险标签，即使没有明确禁忌也建议谨慎。"
+    return None
+
+
 def diet_rule_reasons(terms: list[str], risk_tags: list[str], nutrition_tags: list[str]) -> list[str]:
     reasons: list[str] = []
     rules = NUTRITION.get("diet_rules", {})
@@ -888,6 +901,27 @@ def build_result(
     return result
 
 
+def format_quantitative_display(value: Any) -> str:
+    if isinstance(value, list):
+        parts: list[str] = []
+        for item in value:
+            if isinstance(item, dict):
+                text = item.get("text_cn")
+                if not text and item.get("label_cn") and item.get("value") is not None:
+                    unit = item.get("unit_cn") or item.get("unit") or ""
+                    text = f"{item['label_cn']} {item['value']} {unit}".strip()
+                if text:
+                    parts.append(str(text))
+            elif item:
+                parts.append(str(item))
+        return "；".join(parts)
+    if isinstance(value, str):
+        return value
+    if value:
+        return str(value)
+    return ""
+
+
 def render_human_readable_cn(result: dict[str, Any]) -> str:
     label = {
         "recommend": "推荐",
@@ -895,18 +929,44 @@ def render_human_readable_cn(result: dict[str, Any]) -> str:
         "avoid": "不推荐",
         "need_confirm": "需要确认",
     }[result["recommendation"]]
+    dish = result.get("normalized_dish") or "未确认"
+    ingredients = "、".join(result.get("ingredients") or []) or "未确认"
+    cooking_method = result.get("cooking_method") or "未确认"
+    risk_tags = "、".join(result.get("risk_tags") or []) or "暂无明显风险标签"
+    quantitative_display = format_quantitative_display(result.get("nutrition_quantitative_display"))
+    if quantitative_display:
+        nutrition_line = quantitative_display
+    else:
+        nutrition_line = "缺少标准份量或克重，暂不输出精确数值。"
     reasons: list[str] = []
     explanation = result.get("explanation", "")
     if "依据：" in explanation:
         reasons = [part for part in explanation.split("依据：", 1)[1].split("；") if part]
     reasons = reasons[:4] or ["当前证据不足，请补充信息后再判断。"]
     need_confirm = result.get("need_confirm") or ["暂无"]
-    lines = [f"结论：{label}", "", "原因："]
+    advice = {
+        "recommend": "可以作为候选，但仍需结合实际做法和份量。",
+        "caution": "建议少量食用，优先要求少油、少盐、少糖，并控制主食和酱汁。",
+        "avoid": "建议避开这道菜，改选不含相关过敏源或高风险食材的菜品。",
+        "need_confirm": "请先确认会影响判断的食材、做法或图片识别结果，再决定是否食用。",
+    }[result["recommendation"]]
+    lines = [
+        "客观信息：",
+        f"- 识别菜品：{dish}",
+        f"- 主要食材：{ingredients}",
+        f"- 常见做法：{cooking_method}",
+        f"- 风险标签：{risk_tags}",
+        f"- 营养估算：{nutrition_line}",
+        "",
+        f"结论：{label}",
+        "",
+        "原因：",
+    ]
     for idx, reason in enumerate(reasons, 1):
         lines.append(f"{idx}. {reason}")
     lines.extend([
         "",
-        f"建议：{'；'.join(need_confirm) if result['recommendation'] == 'need_confirm' else '结合实际配方和份量选择，必要时少盐少油并控制份量。'}",
+        f"建议：{advice}",
         f"需要确认：{'；'.join(need_confirm)}",
         "提示：以上仅作饮食参考，不能替代医生或营养师建议。",
     ])
@@ -1600,6 +1660,11 @@ def recommend(payload: dict[str, Any]) -> dict[str, Any]:
             degraded_input.append("ocr_text_inferred")
             reasons.append("当前菜名基于 OCR 文本推断，若菜单排版复杂请人工确认标准菜名。")
 
+    inherent_reason = inherent_risk_reason(risk_tags)
+    if recommendation == "recommend" and inherent_reason:
+        recommendation = choose_recommendation(recommendation, "caution")
+        reasons.append(inherent_reason)
+
     if not reasons:
         reasons.append(str(info.get("notes") or "当前菜品无明显高风险标签，建议结合实际做法判断。"))
     reasons.extend(relevant_cautions(terms, nutrition_cautions)[:2])
@@ -1649,6 +1714,8 @@ def recommend(payload: dict[str, Any]) -> dict[str, Any]:
         user_id=request.get("user_id", ""),
         context_tags=request.get("context_tags", []),
     )
+    if request["output_mode"] == "human_readable_cn":
+        result["human_readable_cn"] = render_human_readable_cn(result)
     return record_recommendation_input(payload, result)
 
 

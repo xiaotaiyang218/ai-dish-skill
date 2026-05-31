@@ -14,6 +14,12 @@
 3. Dietary goals such as weight loss, high protein, vegetarian, light diet.
 4. Taste preference and convenience.
 
+## Evidence Consistency
+
+- 推荐等级必须和风险证据一致。若菜品命中动物内脏、高嘌呤，或同时命中多项高油/高盐/高糖/高脂风险，即使用户没有明确填写健康限制，也不要输出 `recommend`，应至少输出 `caution`。
+- 如果 `explanation` 中列出明显高风险食材或做法，`recommendation` 不能仍为 `recommend`；需要同步降级或明确说明为什么仍可推荐。
+- 过敏和明确禁忌可由高置信食材直接触发，不要求标准菜名完全确定。例如图片中能明确看到虾，海鲜过敏用户应输出 `avoid`，同时说明标准菜名仍需确认。
+
 ## Common Risk Tags
 
 - Egg allergy: 鸡蛋、蛋液、蛋黄、蛋白、蛋制品.
@@ -30,6 +36,8 @@ For dish names with misleading literal meanings, state the common recipe and the
 
 For vague dish names such as `招牌小炒`, `家常一品锅`, or `老板推荐`, return `need_confirm` unless the user supplies a photo, menu description, or ingredients.
 
+For image input, separate dish-name confidence from ingredient confidence. A low-confidence dish label should not block an allergy warning when the ingredient is visually clear, but it should still appear in `need_confirm` as the standard dish name or exact recipe.
+
 ## Ambiguous Dish Handling Addendum
 
 - 菜名命中高歧义词（如“招牌”“农家一品锅”“老板推荐”）时，即使命中本地候选，也应在严格模式下优先返回 `need_confirm`。
@@ -42,4 +50,3 @@ For vague dish names such as `招牌小炒`, `家常一品锅`, or `老板推荐
 - Vegetarian goal: if a common recipe contains meat, fish, or egg, return `avoid` or `need_confirm` based on recipe certainty.
 - Gout / high uric acid: high-purine seafood, organ meats, and heavy drinking dishes should default to `caution` or `avoid` depending on user strictness and recipe certainty.
 - When multiple rules hit, explanation should be compressed to 2-4 user-readable reasons rather than listing every internal tag.
-

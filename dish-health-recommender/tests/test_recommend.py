@@ -321,6 +321,29 @@ class RecommendFixtureTests(unittest.TestCase):
         self.assertNotIn('human_readable_cn', json_result)
         self.assertIn('human_readable_cn', human_result)
         self.assertIn('结论：不推荐', human_result['human_readable_cn'])
+        self.assertLess(
+            human_result['human_readable_cn'].index('客观信息：'),
+            human_result['human_readable_cn'].index('结论：不推荐'),
+        )
+
+    def test_inherent_high_risk_dish_is_not_recommended_without_user_constraints(self):
+        result = run_recommend({'dish_name': '草头圈子'})
+        self.assertEqual('caution', result['recommendation'])
+        self.assertIn('动物内脏', result['risk_tags'])
+        self.assertIn('可能高脂', result['risk_tags'])
+        self.assertIn('风险标签', result['explanation'])
+
+    def test_human_readable_answer_includes_objective_analysis_before_advice(self):
+        result = run_recommend({'dish_name': '草头圈子', 'output_mode': 'human_readable_cn'})
+        answer = result['human_readable_cn']
+        self.assertLess(answer.index('客观信息：'), answer.index('结论：谨慎'))
+        self.assertLess(answer.index('结论：谨慎'), answer.index('建议：'))
+        self.assertIn('识别菜品：草头圈子', answer)
+        self.assertIn('风险标签：', answer)
+        self.assertIn('营养估算：', answer)
+        self.assertIn('千卡', answer)
+        self.assertIn('热量 430 千卡；蛋白质 18 克', answer)
+        self.assertNotIn("[{'key':", answer)
 
 
 def test_fallback_output_shape(self):

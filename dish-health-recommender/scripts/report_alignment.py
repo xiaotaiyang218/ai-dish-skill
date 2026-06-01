@@ -5,13 +5,21 @@ import json
 import sys
 from pathlib import Path
 
-ALLOWED_STATUS = {"implemented", "degradable", "pending_validation"}
+STATUS_ORDER = ("implemented", "degradable", "pending_validation")
+ALLOWED_STATUS = set(STATUS_ORDER)
 SKILL_DIR = Path(__file__).resolve().parents[1]
 REPO_ROOT = SKILL_DIR.parent
 REPORT_PATH = REPO_ROOT / 'report' / 'AI创想家_菜谱识别推荐系统_优化版报告.md'
 VALIDATION_DIR = SKILL_DIR / 'validation'
 OUTPUT_JSON = VALIDATION_DIR / 'report-alignment-report.json'
 IMAGE_VALIDATION_PATH = VALIDATION_DIR / 'image-validation-report.json'
+
+
+def repo_relative(path: Path) -> str:
+    try:
+        return str(path.relative_to(REPO_ROOT))
+    except ValueError:
+        return str(path)
 
 
 def load_image_validation_report() -> dict:
@@ -90,8 +98,8 @@ def default_items(image_validation_report: dict | None = None) -> list[dict]:
             ],
             "status": "implemented",
             "validation_refs": ["dish-health-recommender/tests/test_quantization.py"],
-            "metric_summary": "已支持标准配方命中时的量化输出，未命中时回退到定性标签与边界说明。",
-            "boundary_note": "定量值仅在命中标准配方时输出，未覆盖菜品不会伪造精确营养值。",
+            "metric_summary": "已支持标准配方命中时的精确量化输出；未命中精确配方但有常见菜谱参考时，可输出明确标注的区间估算。",
+            "boundary_note": "精确量化只在命中标准配方时输出；区间估算会标注常见范围和非实测克重，避免伪造精确营养值。",
         },
         {
             "report_section": "创新点三",
@@ -107,8 +115,21 @@ def default_items(image_validation_report: dict | None = None) -> list[dict]:
             ],
             "status": "implemented",
             "validation_refs": ["dish-health-recommender/tests/test_feedback.py"],
-            "metric_summary": "已支持 accept/reject/favorite/correct_dish_name 四类反馈，并可影响 confidence、说明文本与推荐等级。",
-            "boundary_note": "当前为最小本地闭环，不是训练式排序或强化学习系统。",
+            "metric_summary": "已支持 accept/reject/favorite/correct_dish_name/set_user_profile 五类反馈，可影响 confidence、说明文本、推荐等级和用户画像合并。",
+            "boundary_note": "当前为本地轻量反馈闭环，不是训练式排序或强化学习系统；用户画像只有在用户明确确认后写入。",
+        },
+        {
+            "report_section": "用户画像",
+            "claim": "长期约束与阶段目标分层存储，并在后续推荐中按 user_id 合并",
+            "implementation_refs": [
+                "dish-health-recommender/scripts/apply_feedback.py",
+                "dish-health-recommender/scripts/recommend.py",
+            ],
+            "test_refs": ["dish-health-recommender/tests/test_feedback.py"],
+            "status": "implemented",
+            "validation_refs": ["test_stored_user_profile_is_applied_to_recommendation"],
+            "metric_summary": "已验证用户确认后的海鲜过敏、减脂、低盐信息能被后续油爆虾推荐复用。",
+            "boundary_note": "不会从一次普通提问自动长期记忆；长期约束和阶段目标分开存储，可被用户修改或删除。",
         },
         {
             "report_section": "实验与结果/推荐结果示例",
@@ -124,7 +145,7 @@ def default_items(image_validation_report: dict | None = None) -> list[dict]:
             "status": "implemented",
             "validation_refs": ["dish-health-recommender/tests/test_alignment.py"],
             "metric_summary": "回归样例、图片验证、反馈闭环和量化验证可共同支撑实验与报告更新。",
-            "boundary_note": "当前已具备自动化验证与示例证据，正式比赛指标仍需继续补真实统计。",
+            "boundary_note": "当前已具备自动化验证与示例证据，后续仍需继续补充更大规模真实使用统计。",
         },
     ]
 
@@ -141,7 +162,7 @@ def validate_items(items: list[dict]) -> dict:
             invalid.append({'index': idx, 'reason': 'implemented/degradable items need refs'})
         if status == 'implemented' and not item.get('validation_refs'):
             invalid.append({'index': idx, 'reason': 'implemented items need validation refs'})
-    counts = {name: sum(1 for item in items if item.get('status') == name) for name in ALLOWED_STATUS}
+    counts = {name: sum(1 for item in items if item.get('status') == name) for name in STATUS_ORDER}
     return {'valid': not invalid, 'invalid_items': invalid, **counts}
 
 
@@ -155,12 +176,12 @@ def main() -> None:
     items = default_items(image_validation_report)
     report = {
         'report_name': 'report_alignment',
-        'report_path': str(OUTPUT_JSON),
-        'report': str(REPORT_PATH),
+        'report_path': repo_relative(OUTPUT_JSON),
+        'report': repo_relative(REPORT_PATH),
         'items': items,
         'summary': validate_items(items),
         'evidence_summary': {
-            'image_validation_report': str(IMAGE_VALIDATION_PATH),
+            'image_validation_report': repo_relative(IMAGE_VALIDATION_PATH),
             'image_metrics': image_validation_report.get('metrics', {}),
         },
     }

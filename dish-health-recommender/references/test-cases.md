@@ -12,6 +12,8 @@ Input: `减脂控糖时能不能吃提拉米苏？`
 
 Expected: `谨慎`; reason mentions mascarpone/cream fat, added sugar, biscuit carbohydrate, portion control.
 
+Expected quantitative detail: if standard recipe data is used, energy should include unit `kcal` or `千卡` and mention standard portion, not measured weight.
+
 Input: `海鲜过敏的人吃鱼香肉丝有风险吗？`
 
 Expected: usually `谨慎` or `需要确认`; explain that common recipes do not contain fish but variants should be confirmed.
@@ -21,6 +23,22 @@ Expected: usually `谨慎` or `需要确认`; explain that common recipes do not
 Input: `招牌小炒适合低盐饮食吗？`
 
 Expected: `需要确认`; ask for ingredients/photo/menu description.
+
+## Quantitative Range
+
+Input: `我减脂控糖，鱼香肉丝能不能吃？`
+
+Expected: `谨慎` or `需要确认` depending on strictness; if exact recipe is not available, may output `nutrition_quantitative_range` such as `热量约 250-450 千卡` and must mark it as common range estimate, not measured weight.
+
+## User Profile Memory
+
+First input: `请记住，我海鲜过敏，最近在减脂并且低盐。`
+
+Expected: record `set_user_profile`; store seafood allergy under `persistent_constraints.allergies`, weight-loss/low-salt under `temporary_goals`.
+
+Next input with same `user_id`: `油爆虾能吃吗？`
+
+Expected: `不推荐`; explanation mentions applied user profile and seafood allergy.
 
 ## Script JSON
 
@@ -89,3 +107,5 @@ Expected: if network is available, uses USDA FoodData Central fallback, caches `
 | 低盐 + 招牌小炒 | `tests/fixtures/us1_low_salt_signature_stirfry.json` | `tests/expected/us1_low_salt_signature_stirfry.json` |
 | 自定义食材 + 巧克力甜点 | `tests/fixtures/us1_custom_chocolate.json` | `tests/expected/us1_custom_chocolate.json` |
 | 仅图片引用 | `tests/fixtures/us1_image_only_need_confirm.json` | `tests/expected/us1_image_only_need_confirm.json` |
+| 用户画像记忆 + 油爆虾 | `tests/test_feedback.py` | `test_stored_user_profile_is_applied_to_recommendation` |
+| 常见范围估算 + 鱼香肉丝 | `tests/test_quantization.py` | `test_common_range_estimate_for_known_dish_without_standard_recipe` |
